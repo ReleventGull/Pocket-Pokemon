@@ -1,0 +1,118 @@
+* {
+    font-family: 'Press Start 2P', cursive;
+    
+}
+
+body {
+    background-image: url('./images/pokemon.png')
+}
+
+header {
+    background-image: url('./images/pokemon.png');
+    width: 80%;
+    height: 8vh;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    box-shadow: -10px 5px 10px;
+    animation: transitionIn 5s;
+}
+
+main { 
+    display: flex;
+    flex-direction: column ;
+    align-items: center;
+    justify-content: center;
+
+}
+.gameName{
+    justify-content: center;
+    align-self: center;
+}
+
+
+#playerStatus  {
+    text-align: center;
+    padding-bottom: 1vh;
+    margin-bottom: 20px;
+    }
+    
+#submitName {
+    height: 2.5vh;
+    width: 8vh;
+    margin-left: 10px;
+}
+
+#nameInput {
+    height: 2vh;
+}
+
+
+
+
+.row {
+    border: 1px solid black;
+    background: none;
+    border: none;
+    margin: 0;
+}
+
+.cell {
+    background: none;
+    margin: 0;
+    border: none;
+    width: 1vh;
+    height: 1vh;
+}
+
+
+
+
+#grid {
+    height: 80vh;
+    width: 80vh;
+    background-color: green;
+    background-image: url(./images/grass..jpg);
+}
+
+
+
+
+.down {
+    background-image: url('./images/pokemonSpriteSheet.png');
+   border: none;
+
+    background-position: -6px -12px;
+    border: 1px solid black;
+    width: 1vh;
+    height: 1vh;
+}
+
+.up {
+    background-image: url('./images/pokemonSpriteSheet.png');
+  
+
+    background-position: -6px 51px;
+    border: 1px solid black;
+    width: 1vh;
+    height: 1vh;
+}
+
+.left {
+    background-image: url('./images/pokemonSpriteSheet.png');
+    
+    background-position: -6px 179px;
+    border: 1px solid black;
+    width: 1vh;
+    height: 1vh;
+}
+
+.right {
+    background-image: url('./images/pokemonSpriteSheet.png');
+    
+
+    background-position: -6px 116px;
+    border: 1px solid black;
+    width: 1vh;
+    height: 1vh;
+}
