@@ -1,4 +1,4 @@
-let pokemon = [
+let pokemonList = [
     {
       id: 1,
       name: "Bulbasar",
@@ -58,3 +58,9 @@ let pokemon = [
         "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/025.png",
     },
   ];
+
+
+
+  module.exports = {
+    pokemonList: pokemonList
+  }
