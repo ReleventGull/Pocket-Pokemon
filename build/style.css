@@ -78,7 +78,7 @@ main {
 #grid-encoutner {
     height: 80vh;
     width: 80vh;
-    background-image: url('https://pbs.twimg.com/media/Ce6nqVLUUAAIULI.png:large');
+    background-color: green;
     display: flex;
     flex-direction: column;
     flex-grow: 1
@@ -90,7 +90,16 @@ table {
     width: 100%;
     margin: 0;
 }
-
+.top1 {
+    flex-grow: 1;
+}
+.top2 {
+    flex-grow: 1;
+    justify-content: left;
+}
+.top3 {
+    flex-grow: 1;
+}
 
 
 
@@ -112,7 +121,6 @@ table {
     background-image: url('./images/pokemonSpriteSheet.png');
     background-size: 400%;
     background-position-x: 0;
-    animation: .3s walk linear;
 }
 
 
@@ -127,54 +135,11 @@ table {
 
 .player.left {
     background-position-y: -100%;
-    
+    animation: 5s walk linear 
 }
 
 .player.right {
     background-position-y: -200%;
 }
 
-
-/******************************POKEMON ENCOUNTERED******************************/
-.encounter-container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    
-    
-}
-
-.top {
-    height: 100%;
-    width: 100%;
-}
-
-.top.one {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    flex-grow: 1;
-}
-.top.two {
-    flex-grow: 1;
-}
-
-.top.three {
-    flex-grow: 3;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.button {
-    width: 50%;
-    border-radius: 7%;
-}
-
-
-
-#pokemon-encountered {
-    text-align: left;
-    margin: 0;
-    height: 80%;
-}
 
