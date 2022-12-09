@@ -5,7 +5,8 @@ const GameBoard = ({
   playerDirection,
   encounter,
   pokemonEncountered,
-  setEncounter
+  setEncounter,
+  playerPokemon
 }) => {
   const [rows, setRows] = useState(Array(20).fill("1"));
   const [columns, setColumns] = useState(Array(20).fill("1"));
@@ -17,16 +18,22 @@ const GameBoard = ({
         <div className="encounter-container">
           <div className="top one">
             
-            <img id="pokemon-encountered" src={pokemonEncountered.image} />
+            <img  className='pokemonE Encountered' src={pokemonEncountered.image} />
           
           </div>
-          <div className="top two">Character</div>
+          
+          <div className="top two">
+          {playerPokemon ? <img className='pokemonE forPlayer'src={playerPokemon[0].image}/>: 'loading'}
+          <progress id='pokemonPlayerHealth' value={playerPokemon[0].health} max={playerPokemon[0].health}>  </progress>
+          </div>
+         
           <div className="top three">
             <button className='button one'>Bag</button>
             <button className='button two'>Fight</button>
             <button className='button three'>Pokemon</button>
             <button onClick={() => setEncounter(false) } className='button four'>Run</button>           
           </div>
+          
           </div>
       ) : (
         <table>

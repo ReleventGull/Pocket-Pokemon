@@ -6,14 +6,34 @@ import { NameDisplay, GameBoard } from "./Exported";
 
 const Game = ({pokemon}) => {
   const [player, setPlayer] = useState([1, 3]);
+  const [playerPokemon, setplayerPokemon] = useState({name: 'Giratina',  })
   const [playerDirection, setPlayerDirection] = useState("left");
   const [playerDefined, setPlayerDefined] = useState(true);
   const [encounterMessage, setencounterMessage] = useState("");
   const [encounter, setEncounter] = useState(false);
   const [pokemonEncountered, setPokemonEncounterd] = useState(null);
 
+const giratina = [{
+  "id": 8,
+  "name": "Giratina",
+  "location": null,
+  "type1": "Ghost",
+  "type2": "Dragon",
+  "image": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/487.png",
+  "health": 200,
+  "moves": [
+      {
+          "id": 2,
+          "name": "Dragon Ball",
+          "damage": 100,
+          "type": "Dragon"
+      }
+  ]
+}]
 
-
+useEffect(() => {
+  setplayerPokemon(giratina)
+}, [])
 
 
   const pokemonEncounter = () => {
@@ -87,6 +107,7 @@ const Game = ({pokemon}) => {
           player={player}
           pokemonEncountered={pokemonEncountered}
           setEncounter={setEncounter}
+          playerPokemon={playerPokemon}
         />
       </>
     </main>
