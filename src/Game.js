@@ -11,7 +11,14 @@ const Game = ({pokemon}) => {
   const [playerDefined, setPlayerDefined] = useState(true);
   const [encounterMessage, setencounterMessage] = useState("");
   const [encounter, setEncounter] = useState(false);
-  const [pokemonEncountered, setPokemonEncounterd] = useState(null);
+  const [pokemonEncountered, setPokemonEncounterd] = useState({
+    id: 16,
+    name: 'Raticate',
+    type1: 'Normal',
+    type2: 'Normal',
+    image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/020.png',
+    health: 200
+  });
 
 const giratina = [{
   "id": 8,
@@ -38,15 +45,17 @@ useEffect(() => {
 
   const pokemonEncounter = () => {
     const randomPokemon= pokemon[Math.floor(Math.random() * pokemon.length)];
-    setPokemonEncounterd(randomPokemon); 
-    console.log(`set encountered to`, randomPokemon);
+    
+    // setPokemonEncounterd(randomPokemon); 
+    // console.log(`set encountered to`, randomPokemon);
+
   };
 
   const encounterChance = () => {
     let d = Math.random();
     console.log(d);
     if(d > 0.8) {
-      pokemonEncounter()
+       pokemonEncounter()
       setencounterMessage('You found a pokemon!')
       setEncounter(true)
     }

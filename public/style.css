@@ -153,8 +153,9 @@ table {
 
 .top.one {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-end;
+    align-items: flex-end;
     flex-grow: 1;
 }
 .top.two {
@@ -164,10 +165,21 @@ table {
     flex-direction: row;
     
 }
+
+#pokemonRandomHealth {
+    margin-right: 40px;
+    width: 400px;
+    background-color: red;
+}
 #pokemonPlayerHealth {
     align-self: flex-end;
     margin-right: 40px;
     width: 400px;
+    background-color: red;
+}
+#pokemonPlayerHealthContainer{
+    align-self: flex-end;
+    margin-bottom: 40px;
 }
 
 .top.three {
