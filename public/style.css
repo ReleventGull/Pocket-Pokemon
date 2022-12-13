@@ -112,6 +112,7 @@ table {
     background-image: url('./images/pokemonSpriteSheet.png');
     background-size: 400%;
     background-position-x: 0;
+    
     animation: .3s walk linear;
 }
 
@@ -122,6 +123,7 @@ table {
 }
 
 .player.up {
+    
     background-position-y:-300%;
 }
 
@@ -151,12 +153,33 @@ table {
 
 .top.one {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-end;
+    align-items: flex-end;
     flex-grow: 1;
 }
 .top.two {
     flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    
+}
+
+#pokemonRandomHealth {
+    margin-right: 40px;
+    width: 400px;
+    background-color: red;
+}
+#pokemonPlayerHealth {
+    align-self: flex-end;
+    margin-right: 40px;
+    width: 400px;
+    background-color: red;
+}
+#pokemonPlayerHealthContainer{
+    align-self: flex-end;
+    margin-bottom: 40px;
 }
 
 .top.three {
@@ -172,9 +195,7 @@ table {
 
 
 
-#pokemon-encountered {
-    text-align: left;
-    margin: 0;
-    height: 80%;
+.pokemonE {
+ height: 375px;
+ width: 375px;
 }
-

@@ -5,29 +5,43 @@ const GameBoard = ({
   playerDirection,
   encounter,
   pokemonEncountered,
-  setEncounter
+  setEncounter,
+  playerPokemon
 }) => {
   const [rows, setRows] = useState(Array(20).fill("1"));
   const [columns, setColumns] = useState(Array(20).fill("1"));
 
   return (
-    (encounter && !pokemonEncountered) ? "loading" : 
+    (encounter && !pokemonEncountered && playerPokemon[0]) ? "loading" : 
     <div id={encounter ? "grid-encoutner" : "grid"}>
-      {encounter ? (
-        <div className="encounter-container">
-          <div className="top one">
-            
-            <img id="pokemon-encountered" src={pokemonEncountered.image} />
+    {encounter ? (
+      <div className="encounter-container">
           
+          <div className="top one">
+         <img  className='pokemon Encountered' src={pokemonEncountered.image} />  
+         <div>
+         <p>20/20</p>
+          <progress id='pokemonRandomHealth' value={playerPokemon[0].health} max={playerPokemon[0].health}>  </progress>
           </div>
-          <div className="top two">Character</div>
+          </div>
+          
+          <div className="top two">
+          {playerPokemon[0] ? <img className='pokemonE forPlayer'src={playerPokemon[0].image}/>: 'loading'}
+          
+          <div id='pokemonPlayerHealthContainer'>
+          <p>{playerPokemon[0].health}/{playerPokemon[0].health}</p>
+          <progress id='pokemonPlayerHealth' value={playerPokemon[0].health} max={playerPokemon[0].health}>  </progress>
+          </div>
+          </div>
+         
           <div className="top three">
             <button className='button one'>Bag</button>
             <button className='button two'>Fight</button>
             <button className='button three'>Pokemon</button>
             <button onClick={() => setEncounter(false) } className='button four'>Run</button>           
           </div>
-          </div>
+          
+        </div>
       ) : (
         <table>
           {rows.map((eachRow, rowIndex) => (

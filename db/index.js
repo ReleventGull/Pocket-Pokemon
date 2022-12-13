@@ -17,20 +17,20 @@ const generatePokemon = async ({ name, type1, type2, image }) => {
 
     return rows;
   } catch (error) {
-    console.log("There was an error generating the first pokemon");
+    console.log("There was an error generating pokemon");
     throw error;
   }
 };
-const generateMoves = async ({ name, damage, pokemonId, type }) => {
+const generateMoves = async ({ name, type, power }) => {
   console.log("Starting to generateMoves");
   try {
     const { rows } = await client.query(
       `
-INSERT INTO pokemoves (name, damage, type)
+INSERT INTO pokemoves (name, type, power)
 VALUES($1, $2, $3)
 RETURNING *;
 `,
-      [name, damage, type]
+      [name, type, power]
     );
     console.log("Finished generating moves!");
     console.log("Moves Create", rows);
@@ -44,25 +44,6 @@ const getAllPokemon = async () => {
     const { rows: pokemon } = await client.query(`
       SELECT * FROM pokemon;
         `);
-    const { rows: moves } = await client.query(`
-      SELECT * FROM pokemoves;
-      `);
-    console.log("Moves here", moves);
-
-    pokemon.forEach((p) => {
-      const filterMoves = moves.filter(
-        (move) => move.type == p.type1 || move.type == p.type2
-      );
-      console.log("Filterd Moves each iteration", filterMoves)
-      if(filterMoves.length > 0) {
-        p["moves"] = filterMoves;
-      } else {
-      }
-      
-      
-    });
-    console.log(pokemon);
-
     return pokemon;
   } catch (error) {
     console.log("There was an error fetching all the pokemon.");
@@ -83,10 +64,24 @@ WHERE id=$1
   return pokemon;
 };
 
+const getAllmoves = async() => {
+  try {
+    const {rows: moves} = await client.query(`
+    SELECT * FROM pokemoves;
+    `)
+    return moves
+  }catch(error) {
+    console.log("There was an error getting all of the moves")
+    throw error
+  }
+}
+
+
 module.exports = {
   client,
   generatePokemon,
   getAllPokemon,
   generateMoves,
   getPokemonById,
+  getAllmoves
 };

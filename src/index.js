@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import {fetchAllPokemon} from "./apiCalls/index"
+import {fetchAllPokemon, fetchAllMoves} from "./apiCalls/index"
 import Game from './Game';
 
 const App = () => {
@@ -10,7 +10,9 @@ const App = () => {
     useEffect(() => {
         const getAllPokemon = async () => {
         const pokemon = await fetchAllPokemon()
+        const moves = await fetchAllMoves()
         console.log('Pokemon from api', pokemon)
+        console.log('Moves from api', moves)
         setPokemon(pokemon);
         setIsLoaded(true)
       }

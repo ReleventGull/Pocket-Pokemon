@@ -27,6 +27,6 @@ pokeRouter.get("/:pokeId", async (req, res, next) => {
   }
 });
 
-pokeRouter.get("/:");
+
 
 module.exports = pokeRouter;
