@@ -26,11 +26,27 @@ const GameBoard = ({
           {playerPokemon[0] ? <div className={`pokemonE forPlayer ${playerPokemon[0].name}`}src={playerPokemon[0]}/>: 'loading'}
           
           <div id='pokemonPlayerHealthContainer'>
+            
+            <div id='pokemonHealthName'>
+              <p>
+              {playerPokemon[0].name}
+              </p>
+              <p>
+              Lv.42
+              </p>
+            </div>
+            
+            <div id='pokemonHp'>
+             <span>HP</span>
+              <progress id='pokemonPlayerHealth' value={playerPokemon[0].health} max={playerPokemon[0].health}></progress>
+            </div>
           <p>{playerPokemon[0].health}/{playerPokemon[0].health}</p>
-          <progress id='pokemonPlayerHealth' value={playerPokemon[0].health} max={playerPokemon[0].health}>  </progress>
           </div>
+          
           </div>
         </div> 
+          
+      
           <div className="top three">
             <button className='button one'>Bag</button>
             <button className='button two'>Fight</button>
