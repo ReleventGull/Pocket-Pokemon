@@ -1,7 +1,7 @@
 @keyframes transitionIn2 {
    from {
        opacity: 0;
-       transform: translateX(-2000px)
+       transform: translateX(-320px)
    }
    to {
        opacity: 1;

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect} from "react";
+import wildbattle from './audiofiles/wildbattle.mp3'
 const GameBoard = ({
   player,
   playerDirection,
@@ -10,10 +10,26 @@ const GameBoard = ({
 }) => {
   const [rows, setRows] = useState(Array(20).fill("1"));
   const [columns, setColumns] = useState(Array(20).fill("1"));
+  
+  let battleSong = new Audio(wildbattle)
+ 
+  
+  useEffect(() => {
+    if (encounter == true) {
+      console.log("Am I going")
+      battleSong.currentTime = .4
+      battleSong.play()
+     
+    }
+  }, [encounter])
 
   return (
     (encounter && !pokemonEncountered && playerPokemon[0]) ? "loading" : 
+    
     <div id={encounter ? "grid-encoutner" : "grid"}>
+      <audio>
+        <source src='https://www.youtube.com/watch?v=izQdybNFzUs' type="audio/mp3"></source>
+      </audio>
     {encounter ? (
       <div className="encounter-container">
       <div className='backgroundBattle'>  
@@ -51,7 +67,12 @@ const GameBoard = ({
             <button className='button one'>Bag</button>
             <button className='button two'>Fight</button>
             <button className='button three'>Pokemon</button>
-            <button onClick={() => setEncounter(false) } className='button four'>Run</button>           
+            <button onClick={() => {
+            setEncounter(false),
+             battleSong.pause(),
+             battleSong.currentTime = 0
+            }
+            } className='button four'>Run</button>           
           </div>
           
         </div>
