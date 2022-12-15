@@ -1,0 +1,91 @@
+.pokemon.Encountered {
+     background-image: url(./images/diamond-pearl.png);
+     background-size: 2800%;
+     height: 400px;
+     width: 400px;
+     margin: 0;
+}
+
+.pokemon.Encountered.Bulbasar {
+    background-position-y: 0;
+}
+
+.pokemon.Encountered.Charmander {
+    background-position-y: 0;
+    background-position-x: -300%;
+}
+
+.pokemon.Encountered.Squirtle {
+    background-position-y: 0;
+    background-position-x: -600%;
+}
+
+.pokemon.Encountered.Wartortle {
+    background-position-y: 0;
+    background-position-x: -700%;
+}
+
+.pokemon.Encountered.Ivysaur {
+    background-position-y: 0;
+    background-position-x: -100%;
+}
+
+.pokemon.Encountered.Pikachu {
+    background-position-y: 0;
+    background-position-x: 400%;
+}
+
+.pokemon.Encountered.Caterpie {
+    background-position-y: 0;
+    background-position-x: -900%;
+}
+
+.pokemon.Encountered.Metapod {
+    background-position-y: 0;
+    background-position-x: -1000%;
+}
+
+.pokemon.Encountered.Giratina {
+    background-position-y: -1700%;
+    background-position-x: -1000%;
+}
+
+.pokemon.Encountered.ButterFree {
+    background-position-y: 0;
+    background-position-x: -1100%;
+}
+.pokemon.Encountered.Weedle {
+    background-position-y: 0;
+    background-position-x: -1200%;
+}
+.pokemon.Encountered.Kakuna {
+    background-position-y: 0;
+    background-position-x: -1300%;
+}
+
+.pokemon.Encountered.Beedrill {
+    background-position-y: 0;
+    background-position-x: -1400%;
+}
+
+.pokemon.Encountered.Pidgey {
+    background-position-y: 0;
+    background-position-x: -1500%;
+}
+
+.pokemon.Encountered.Pidgeot {
+    background-position-y: 0;
+    background-position-x: -1600%;
+}
+
+.pokemon.Encountered.Rattata {
+    background-position-y: 0;
+    background-position-x: -1800%;
+}
+.pokemon.Encountered.Rattata {
+    background-position-y: 0;
+    background-position-x: -1800%;
+}
+
+
+
