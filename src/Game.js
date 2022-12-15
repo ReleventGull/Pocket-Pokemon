@@ -63,7 +63,7 @@ useEffect(() => {
     console.log(d);
     if(d > 0.8) {
        pokemonEncounter()
-      setencounterMessage('You found a pokemon!')
+      
       setEncounter(true)
     }
   };
@@ -115,7 +115,7 @@ useEffect(() => {
         <h1 className="gameName">Pokemon!</h1>
       </header>
       <>
-        <div>{encounterMessage}</div>
+       
 
         <GameBoard
           encounter={encounter}

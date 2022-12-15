@@ -1,8 +1,10 @@
+
 .pokemon.Encountered {
      background-image: url(./images/diamond-pearl.png);
      background-size: 2800%;
      height: 400px;
      width: 400px;
+    animation: transitionIn2 2s;
      margin: 0;
 }
 
