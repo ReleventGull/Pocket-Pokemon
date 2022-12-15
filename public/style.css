@@ -187,6 +187,8 @@ table {
     background-color: gray;
     border: 3px solid black;
     border-radius: 2%;
+    outline: 2px solid white;
+    margin-right: 3.5px;
 }
 
 
