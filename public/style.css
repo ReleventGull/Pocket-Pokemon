@@ -11,8 +11,8 @@ body {
 }
 header {
     background-image: url('./images/pokemon.png');
-    width: 80%;
-    height: 8vh;
+    width: 1200px;
+    height: 100px;
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
@@ -68,23 +68,25 @@ main {
 
 
 #grid {
-    height: 80vh;
-    width: 80vh;
+    height: 1000px;
+    width: 1000px;
     background-color: green;
     background-size: 25%;
     background-image: url(./images/grass..jpg);
 }
 
 #grid-encoutner {
-    height: 80vh;
-    width: 80vh;
-    background-image: url('https://pbs.twimg.com/media/Ce6nqVLUUAAIULI.png:large');
+    height: 1000px;
+    width: 1000px;
     display: flex;
     flex-direction: column;
     flex-grow: 1
-    ;
+;
 }
-
+.backgroundBattle {
+background-image: url('https://images.unsplash.com/photo-1526392587392-d1627b6c134a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Z3JlZW4lMjBncmFzc3xlbnwwfHwwfHw%3D&w=1000&q=80');
+background-size: cover;
+}
 table {
     height: 100%;
     width: 100%;
@@ -156,14 +158,17 @@ table {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
-    flex-grow: 1;
+    height: 400px;
+   
 }
 .top.two {
-    flex-grow: 1;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    
+    height: 400px;
+}
+.top.three {
+    height: 400px;
 }
 
 #pokemonRandomHealth {
@@ -195,7 +200,3 @@ table {
 
 
 
-.pokemonE {
- height: 375px;
- width: 375px;
-}

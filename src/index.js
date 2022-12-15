@@ -1,28 +1,40 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
+import {NameDisplay} from './Exported'
 import {fetchAllPokemon, fetchAllMoves} from "./apiCalls/index"
 import Game from './Game';
 
 const App = () => {
     const [isLoaded, setIsLoaded] = useState(false);
     const [pokemon, setPokemon] = useState([]);
+    const [pokemonMoves, setPokemonMoves] = useState([])
 
     useEffect(() => {
         const getAllPokemon = async () => {
         const pokemon = await fetchAllPokemon()
         const moves = await fetchAllMoves()
-        console.log('Pokemon from api', pokemon)
-        console.log('Moves from api', moves)
+        console.log('Api call for moves', moves)
         setPokemon(pokemon);
+        setPokemonMoves(moves);
         setIsLoaded(true)
       }
       getAllPokemon()
     }, []
     )
-    if (!isLoaded) {
-        return ''
-    }
-    return (<Game pokemon={pokemon}/>);
+   
+    return (
+    
+    
+    isLoaded ? 
+    <Game pokemonMoves={pokemonMoves} pokemon={pokemon}/>
+    :
+    <NameDisplay/>
+
+    
+    
+    
+    
+    );
 }
 
 

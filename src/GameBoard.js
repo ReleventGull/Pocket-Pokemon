@@ -16,24 +16,21 @@ const GameBoard = ({
     <div id={encounter ? "grid-encoutner" : "grid"}>
     {encounter ? (
       <div className="encounter-container">
-          
+      <div className='backgroundBattle'>  
           <div className="top one">
-         <img  className='pokemon Encountered' src={pokemonEncountered.image} />  
-         <div>
-         <p>20/20</p>
-          <progress id='pokemonRandomHealth' value={playerPokemon[0].health} max={playerPokemon[0].health}>  </progress>
-          </div>
+         <p className={`pokemon Encountered ${pokemonEncountered.name}`} />  
+        
           </div>
           
           <div className="top two">
-          {playerPokemon[0] ? <img className='pokemonE forPlayer'src={playerPokemon[0].image}/>: 'loading'}
+          {playerPokemon[0] ? <div className={`pokemonE forPlayer ${playerPokemon[0].name}`}src={playerPokemon[0]}/>: 'loading'}
           
           <div id='pokemonPlayerHealthContainer'>
           <p>{playerPokemon[0].health}/{playerPokemon[0].health}</p>
           <progress id='pokemonPlayerHealth' value={playerPokemon[0].health} max={playerPokemon[0].health}>  </progress>
           </div>
           </div>
-         
+        </div> 
           <div className="top three">
             <button className='button one'>Bag</button>
             <button className='button two'>Fight</button>

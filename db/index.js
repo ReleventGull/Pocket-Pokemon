@@ -3,16 +3,16 @@ const { Client } = require("pg");
 
 const client = new Client("postgres://localhost:5432/pokemon");
 
-const generatePokemon = async ({ name, type1, type2, image }) => {
+const generatePokemon = async ({ name, type1, type2}) => {
   try {
     console.log("Starting to create pokemon");
     const { rows } = await client.query(
       `
-        INSERT INTO pokemon ( name, type1, type2, image)
-        VALUES($1, $2, $3, $4)
+        INSERT INTO pokemon ( name, type1, type2)
+        VALUES($1, $2, $3)
         RETURNING *;
         `,
-      [name, type1, type2, image]
+      [name, type1, type2]
     );
 
     return rows;

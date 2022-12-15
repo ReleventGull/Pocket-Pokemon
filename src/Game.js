@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { NameDisplay, GameBoard } from "./Exported";
+import {GameBoard } from "./Exported";
 
 
 
-const Game = ({pokemon}) => {
+const Game = ({pokemon, pokemonMoves}) => {
   const [player, setPlayer] = useState([1, 3]);
-  const [playerPokemon, setplayerPokemon] = useState({name: 'Giratina',  })
+  const [playerPokemon, setplayerPokemon] = useState([])
   const [playerDirection, setPlayerDirection] = useState("left");
   const [playerDefined, setPlayerDefined] = useState(true);
   const [encounterMessage, setencounterMessage] = useState("");
@@ -45,9 +45,16 @@ useEffect(() => {
 
   const pokemonEncounter = () => {
     const randomPokemon= pokemon[Math.floor(Math.random() * pokemon.length)];
-    
-    // setPokemonEncounterd(randomPokemon); 
-    // console.log(`set encountered to`, randomPokemon);
+    console.log(randomPokemon)
+    console.log('All moves here', pokemonMoves)
+    const validMoves = pokemonMoves.filter(move =>
+      move.type == randomPokemon.type1 ||
+      move.type == randomPokemon.type2 || 
+      move.type == "Normal"
+   )
+        console.log(validMoves)
+    setPokemonEncounterd(randomPokemon); 
+    console.log(`set encountered to`, randomPokemon);
 
   };
 
