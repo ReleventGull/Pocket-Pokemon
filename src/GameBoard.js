@@ -19,7 +19,6 @@ const GameBoard = ({
       console.log("Am I going")
       battleSong.currentTime = .4
       battleSong.play()
-     
     }
   }, [encounter])
 
@@ -39,7 +38,7 @@ const GameBoard = ({
           </div>
           
           <div className="top two">
-          {playerPokemon[0] ? <div className={`pokemonE forPlayer ${playerPokemon[0].name}`}src={playerPokemon[0]}/>: 'loading'}
+          {playerPokemon[0] ? <div className={`pokemonE forPlayer ${pokemonEncountered.name}`}src={playerPokemon[0]}/>: 'loading'}
           
           <div id='pokemonPlayerHealthContainer'>
             

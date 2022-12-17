@@ -1,93 +1,168 @@
 
 .pokemon.Encountered {
-     background-image: url(./images/diamond-pearl.png);
-     background-size: 2800%;
-     height: 400px;
-     width: 400px;
+     background-image: url(./images/black-white.png);
+     background-size: 3100%;
+     height: 250px;
+     width: 250px;
     animation: transitionIn2 2s;
      margin: 0;
+     margin-top: 20px;
+     margin-right: 20px;
 }
 
-.pokemon.Encountered.Bulbasar {
+.pokemon.Encountered.bulbasar {
     background-position-y: 0;
 }
 
-.pokemon.Encountered.Charmander {
-    background-position-y: 0;
-    background-position-x: -300%;
-}
-
-.pokemon.Encountered.Squirtle {
-    background-position-y: 0;
-    background-position-x: -600%;
-}
-
-.pokemon.Encountered.Wartortle {
-    background-position-y: 0;
-    background-position-x: -700%;
-}
-
-.pokemon.Encountered.Ivysaur {
+.pokemon.Encountered.ivysaur {
     background-position-y: 0;
     background-position-x: -100%;
 }
 
-.pokemon.Encountered.Pikachu {
+.pokemon.Encountered.venusaur{
     background-position-y: 0;
-    background-position-x: 400%;
+    background-position-x: -200%;
 }
 
-.pokemon.Encountered.Caterpie {
+.pokemon.Encountered.charmander {
+    background-position-y: 0;
+    background-position-x: -300%;
+}
+
+.pokemon.Encountered.charmeleon {
+    background-position-y: 0;
+    background-position-x: -400%;
+}
+
+.pokemon.Encountered.charizard {
+    background-position-y: 0;
+    background-position-x: -500%;
+}
+
+
+
+.pokemon.Encountered.squirtle {
+    background-position-y: 0;
+    background-position-x: -600%;
+}
+
+.pokemon.Encountered.wartortle {
+    background-position-y: 0;
+    background-position-x: -700%;
+}
+
+.pokemon.Encountered.blastoise {
+    background-position-y: 0;
+    background-position-x: -800%;
+}
+
+
+.pokemon.Encountered.caterpie {
     background-position-y: 0;
     background-position-x: -900%;
 }
 
-.pokemon.Encountered.Metapod {
+.pokemon.Encountered.metapod {
     background-position-y: 0;
     background-position-x: -1000%;
 }
 
-.pokemon.Encountered.Giratina {
-    background-position-y: -1700%;
-    background-position-x: -1000%;
-}
-
-.pokemon.Encountered.ButterFree {
+.pokemon.Encountered.butterFree {
     background-position-y: 0;
     background-position-x: -1100%;
 }
-.pokemon.Encountered.Weedle {
+.pokemon.Encountered.weedle {
     background-position-y: 0;
     background-position-x: -1200%;
 }
-.pokemon.Encountered.Kakuna {
+.pokemon.Encountered.kakuna {
     background-position-y: 0;
     background-position-x: -1300%;
 }
 
-.pokemon.Encountered.Beedrill {
+.pokemon.Encountered.beedrill {
     background-position-y: 0;
     background-position-x: -1400%;
 }
 
-.pokemon.Encountered.Pidgey {
+.pokemon.Encountered.pidgey {
     background-position-y: 0;
     background-position-x: -1500%;
 }
 
-.pokemon.Encountered.Pidgeot {
+.pokemon.Encountered.pidgeotto {
     background-position-y: 0;
     background-position-x: -1600%;
 }
 
-.pokemon.Encountered.Rattata {
+.pokemon.Encountered.pidgeot {
     background-position-y: 0;
-    background-position-x: -1800%;
-}
-.pokemon.Encountered.Rattata {
-    background-position-y: 0;
-    background-position-x: -1800%;
+    background-position-x: -1700%;
 }
 
 
 
+.pokemon.Encountered.rattata {
+    background-position-y: 0;
+    background-position-x: -1800%;
+}
+
+
+.pokemon.Encountered.raticate {
+    background-position-y: 0;
+    background-position-x: -1900%;
+}
+
+.pokemon.Encountered.spearow {
+    background-position-y: 0;
+    background-position-x: -2000%;
+}
+
+.pokemon.Encountered.fearow {
+    background-position-y: 0;
+    background-position-x: -2100%;
+}
+
+.pokemon.Encountered.ekans {
+    background-position-y: 0;
+    background-position-x: -2200%;
+}
+
+.pokemon.Encountered.arbok {
+    background-position-y: 0;
+    background-position-x: -2300%;
+}
+
+.pokemon.Encountered.pikachu {
+    background-position-y: 0;
+    background-position-x: -2400%;
+}
+
+.pokemon.Encountered.raichu {
+    background-position-y: 0;
+    background-position-x: -2500%;
+}
+
+.pokemon.Encountered.sandshrew {
+    background-position-y: 0;
+    background-position-x: -2600%;
+}
+
+.pokemon.Encountered.sandslash {
+    background-position-y: 0;
+    background-position-x: -2600%;
+}
+
+
+
+
+.pokemon.Encountered.nidoran-f {
+    background-position-y: -100%;
+    background-position-x: 0;
+}
+
+
+.pokemon.Encountered.giratina {
+    background-position-y: -1700%;
+    background-position-x: -1000%;
+}

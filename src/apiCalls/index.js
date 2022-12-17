@@ -2,6 +2,7 @@ export const fetchAllPokemon = async () => {
         try {
             const response = await fetch('http://localhost:4000/api/pokemon')
             const result = await response.json()
+            
             return result
         }catch(error) {
             console.log("There was an error fetching pokemon")
@@ -19,3 +20,14 @@ export const fetchAllMoves = async () => {
         throw error
     }
 }
+
+export const fetchPokemonById = async(id) => {
+    try {
+        const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+        const result = await response.json()
+        return result
+    }catch(error) {
+        throw error
+    }
+  }
+

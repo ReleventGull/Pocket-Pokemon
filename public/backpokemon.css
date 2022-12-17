@@ -10,95 +10,171 @@
 }
 
 .pokemonE.forPlayer {
-    background-image: url(./images/backsprites.png);
-    background-size: 2800%;
-    height: 320px;
-    width: 320px;
-    animation: transitionIn2 1.3s;
-    margin: 0;
+   background-image: url(./images/pokebetterbacksprites.png);
+   background-size: 3100%;
+   height: 400px;
+   width: 400px;
+   animation: transitionIn2 1.3s;
+   margin: 0;
 }
 
-.pokemonE.forPlayer.Bulbasar {
-   background-position-y: 0;
+.pokemonE.forPlayer.bulbasar {
+  background-position-y: 0;
 }
 
-.pokemonE.forPlayer.Charmander {
-   background-position-y: 0;
-   background-position-x: -300%;
+.pokemonE.forPlayer.ivysaur {
+  background-position-y: 0;
+  background-position-x: -100%;
 }
 
-.pokemonE.forPlayer.Squirtle {
-   background-position-y: 0;
-   background-position-x: -600%;
+.pokemonE.forPlayer.venusaur{
+  background-position-y: 0;
+  background-position-x: -200%;
 }
 
-.pokemonE.forPlayer.Wartortle {
-   background-position-y: 0;
-   background-position-x: -700%;
+.pokemonE.forPlayer.charmander {
+  background-position-y: 0;
+  background-position-x: -300%;
 }
 
-.pokemonE.forPlayer.Ivysaur {
-   background-position-y: 0;
-   background-position-x: -100%;
+.pokemonE.forPlayer.charmeleon {
+  background-position-y: 0;
+  background-position-x: -400%;
 }
 
-.pokemonE.forPlayer.Pikachu {
-   background-position-y: 0;
-   background-position-x: 400%;
+.pokemonE.forPlayer.charizard {
+  background-position-y: 0;
+  background-position-x: -500%;
 }
 
-.pokemonE.forPlayer.Caterpie {
-   background-position-y: 0;
-   background-position-x: -900%;
+
+
+.pokemonE.forPlayer.squirtle {
+  background-position-y: 0;
+  background-position-x: -600%;
 }
 
-.pokemonE.forPlayer.Metapod {
-   background-position-y: 0;
-   background-position-x: -1000%;
+.pokemonE.forPlayer.wartortle {
+  background-position-y: 0;
+  background-position-x: -700%;
 }
 
-.pokemonE.forPlayer.Giratina {
-   background-position-y: -1700%;
-   background-position-x: -1000%;
+.pokemonE.forPlayer.blastoise {
+  background-position-y: 0;
+  background-position-x: -800%;
 }
 
-.pokemonE.forPlayer.ButterFree {
-   background-position-y: 0;
-   background-position-x: -1100%;
-}
-.pokemonE.forPlayer.Weedle {
-   background-position-y: 0;
-   background-position-x: -1200%;
-}
-.pokemonE.forPlayer.Kakuna {
-   background-position-y: 0;
-   background-position-x: -1300%;
+
+.pokemonE.forPlayer.caterpie {
+  background-position-y: 0;
+  background-position-x: -900%;
 }
 
-.pokemonE.forPlayer.Beedrill {
-   background-position-y: 0;
-   background-position-x: -1400%;
+.pokemonE.forPlayer.metapod {
+  background-position-y: 0;
+  background-position-x: -1000%;
 }
 
-.pokemonE.forPlayer.Pidgey {
-   background-position-y: 0;
-   background-position-x: -1500%;
+.pokemonE.forPlayer.butterFree {
+  background-position-y: 0;
+  background-position-x: -1100%;
+}
+.pokemonE.forPlayer.weedle {
+  background-position-y: 0;
+  background-position-x: -1200%;
+}
+.pokemonE.forPlayer.kakuna {
+  background-position-y: 0;
+  background-position-x: -1300%;
 }
 
-.pokemonE.forPlayer.Pidgeot {
-   background-position-y: 0;
-   background-position-x: -1600%;
+.pokemonE.forPlayer.beedrill {
+  background-position-y: 0;
+  background-position-x: -1400%;
 }
 
-.pokemonE.forPlayer.Rattata {
-   background-position-y: 0;
-   background-position-x: -1800%;
+.pokemonE.forPlayer.pidgey {
+  background-position-y: 0;
+  background-position-x: -1500%;
 }
 
-.pokemonE.forPlayer.Rattata {
-   background-position-y: 0;
-   background-position-x: -1900%;
+.pokemonE.forPlayer.pidgeotto {
+  background-position-y: 0;
+  background-position-x: -1600%;
 }
+
+.pokemonE.forPlayer.pidgeot {
+  background-position-y: 0;
+  background-position-x: -1700%;
+}
+
+
+
+.pokemonE.forPlayer.rattata {
+  background-position-y: 0;
+  background-position-x: -1800%;
+}
+
+
+.pokemonE.forPlayer.raticate {
+  background-position-y: 0;
+  background-position-x: -1900%;
+}
+
+.pokemonE.forPlayer.spearow {
+  background-position-y: 0;
+  background-position-x: -2000%;
+}
+
+.pokemonE.forPlayer.fearow {
+  background-position-y: 0;
+  background-position-x: -2100%;
+}
+
+.pokemonE.forPlayer.ekans {
+  background-position-y: 0;
+  background-position-x: -2200%;
+}
+
+.pokemonE.forPlayer.arbok {
+  background-position-y: 0;
+  background-position-x: -2300%;
+}
+
+.pokemonE.forPlayer.pikachu {
+  background-position-y: 0;
+  background-position-x: -2400%;
+}
+
+.pokemonE.forPlayer.raichu {
+  background-position-y: 0;
+  background-position-x: -2500%;
+}
+
+.pokemonE.forPlayer.sandshrew {
+  background-position-y: 0;
+  background-position-x: -2600%;
+}
+
+.pokemonE.forPlayer.sandslash {
+  background-position-y: 0;
+  background-position-x: -2600%;
+}
+
+
+
+
+.pokemonE.forPlayer.nidoran-f {
+  background-position-y: -100%;
+  background-position-x: 0;
+}
+
+
+.pokemonE.forPlayer.giratina {
+  background-position-y: -1700%;
+  background-position-x: -1000%;
+}
+
 
 
 

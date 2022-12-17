@@ -158,17 +158,17 @@ table {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
-    height: 480px;
+    height: 400px;
    
 }
 .top.two {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    height: 320px;
+    height: 400px;
 }
 .top.three {
-    height: 400px;
+    height: 200px;
 }
 
 #pokemonRandomHealth {
