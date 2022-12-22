@@ -1,46 +1,20 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import {GameBoard } from "./Exported";
+import {GameBoard, NameDisplay} from "./Exported";
 
 
 
-const Game = ({pokemon, pokemonMoves}) => {
+const Game = ({pokemon, pokemonMoves, starters}) => {
+  const [playerDefined, setPlayerDefined] = useState (false)
   const [player, setPlayer] = useState([1, 3]);
-  const [playerPokemon, setplayerPokemon] = useState([])
   const [playerDirection, setPlayerDirection] = useState("left");
-  const [playerDefined, setPlayerDefined] = useState(true);
-  const [encounterMessage, setencounterMessage] = useState("");
   const [encounter, setEncounter] = useState(false);
-  const [pokemonEncountered, setPokemonEncounterd] = useState({
-    id: 16,
-    name: 'Raticate',
-    type1: 'Normal',
-    type2: 'Normal',
-    image: 'https://assets.pokemon.com/assets/cms2/img/pokedex/full/020.png',
-    health: 200
-  });
+  const [pokemonEncountered, setPokemonEncounterd] = useState([]);
+  const [playerPokemon, setplayerPokemon] = useState([])
+  console.log('PLAYER POKEMON HERE', playerPokemon)
 
-const giratina = [{
-  "id": 8,
-  "name": "Giratina",
-  "location": null,
-  "type1": "Ghost",
-  "type2": "Dragon",
-  "image": "https://assets.pokemon.com/assets/cms2/img/pokedex/full/487.png",
-  "health": 200,
-  "moves": [
-      {
-          "id": 2,
-          "name": "Dragon Ball",
-          "damage": 100,
-          "type": "Dragon"
-      }
-  ]
-}]
 
-useEffect(() => {
-  setplayerPokemon(giratina)
-}, [])
+
 
 
   const pokemonEncounter = () => {
@@ -53,7 +27,8 @@ useEffect(() => {
       move.type == "Normal"
    )
         console.log(validMoves)
-    setPokemonEncounterd(randomPokemon); 
+    setPokemonEncounterd(randomPokemon);
+    
     console.log(`set encountered to`, randomPokemon);
 
   };
@@ -115,16 +90,24 @@ useEffect(() => {
         <h1 className="gameName">Pokemon!</h1>
       </header>
       <>
-       
-
+      {playerDefined ? 
         <GameBoard
-          encounter={encounter}
-          playerDirection={playerDirection}
-          player={player}
-          pokemonEncountered={pokemonEncountered}
-          setEncounter={setEncounter}
-          playerPokemon={playerPokemon}
-        />
+        encounter={encounter}
+        playerDirection={playerDirection}
+        player={player}
+        pokemonEncountered={pokemonEncountered}
+        setEncounter={setEncounter}
+        playerPokemon={playerPokemon}
+        />:
+        <NameDisplay setPlayerDefined={setPlayerDefined} setplayerPokemon={setplayerPokemon} starters={starters}/>
+  }
+
+
+        
+       
+        
+        
+        
       </>
     </main>
   );

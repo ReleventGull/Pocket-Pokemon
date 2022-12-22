@@ -13,7 +13,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "seed:dev": "nodemon ./db/seed.js",
-    "index:dev": "nodemon ./index.js"
+    "index:dev": "nodemon index.js"
   },
   "browserslist": {
     "production": [
