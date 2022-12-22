@@ -29,6 +29,19 @@ main {
 }
 
 /**************************INITIAL START**************************/
+.loadingBar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loadingBar progress {
+    height: 20px;
+    width: 300px;
+    background-color: blue;
+}
+
+
 .starterPage {
     background-color: gray;
     height: 700px;
@@ -64,6 +77,15 @@ main {
     background-size: 3100%;
     background-color: gray;
     border: 10px solid black;
+    border-radius: 10%;
+    height: 250px;
+    width: 250px;
+}
+.starterImage.selected {
+    background-image: url(./images/black-white.png);
+    background-size: 3100%;
+    background-color: gray;
+    border: 10px solid white;
     border-radius: 10%;
     height: 250px;
     width: 250px;
@@ -297,6 +319,9 @@ border-radius: 10%;
     width: 50%;
     border-radius: 7%;
 }
+
+
+
 
 
 

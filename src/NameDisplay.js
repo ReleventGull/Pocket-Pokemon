@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const NameDisplay = ({starters, setplayerPokemon, setPlayerDefined}) => {
+const NameDisplay = ({starters, setplayerPokemon, setPlayerDefined, pokemonMoves}) => {
   const [userName, setUserName] = useState('')
   const [selectedStarter, setSelectedStarter] = useState([])
   
@@ -8,6 +8,18 @@ const NameDisplay = ({starters, setplayerPokemon, setPlayerDefined}) => {
   const handlePokemonSelect = (event) => {
     const [filteredStarter] = starters.filter(starter => starter.name === event.target.id)
     setSelectedStarter(filteredStarter)
+    console.log(pokemonMoves)
+    const filteredMoves = pokemonMoves.filter(move => 
+      move.type == 'normal' ||
+      move.type == selectedStarter.type1 ||
+      move.type == selectedStarter.type2
+      )
+      console.log('Moves length', filteredMoves.length)
+      for(let i = 1; i <= filteredMoves.length; i++) {
+      const randomMoveIndex = Math.floor(Math.random() * 5)
+      console.log(randomMoveIndex)
+      }
+      console.log(filteredMoves)
   }
   
 
@@ -53,7 +65,7 @@ const NameDisplay = ({starters, setplayerPokemon, setPlayerDefined}) => {
       {starters.map(starter => 
           <div className="starterContainers"> 
             <h2>{starter.name}</h2>
-          <div  onClick={handlePokemonSelect} className={`starterImage ${starter.name}`}  id={starter.name}></div>
+          <div  onClick={handlePokemonSelect} className={selectedStarter.name === starter.name ? `starterImage selected ${starter.name} ` : `starterImage ${starter.name}`}  id={starter.name}></div>
           <img  className='starterBall' src="https://www.freeiconspng.com/thumbs/pokeball-png/pokeball-transparent-png-2.png"/>
         </div>
        )}  

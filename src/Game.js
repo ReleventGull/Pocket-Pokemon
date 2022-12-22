@@ -99,7 +99,7 @@ const Game = ({pokemon, pokemonMoves, starters}) => {
         setEncounter={setEncounter}
         playerPokemon={playerPokemon}
         />:
-        <NameDisplay setPlayerDefined={setPlayerDefined} setplayerPokemon={setplayerPokemon} starters={starters}/>
+        <NameDisplay pokemonMoves={pokemonMoves} setPlayerDefined={setPlayerDefined} setplayerPokemon={setplayerPokemon} starters={starters}/>
   }
 
 

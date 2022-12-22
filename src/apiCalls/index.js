@@ -31,3 +31,14 @@ export const fetchPokemonById = async(id) => {
     }
   }
 
+  export const fetchPokemonRates = async(id) => {
+    try {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${id}`)
+    const result = await response.json()
+    return result
+    }catch(error) {
+    console.log("There was an error fetching pokemon rates")
+    throw error
+    }
+  }
+
