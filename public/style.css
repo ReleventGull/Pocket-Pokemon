@@ -27,6 +27,67 @@ main {
     justify-content: center;
 
 }
+
+/**************************INITIAL START**************************/
+.starterPage {
+    background-color: gray;
+    height: 700px;
+}
+
+.starterPage h2 {
+ text-align: center;
+}
+.starterBall {
+    margin-top: 50px; 
+    height: 60px;
+    width: 60px;
+}
+
+#pokemonStarters {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 600px;
+}
+.starterContainers {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 500px;
+    align-items: center;
+}
+
+
+
+.starterImage {
+    background-image: url(./images/black-white.png);
+    background-size: 3100%;
+    background-color: gray;
+    border: 10px solid black;
+    border-radius: 10%;
+    height: 250px;
+    width: 250px;
+}
+.starterImage.charmander{
+    background-color: red;
+    background-position-y: 0;
+    background-position-x: -300%;
+
+}
+.starterImage.bulbasaur {
+    background-color: green;
+    background-position-y: 0;
+
+}
+
+.starterImage.squirtle {
+    background-color: blue;
+    background-position-y: 0;
+    background-position-x: -600%;
+}
+
+
+
 .gameName{
     justify-content: center;
     align-self: center;
@@ -236,6 +297,8 @@ border-radius: 10%;
     width: 50%;
     border-radius: 7%;
 }
+
+
 
 
 

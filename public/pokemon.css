@@ -6,163 +6,273 @@
      width: 250px;
     animation: transitionIn2 2s;
      margin: 0;
-     margin-top: 20px;
-     margin-right: 20px;
+     margin-top: 2px;
+ 
 }
 
 .pokemon.Encountered.bulbasar {
     background-position-y: 0;
-}
-
-.pokemon.Encountered.ivysaur {
+  }
+  
+  .pokemon.Encountered.ivysaur {
     background-position-y: 0;
     background-position-x: -100%;
-}
-
-.pokemon.Encountered.venusaur{
+  }
+  
+  .pokemon.Encountered.venusaur{
     background-position-y: 0;
     background-position-x: -200%;
-}
-
-.pokemon.Encountered.charmander {
+  }
+  
+  .pokemon.Encountered.charmander {
     background-position-y: 0;
     background-position-x: -300%;
-}
-
-.pokemon.Encountered.charmeleon {
+  }
+  
+  .pokemon.Encountered.charmeleon {
     background-position-y: 0;
     background-position-x: -400%;
-}
-
-.pokemon.Encountered.charizard {
+  }
+  
+  .pokemon.Encountered.charizard {
     background-position-y: 0;
     background-position-x: -500%;
-}
-
-
-
-.pokemon.Encountered.squirtle {
+  }
+  
+  
+  
+  .pokemon.Encountered.squirtle {
     background-position-y: 0;
     background-position-x: -600%;
-}
-
-.pokemon.Encountered.wartortle {
+  }
+  
+  .pokemon.Encountered.wartortle {
     background-position-y: 0;
     background-position-x: -700%;
-}
-
-.pokemon.Encountered.blastoise {
+  }
+  
+  .pokemon.Encountered.blastoise {
     background-position-y: 0;
     background-position-x: -800%;
-}
-
-
-.pokemon.Encountered.caterpie {
+  }
+  
+  
+  .pokemon.Encountered.caterpie {
     background-position-y: 0;
     background-position-x: -900%;
-}
-
-.pokemon.Encountered.metapod {
+  }
+  
+  .pokemon.Encountered.metapod {
     background-position-y: 0;
     background-position-x: -1000%;
-}
-
-.pokemon.Encountered.butterFree {
+  }
+  
+  .pokemon.Encountered.butterFree {
     background-position-y: 0;
     background-position-x: -1100%;
-}
-.pokemon.Encountered.weedle {
+  }
+  .pokemon.Encountered.weedle {
     background-position-y: 0;
     background-position-x: -1200%;
-}
-.pokemon.Encountered.kakuna {
+  }
+  .pokemon.Encountered.kakuna {
     background-position-y: 0;
     background-position-x: -1300%;
-}
-
-.pokemon.Encountered.beedrill {
+  }
+  
+  .pokemon.Encountered.beedrill {
     background-position-y: 0;
     background-position-x: -1400%;
-}
-
-.pokemon.Encountered.pidgey {
+  }
+  
+  .pokemon.Encountered.pidgey {
     background-position-y: 0;
     background-position-x: -1500%;
-}
-
-.pokemon.Encountered.pidgeotto {
+  }
+  
+  .pokemon.Encountered.pidgeotto {
     background-position-y: 0;
     background-position-x: -1600%;
-}
-
-.pokemon.Encountered.pidgeot {
+  }
+  
+  .pokemon.Encountered.pidgeot {
     background-position-y: 0;
     background-position-x: -1700%;
-}
-
-
-
-.pokemon.Encountered.rattata {
+  }
+  
+  
+  
+  .pokemon.Encountered.rattata {
     background-position-y: 0;
     background-position-x: -1800%;
-}
-
-
-.pokemon.Encountered.raticate {
+  }
+  
+  
+  .pokemon.Encountered.raticate {
     background-position-y: 0;
     background-position-x: -1900%;
-}
-
-.pokemon.Encountered.spearow {
+  }
+  
+  .pokemon.Encountered.spearow {
     background-position-y: 0;
     background-position-x: -2000%;
-}
-
-.pokemon.Encountered.fearow {
+  }
+  
+  .pokemon.Encountered.fearow {
     background-position-y: 0;
     background-position-x: -2100%;
-}
-
-.pokemon.Encountered.ekans {
+  }
+  
+  .pokemon.Encountered.ekans {
     background-position-y: 0;
     background-position-x: -2200%;
-}
-
-.pokemon.Encountered.arbok {
+  }
+  
+  .pokemon.Encountered.arbok {
     background-position-y: 0;
     background-position-x: -2300%;
-}
-
-.pokemon.Encountered.pikachu {
+  }
+  
+  .pokemon.Encountered.pikachu {
     background-position-y: 0;
     background-position-x: -2400%;
-}
-
-.pokemon.Encountered.raichu {
+  }
+  
+  .pokemon.Encountered.raichu {
     background-position-y: 0;
     background-position-x: -2500%;
-}
-
-.pokemon.Encountered.sandshrew {
+  }
+  
+  .pokemon.Encountered.sandshrew {
     background-position-y: 0;
     background-position-x: -2600%;
-}
-
-.pokemon.Encountered.sandslash {
+  }
+  
+  .pokemon.Encountered.sandslash {
     background-position-y: 0;
-    background-position-x: -2600%;
-}
-
-
-
-
-.pokemon.Encountered.nidoran-f {
+    background-position-x: -2700%;
+  }
+  
+  
+  
+  
+  .pokemon.Encountered.nidoran-f {
+    background-position-y: 0;
+    background-position-x: -2800%;
+  }
+  
+  .pokemon.Encountered.nidorina {
+    background-position-y: 0;
+    background-position-x: -2900%;
+  }
+  
+  .pokemon.Encountered.nidoqueen {
+    background-position-y: 0;
+    background-position-x: -3000%;
+  }
+  
+  .pokemon.Encountered.nidoran-m {
     background-position-y: -100%;
     background-position-x: 0;
-}
-
-
-.pokemon.Encountered.giratina {
-    background-position-y: -1700%;
+  }
+  
+  .pokemon.Encountered.nidorino {
+    background-position-y: -100%;
+    background-position-x: -100%;
+  }
+  
+  .pokemon.Encountered.nidoking {
+    background-position-y: -100%;
+    background-position-x: -200%;
+  }
+  
+  .pokemon.Encountered.clefairy {
+    background-position-y: -100%;
+    background-position-x: -300%;
+  }
+  
+  .pokemon.Encountered.clefable {
+    background-position-y: -100%;
+    background-position-x: -400%;
+  }
+  
+  .pokemon.Encountered.vulpix {
+    background-position-y: -100%;
+    background-position-x: -500%;
+  }
+  
+  .pokemon.Encountered.ninetails {
+    background-position-y: -100%;
+    background-position-x: -600%;
+  }
+  
+  .pokemon.Encountered.jigglypuff {
+    background-position-y: -100%;
+    background-position-x: -700%;
+  }
+  
+  .pokemon.Encountered.wigglytuff {
+    background-position-y: -100%;
+    background-position-x: -800%;
+  }
+  
+  .pokemon.Encountered.zubat {
+    background-position-y: -100%;
+    background-position-x: -900%;
+  }
+  
+  .pokemon.Encountered.golbat {
+    background-position-y: -100%;
     background-position-x: -1000%;
-}
+  }
+  
+  .pokemon.Encountered.oddish {
+    background-position-y: -100%;
+    background-position-x: -1100%;
+  }
+  
+  .pokemon.Encountered.gloom {
+    background-position-y: -100%;
+    background-position-x: -1200%;
+  }
+  
+  .pokemon.Encountered.vileplume {
+    background-position-y: -100%;
+    background-position-x: -1300%;
+  }
+  
+  .pokemon.Encountered.paras {
+    background-position-y: -100%;
+    background-position-x: -1400%;
+  }
+  
+  .pokemon.Encountered.parasect {
+    background-position-y: -100%;
+    background-position-x: -1500%;
+  }
+  
+  .pokemon.Encountered.venonat {
+    background-position-y: -100%;
+    background-position-x: -1600%;
+  }
+  
+  .pokemon.Encountered.venomoth {
+    background-position-y: -100%;
+    background-position-x: -1700%;
+  }
+  
+  .pokemon.Encountered.diglet {
+    background-position-y: -100%;
+    background-position-x: -1800%;
+  }
+  
+  .pokemon.Encountered.diglet {
+    background-position-y: -100%;
+    background-position-x: -1900%;
+  }
+  
+
+  .pokemon.Encountered.giratina {
+    background-position-y: -1500%;
+    background-position-x: -2100%;
+  }

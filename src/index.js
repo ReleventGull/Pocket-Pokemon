@@ -5,15 +5,23 @@ import Game from './Game';
 
 const App = () => {
     const [isLoaded, setIsLoaded] = useState(false);
+   
     const [pokemon, setPokemon] = useState([]);
     const [pokemonMoves, setPokemonMoves] = useState([])
-    const [poke, setPoke] = useState([])
+    const [starters, setStarters] = useState([])
+
+  
+
+
+
+    
   console.log(pokemon)
-    let pokeObject = []
+    
     
     useEffect(() => {
+      let pokeObject = []
     const getAllPokemon = async () => {
-          for (let i = 1; i <= 28; i++) {
+          for (let i = 1; i <= 10; i++) {
             let pokeMon = await fetchPokemonById(i)
             if (pokeMon.types[1]) {
               pokeObject.push({
@@ -31,29 +39,27 @@ const App = () => {
                 stats: pokeMon.stats
                  })
             }
-        
-            console.log('This poke object', pokeObject)
           }
-        
-        
-          const pokemon = await fetchAllPokemon()
+          
         const moves = await fetchAllMoves()
         setPokemon(pokeObject);
         setPokemonMoves(moves);
+        const filterPokemon = pokeObject.filter(pok => pok.name == 'bulbasaur' || pok.name == 'charmander' || pok.name == 'squirtle')
+        console.log(filterPokemon)
+        setStarters(filterPokemon)
         setIsLoaded(true)
-        
       }
       getAllPokemon()
-    }, []
+    }, [isLoaded]
     )
-    
+
     return (
-    
-    
-    isLoaded  == true ? 
-    <Game pokemonMoves={pokemonMoves} pokemon={pokemon}/>
-    :
-    null
+ 
+    isLoaded && starters ? 
+  
+    <Game  starters={starters} pokemonMoves={pokemonMoves} pokemon={pokemon}/>:
+    'loading'
+  
 
     
     
