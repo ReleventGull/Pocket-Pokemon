@@ -81,6 +81,15 @@ main {
     height: 250px;
     width: 250px;
 }
+.starterImage.selected {
+    background-image: url(./images/black-white.png);
+    background-size: 3100%;
+    background-color: gray;
+    border: 10px solid white;
+    border-radius: 10%;
+    height: 250px;
+    width: 250px;
+}
 .starterImage.charmander{
     background-color: red;
     background-position-y: 0;

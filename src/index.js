@@ -20,11 +20,14 @@ const App = () => {
     
     useEffect(() => {
       let pokeObject = []
+      let numberofPokemon = 120
     const getAllPokemon = async () => {
-          for (let i = 1; i <= 100; i++) {
-            setLoadBar(i)
+          for (let i = 1; i <=numberofPokemon; i++) {
+            console.log(i/numberofPokemon)
+            setLoadBar(i/numberofPokemon)
             let pokemonStats = await fetchPokemonRates(i)
             let pokeMon = await fetchPokemonById(i)
+            
             if (pokeMon.types[1]) {
               pokeObject.push({
                 name: pokeMon.name,
@@ -68,7 +71,7 @@ const App = () => {
     <Game  starters={starters} pokemonMoves={pokemonMoves} pokemon={pokemon}/>:
     <div className='loadingBar'>
       <h1 >Loading...</h1>
-    <progress value={loadBar} max='100'></progress>
+    <progress value={loadBar} max='1'></progress>
     </div>
 
     
