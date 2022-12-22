@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
+import select from "./audiofiles/select.mp3";
 
 const NameDisplay = ({starters, setplayerPokemon, setPlayerDefined, pokemonMoves}) => {
   const [userName, setUserName] = useState('')
   const [selectedStarter, setSelectedStarter] = useState([])
-  
+  let selectSound = new Audio(select)
   
   const handlePokemonSelect = (event) => {
     const [filteredStarter] = starters.filter(starter => starter.name === event.target.id)
     setSelectedStarter(filteredStarter)
+    selectSound.currentTime = 0.25
+    selectSound.play()
     console.log(pokemonMoves)
+    
     const filteredMoves = pokemonMoves.filter(move => 
       move.type == 'normal' ||
       move.type == selectedStarter.type1 ||
