@@ -123,8 +123,8 @@ main {
     }
     
 #submitName {
-    height: 2.5vh;
-    width: 8vh;
+    height: 30px;
+    width: 120px;
     margin-left: 10px;
 }
 
