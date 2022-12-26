@@ -8,22 +8,18 @@ const NameDisplay = ({starters, setplayerPokemon, setPlayerDefined, pokemonMoves
   
   const handlePokemonSelect = (event) => {
     const [filteredStarter] = starters.filter(starter => starter.name === event.target.id)
+    //Set initial Stats Here (Moves, Level, Current Experience)
+    filteredStarter['moves'] = []
+    const scratch = pokemonMoves.find(move => move.name === 'scratch')
+    filteredStarter.moves.push(scratch)
+    filteredStarter['current_exp'] = 0
+    filteredStarter['current_level'] = 1
+    
     setSelectedStarter(filteredStarter)
+    console.log(selectedStarter)
     selectSound.currentTime = 0.25
     selectSound.play()
-    console.log(pokemonMoves)
-    
-    const filteredMoves = pokemonMoves.filter(move => 
-      move.type == 'normal' ||
-      move.type == selectedStarter.type1 ||
-      move.type == selectedStarter.type2
-      )
-      console.log('Moves length', filteredMoves.length)
-      for(let i = 1; i <= filteredMoves.length; i++) {
-      const randomMoveIndex = Math.floor(Math.random() * 5)
-      console.log(randomMoveIndex)
-      }
-      console.log(filteredMoves)
+   
   }
   
 

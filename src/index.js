@@ -20,7 +20,7 @@ const App = () => {
     
     useEffect(() => {
       let pokeObject = []
-      let numberofPokemon = 10
+      let numberofPokemon = 7
     const getAllPokemon = async () => {
           for (let i = 1; i <=numberofPokemon; i++) {
             setLoadBar(i/numberofPokemon)
@@ -52,22 +52,20 @@ const App = () => {
                  })
             }
             for(let i = 1; i <= 6; i++){
+            
               const result = await fetchPokemonLevels(i)
               pokeObject.forEach(poke => {
                 if(poke.experience_rate === result.descriptions[2].description) {
-                  console.log(poke.name, i)
                   poke['levels'] = result.levels               
                 }
               })
             }
-            console.log(pokeObject)
           }
           
         const moves = await fetchAllMoves()
         setPokemon(pokeObject);
         setPokemonMoves(moves);
         const filterPokemon = pokeObject.filter(pok => pok.name == 'bulbasaur' || pok.name == 'charmander' || pok.name == 'squirtle')
-        console.log(filterPokemon)
         setStarters(filterPokemon)
         setIsLoaded(true)
       }

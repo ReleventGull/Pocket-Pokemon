@@ -45,15 +45,14 @@ const Encounter = ({
             <p className={`pokemon Encountered ${pokemonEncountered.name}`} />
           </div>
 
-          <div className="top two">
-          
-             
-              
+
+ 
+          <div /***************** PLAYER STATS START *****************/className="top two">
           <div className={`pokemonE forPlayer ${playerPokemon.name}`} src={playerPokemon}/>
             <div id="pokemonPlayerHealthContainer">
               <div id="pokemonHealthName">
                 <p>{playerPokemon.name}</p>
-                <p>Lv.42</p>
+                <p>Lv.{playerPokemon.current_level}</p>
               </div>
 
               <div id="pokemonHp">
