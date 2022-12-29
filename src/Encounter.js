@@ -11,7 +11,7 @@ const Encounter = ({
 
   useEffect(() => {
     if (encounter == true) {
-      console.log("Am I going");
+     ;
       battleSong.currentTime = 0.4;
       battleSong.play();
     }

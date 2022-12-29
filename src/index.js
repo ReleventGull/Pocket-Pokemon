@@ -20,7 +20,7 @@ const App = () => {
     
     useEffect(() => {
       let pokeObject = []
-      let numberofPokemon = 7
+      let numberofPokemon = 60
     const getAllPokemon = async () => {
           for (let i = 1; i <=numberofPokemon; i++) {
             setLoadBar(i/numberofPokemon)

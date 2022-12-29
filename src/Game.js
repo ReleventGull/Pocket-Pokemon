@@ -21,15 +21,14 @@ const Game = ({pokemon, pokemonMoves, starters}) => {
   const pokemonEncounter = () => {
     const randomPokemon = pokemon[Math.floor(Math.random() * pokemon.length)];
     const randomLevel = randomPokemon.levels[Math.floor((Math.random() * 99))]
-    console.log(randomLevel)
     randomPokemon['current_level'] = randomLevel.level
     randomPokemon['current_exp'] = randomLevel.experience
     randomPokemon['isWild'] = true
-    //Determining IVS 
     generateIvs(randomPokemon)
     generateHP(randomPokemon)
     generateStats(randomPokemon)
-   
+    randomPokemon['current_hp'] = randomPokemon.current_stats[0].hp
+    randomPokemon['battleStats'] = randomPokemon.current_stats.slice(1)
     setPokemonEncounterd(randomPokemon);
     console.log(`Player Pokemon`, playerPokemon);
     console.log(`set encontered to`, randomPokemon);
@@ -38,10 +37,9 @@ const Game = ({pokemon, pokemonMoves, starters}) => {
 
   const encounterChance = () => {
     let d = Math.random();
-    console.log(d);
+    
     if(d > 0.8) {
        pokemonEncounter()
-      
       setEncounter(true)
     }
   };

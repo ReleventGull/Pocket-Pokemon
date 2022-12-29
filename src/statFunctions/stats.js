@@ -10,21 +10,18 @@ export function generateIvs(pokemon) {
 
 
 export function generateHP(pokemon) {
-    console.log("THE POKEMON", pokemon)
+  pokemon.current_stats = []
     const hp = Math.floor((((2 * pokemon.stats[0].base_stat + pokemon.stats[0].individual + (pokemon.stats[0].effort/4)) * pokemon.current_level)/100) + pokemon.current_level + 10)
-    console.log("The result", hp) 
-    pokemon['current_stats'] = []
     pokemon.current_stats.push({hp: hp})
     return pokemon
 }
 
 export function generateStats(pokemon) {
-  console.log("The pokemon being passed in", pokemon)
   for(let i = 1; i < 6; i++) {
     let objectToPush = {}
-    const stat = ((((2 * pokemon.stats[i].base_stat + pokemon.stats[i].individual + (pokemon.stats[i].effort/4)) * pokemon.current_level)/100) + 5)
+    const stat = Math.floor(((((2 * pokemon.stats[i].base_stat + pokemon.stats[i].individual + (pokemon.stats[i].effort/4)) * pokemon.current_level)/100) + 5))
     let currentName = pokemon.stats[i].stat.name
-    objectToPush[currentName] = stat
+    objectToPush[currentName] =  stat
     pokemon.current_stats.push(objectToPush)
    
   }
