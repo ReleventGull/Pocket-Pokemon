@@ -16,7 +16,7 @@ const NameDisplay = ({starters, setplayerPokemon, setPlayerDefined, pokemonMoves
     filteredStarter['current_level'] = 1
     
     setSelectedStarter(filteredStarter)
-    console.log(selectedStarter)
+    
     selectSound.currentTime = 0.25
     selectSound.play()
    

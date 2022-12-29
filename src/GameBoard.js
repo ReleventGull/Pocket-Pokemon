@@ -12,7 +12,7 @@ const GameBoard = ({
   
   const [rows, setRows] = useState(Array(20).fill("1"));
   const [columns, setColumns] = useState(Array(20).fill("1"));
-  console.log(playerPokemon)
+ 
       
 
 
