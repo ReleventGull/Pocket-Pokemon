@@ -1,6 +1,6 @@
 export const fetchAllPokemon = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/pokemon')
+            const response = await fetch('http://localhost:4000/api/pokemon')
             const result = await response.json()
             
             return result
@@ -12,7 +12,7 @@ export const fetchAllPokemon = async () => {
 
 export const fetchAllMoves = async () => {
     try {
-    const response = await fetch(`http://localhost:5000/api/moves`)
+    const response = await fetch(`http://localhost:4000/api/moves`)
     const result = response.json()
     return result
     }catch(error) {

@@ -9,10 +9,10 @@ const GameBoard = ({
   setEncounter,
   playerPokemon
 }) => {
-  console.log('Player pokemon here', playerPokemon)
+  
   const [rows, setRows] = useState(Array(20).fill("1"));
   const [columns, setColumns] = useState(Array(20).fill("1"));
-  
+  console.log(playerPokemon)
       
 
 

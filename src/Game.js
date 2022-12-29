@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import {GameBoard, NameDisplay} from "./Exported";
+import { generateIvs, generateHP , generateStats} from "./statFunctions/stats";
 
 
 
@@ -18,17 +19,19 @@ const Game = ({pokemon, pokemonMoves, starters}) => {
 
 
   const pokemonEncounter = () => {
-    const randomPokemon= pokemon[Math.floor(Math.random() * pokemon.length)];
-    
-    console.log('All moves here', pokemonMoves)
-    const validMoves = pokemonMoves.filter(move =>
-      move.type == randomPokemon.type1 ||
-      move.type == randomPokemon.type2 || 
-      move.type == "Normal"
-   )
-        console.log(validMoves)
+    const randomPokemon = pokemon[Math.floor(Math.random() * pokemon.length)];
+    const randomLevel = randomPokemon.levels[Math.floor((Math.random() * 99))]
+    console.log(randomLevel)
+    randomPokemon['current_level'] = randomLevel.level
+    randomPokemon['current_exp'] = randomLevel.experience
+    randomPokemon['isWild'] = true
+    //Determining IVS 
+    generateIvs(randomPokemon)
+    generateHP(randomPokemon)
+    generateStats(randomPokemon)
+   
     setPokemonEncounterd(randomPokemon);
-    
+    console.log(`Player Pokemon`, playerPokemon);
     console.log(`set encontered to`, randomPokemon);
 
   };

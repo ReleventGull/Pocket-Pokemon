@@ -26,7 +26,7 @@ const Encounter = ({
           <div id="pokemonPlayerHealthContainer">
               <div id="pokemonHealthName">
                 <p>{pokemonEncountered.name}</p>
-                <p>Lv.42</p>
+                <p>{`Lv.${pokemonEncountered.current_level}`}</p>
               </div>
 
               <div id="pokemonHp">
@@ -38,8 +38,8 @@ const Encounter = ({
                 ></progress>
               </div>
               <p>
-                {pokemonEncountered.stats[0].base_stat}/
-                {pokemonEncountered.stats[0].base_stat}
+                {pokemonEncountered.current_stats[0].hp}/
+                {pokemonEncountered.current_stats[0].hp}
               </p>
             </div>
             <p className={`pokemon Encountered ${pokemonEncountered.name}`} />
