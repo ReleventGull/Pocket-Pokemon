@@ -11,7 +11,7 @@ const Game = ({pokemon, pokemonMoves, starters}) => {
   const [encounter, setEncounter] = useState(false);
   const [pokemonEncountered, setPokemonEncounterd] = useState([]);
   const [playerPokemon, setplayerPokemon] = useState([])
-  console.log('PLAYER POKEMON HERE', playerPokemon)
+ 
 
 
 
@@ -19,7 +19,7 @@ const Game = ({pokemon, pokemonMoves, starters}) => {
 
   const pokemonEncounter = () => {
     const randomPokemon= pokemon[Math.floor(Math.random() * pokemon.length)];
-    console.log(randomPokemon)
+    
     console.log('All moves here', pokemonMoves)
     const validMoves = pokemonMoves.filter(move =>
       move.type == randomPokemon.type1 ||
@@ -29,7 +29,7 @@ const Game = ({pokemon, pokemonMoves, starters}) => {
         console.log(validMoves)
     setPokemonEncounterd(randomPokemon);
     
-    console.log(`set encountered to`, randomPokemon);
+    console.log(`set encontered to`, randomPokemon);
 
   };
 

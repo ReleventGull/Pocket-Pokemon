@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import {fetchAllPokemon, fetchAllMoves, fetchPokemonById, fetchPokemonRates} from "./apiCalls/index"
+import {fetchAllPokemon, fetchAllMoves, fetchPokemonById, fetchPokemonRates, fetchPokemonLevels} from "./apiCalls/index"
 import Game from './Game';
 
 const App = () => {
@@ -15,19 +15,18 @@ const App = () => {
 
 
     
-  console.log(pokemon)
+
     
     
     useEffect(() => {
       let pokeObject = []
-      let numberofPokemon = 120
+      let numberofPokemon = 7
     const getAllPokemon = async () => {
           for (let i = 1; i <=numberofPokemon; i++) {
-            console.log(i/numberofPokemon)
             setLoadBar(i/numberofPokemon)
             let pokemonStats = await fetchPokemonRates(i)
             let pokeMon = await fetchPokemonById(i)
-            
+            let rate_experience =  pokemonStats.growth_rate.name.split('-').join(' ')
             if (pokeMon.types[1]) {
               pokeObject.push({
                 name: pokeMon.name,
@@ -38,6 +37,7 @@ const App = () => {
                 catch_rate: pokemonStats.capture_rate,
                 legendary: pokemonStats.is_legendary,
                 mythical: pokemonStats.is_mythical,
+                experience_rate: rate_experience
                  })
             }else {
               pokeObject.push({
@@ -48,7 +48,17 @@ const App = () => {
                 catch_rate: pokemonStats.capture_rate,
                 legendary: pokemonStats.is_legendary,
                 mythical: pokemonStats.is_mythical,
+                experience_rate: rate_experience
                  })
+            }
+            for(let i = 1; i <= 6; i++){
+            
+              const result = await fetchPokemonLevels(i)
+              pokeObject.forEach(poke => {
+                if(poke.experience_rate === result.descriptions[2].description) {
+                  poke['levels'] = result.levels               
+                }
+              })
             }
           }
           
@@ -56,7 +66,6 @@ const App = () => {
         setPokemon(pokeObject);
         setPokemonMoves(moves);
         const filterPokemon = pokeObject.filter(pok => pok.name == 'bulbasaur' || pok.name == 'charmander' || pok.name == 'squirtle')
-        console.log(filterPokemon)
         setStarters(filterPokemon)
         setIsLoaded(true)
       }
