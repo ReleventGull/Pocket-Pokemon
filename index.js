@@ -12,7 +12,7 @@ client.connect()
 const app = express()
 
 //Define our PORT
-PORT = 5000
+PORT = 4000
 
 
 //For Logging
