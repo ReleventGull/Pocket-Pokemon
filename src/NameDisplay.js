@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import select from "./audiofiles/select.mp3";
-
+import { generateIvs, generateHP, generateStats } from "./statFunctions/stats";
 const NameDisplay = ({starters, setplayerPokemon, setPlayerDefined, pokemonMoves}) => {
   const [userName, setUserName] = useState('')
   const [selectedStarter, setSelectedStarter] = useState([])
@@ -14,18 +14,16 @@ const NameDisplay = ({starters, setplayerPokemon, setPlayerDefined, pokemonMoves
     filteredStarter.moves.push(scratch)
     filteredStarter['current_exp'] = 0
     filteredStarter['current_level'] = 1
-    
+    generateIvs(filteredStarter)
+    generateHP(filteredStarter)
+    generateStats(filteredStarter)
+    filteredStarter['current_hp'] = filteredStarter.current_stats[0].hp
     setSelectedStarter(filteredStarter)
     
     selectSound.currentTime = 0.25
     selectSound.play()
    
   }
-  
-
-
-  
-  
   
   const handleSubmit = (event) => {
     event.preventDefault()

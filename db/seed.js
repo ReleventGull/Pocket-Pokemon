@@ -26,6 +26,8 @@ const createTables = async () => {
         name varchar(255) UNIQUE NOT NULL,
         type1 varchar(255) NOT NULL,
         type2 varchar(255)
+        mythical BOOLEAN default false,
+        legendary BOOLEAN default false
         );
         CREATE TABLE pokemoves (
           id SERIAL PRIMARY KEY,

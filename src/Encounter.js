@@ -1,19 +1,23 @@
 import React, { useState, useEffect } from "react";
 import wildbattle from "./audiofiles/wildbattle.mp3";
-
+import {default as FightMoves} from './EncounterOptions/FightMoves'
+import { default as FightOptions } from './EncounterOptions/FightOptions'
 const Encounter = ({
   pokemonEncountered,
   setEncounter,
   playerPokemon,
   encounter,
 }) => {
+  const [playerTurn, setPlayerTurn] = useState(1)
+  const [view, setView] = useState('')
   let battleSong = new Audio(wildbattle);
+
+
 
   useEffect(() => {
     if (encounter == true) {
      ;
       battleSong.currentTime = 0.4;
-      battleSong.play();
     }
   }, [encounter]);
 
@@ -33,12 +37,12 @@ const Encounter = ({
                 <span>HP</span>
                 <progress
                   id="pokemonPlayerHealth"
-                  value={pokemonEncountered.stats[0].base_stat}
-                  max={pokemonEncountered.stats[0].base_stat}
+                  value={pokemonEncountered.current_hp}
+                  max={pokemonEncountered.current_stats[0]}
                 ></progress>
               </div>
               <p>
-                {pokemonEncountered.current_stats[0].hp}/
+                {pokemonEncountered.current_hp}/
                 {pokemonEncountered.current_stats[0].hp}
               </p>
             </div>
@@ -59,33 +63,22 @@ const Encounter = ({
                 <span>HP</span>
                 <progress
                   id="pokemonPlayerHealth"
-                  value={playerPokemon.stats[0].base_stat}
-                  max={playerPokemon.stats[0].base_stat}
+                  value={playerPokemon.current_hp}
+                  max={playerPokemon.current_stats[0].hp}
                 ></progress>
               </div>
               <p>
-                {playerPokemon.stats[0].base_stat}/
-                {playerPokemon.stats[0].base_stat}
+                {playerPokemon.current_hp}/
+                {playerPokemon.current_stats[0].hp}
               </p>
             </div>
           </div>
         </div>
+        {view == '' ? <FightOptions setEncounter={setEncounter} setView={setView}/>: null}
+        {view == 'fight' ? <FightMoves setView={setView} playerPokemon={playerPokemon}/>: null}
+  
 
-          <div className="top three">
-          <button className="button one">Bag</button>
-          <button className="button two">Fight</button>
-          <button className="button three">Pokemon</button>
-          <button
-            onClick={() => {
-              setEncounter(false),
-                battleSong.pause(),
-                (battleSong.currentTime = 0);
-            }}
-            className="button four"
-          >
-            Run
-          </button>
-        </div>
+
       </div>
     </div>
   );

@@ -9,9 +9,7 @@ const App = () => {
     const [pokemonMoves, setPokemonMoves] = useState([])
     const [starters, setStarters] = useState([])
     const [loadBar, setLoadBar] = useState(0)
-
   
-
 
 
     
@@ -22,6 +20,7 @@ const App = () => {
       let pokeObject = []
       let numberofPokemon = 60
     const getAllPokemon = async () => {
+      
           for (let i = 1; i <=numberofPokemon; i++) {
             setLoadBar(i/numberofPokemon)
             let pokemonStats = await fetchPokemonRates(i)
@@ -51,8 +50,8 @@ const App = () => {
                 experience_rate: rate_experience
                  })
             }
+
             for(let i = 1; i <= 6; i++){
-            
               const result = await fetchPokemonLevels(i)
               pokeObject.forEach(poke => {
                 if(poke.experience_rate === result.descriptions[2].description) {
@@ -61,8 +60,8 @@ const App = () => {
               })
             }
           }
-          
-        const moves = await fetchAllMoves()
+          console.log(pokemon)
+        const moves = []
         setPokemon(pokeObject);
         setPokemonMoves(moves);
         const filterPokemon = pokeObject.filter(pok => pok.name == 'bulbasaur' || pok.name == 'charmander' || pok.name == 'squirtle')
