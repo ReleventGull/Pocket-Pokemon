@@ -1,35 +1,35 @@
 const moves = [{
-    name: 'Scratch',
+    name: 'scratch',
     type : 'Normal',
     power: 40,
 },
 {
-    name: 'Take Down',
+    name: 'take Down',
     type : 'Normal',
     power: 90,
 },
 {
-    name: 'Body Slam',
+    name: 'body Slam',
     type : 'Normal',
     power: 85,
 },
 {
-    name: 'Water Gun',
+    name: 'water Gun',
     type : 'Water',
     power: 40,
 },
 {
-    name: 'Peck',
+    name: 'peck',
     type : 'Flying',
     power: 35,
 },
 {
-    name: 'Razor Leaf',
+    name: 'razor Leaf',
     type : 'Grass',
     power: 55,
 },
 {
-    name: 'Dragon Rage',
+    name: 'dragon Rage',
     type : 'Dragon',
     power: 100,
 },

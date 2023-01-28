@@ -29,6 +29,7 @@ const Game = ({pokemon, pokemonMoves, starters}) => {
     generateStats(randomPokemon)
     randomPokemon['current_hp'] = randomPokemon.current_stats[0].hp
     randomPokemon['battleStats'] = randomPokemon.current_stats.slice(1)
+    playerPokemon['battleStats'] = playerPokemon.current_stats.slice(1)
     setPokemonEncounterd(randomPokemon);
     console.log(`Player Pokemon`, playerPokemon);
     console.log(`set encontered to`, randomPokemon);
