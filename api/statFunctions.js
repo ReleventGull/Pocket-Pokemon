@@ -1,6 +1,5 @@
 
-
-export function generateIvs(pokemon) {
+ function generateIvs(pokemon) {
     for(let i = 0; i < 6; i++) {
         let randomIV = Math.floor(Math.random() * 31)
         pokemon.stats[i]['individual'] = randomIV
@@ -9,14 +8,14 @@ export function generateIvs(pokemon) {
   }
   
   
-  export function generateHP(pokemon) {
+ function generateHP(pokemon) {
     pokemon.current_stats = []
       const hp = Math.floor((((2 * pokemon.stats[0].base_stat + pokemon.stats[0].individual + (pokemon.stats[0].effort/4)) * pokemon.current_level)/100) + pokemon.current_level + 10)
       pokemon.current_stats.push({hp: hp})
       return pokemon
   }
   
-  export function generateStats(pokemon) {
+ function generateStats(pokemon) {
     for(let i = 1; i < 6; i++) {
       let objectToPush = {}
       const stat = Math.floor(((((2 * pokemon.stats[i].base_stat + pokemon.stats[i].individual + (pokemon.stats[i].effort/4)) * pokemon.current_level)/100) + 5))
@@ -28,6 +27,11 @@ export function generateIvs(pokemon) {
     return pokemon
   }
   
+  module.exports = {
+    generateHP,
+    generateIvs,
+    generateStats
+  }
   
   
   

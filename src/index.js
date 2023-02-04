@@ -18,7 +18,7 @@ const App = () => {
     
     useEffect(() => {
       let pokeObject = []
-      let numberofPokemon = 60
+      let numberofPokemon = 10
     const getAllPokemon = async () => {
       
           for (let i = 1; i <=numberofPokemon; i++) {
@@ -60,8 +60,7 @@ const App = () => {
               })
             }
           }
-          console.log(pokemon)
-        const moves = []
+        const moves = await fetchAllMoves()
         setPokemon(pokeObject);
         setPokemonMoves(moves);
         const filterPokemon = pokeObject.filter(pok => pok.name == 'bulbasaur' || pok.name == 'charmander' || pok.name == 'squirtle')

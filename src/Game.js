@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import {GameBoard, NameDisplay} from "./Exported";
-import { generateIvs, generateHP , generateStats} from "./statFunctions/stats";
+import { fetchEncounteredPokemon } from "./apiCalls";
 
 
 
@@ -10,30 +10,14 @@ const Game = ({pokemon, pokemonMoves, starters}) => {
   const [player, setPlayer] = useState([1, 3]);
   const [playerDirection, setPlayerDirection] = useState("left");
   const [encounter, setEncounter] = useState(false);
-  const [pokemonEncountered, setPokemonEncounterd] = useState([]);
+  const [pokemonEncountered, setPokemonEncounterd] = useState(null);
   const [playerPokemon, setplayerPokemon] = useState([])
  
-
-
-
-
-
-  const pokemonEncounter = () => {
+  const pokemonEncounter = async() => {
     const randomPokemon = pokemon[Math.floor(Math.random() * pokemon.length)];
-    const randomLevel = randomPokemon.levels[Math.floor((Math.random() * 99))]
-    randomPokemon['current_level'] = randomLevel.level
-    randomPokemon['current_exp'] = randomLevel.experience
-    randomPokemon['isWild'] = true
-    generateIvs(randomPokemon)
-    generateHP(randomPokemon)
-    generateStats(randomPokemon)
-    randomPokemon['current_hp'] = randomPokemon.current_stats[0].hp
-    randomPokemon['battleStats'] = randomPokemon.current_stats.slice(1)
+    const pokemonFromApi = await fetchEncounteredPokemon(randomPokemon)
     playerPokemon['battleStats'] = playerPokemon.current_stats.slice(1)
-    setPokemonEncounterd(randomPokemon);
-    console.log(`Player Pokemon`, playerPokemon);
-    console.log(`set encontered to`, randomPokemon);
-
+    setPokemonEncounterd(pokemonFromApi);
   };
 
   const encounterChance = () => {
@@ -41,12 +25,17 @@ const Game = ({pokemon, pokemonMoves, starters}) => {
     
     if(d > 0.8) {
        pokemonEncounter()
-      setEncounter(true)
+       if (pokemonEncounter) {
+        setEncounter(true)
+       }
+      
     }
   };
   useEffect(() => {
     const handler = function keyPress(e) {
-      
+      if (!playerDefined) {
+        return
+      }
       if (encounter === false) {
         {
           if (e.keyCode === 83) {
@@ -92,7 +81,7 @@ const Game = ({pokemon, pokemonMoves, starters}) => {
         <h1 className="gameName">Pokemon!</h1>
       </header>
       <>
-      {playerDefined ? 
+      {playerDefined && playerPokemon ? 
         <GameBoard
         encounter={encounter}
         playerDirection={playerDirection}

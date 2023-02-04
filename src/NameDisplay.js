@@ -1,28 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import select from "./audiofiles/select.mp3";
-import { generateIvs, generateHP, generateStats } from "./statFunctions/stats";
+import { generateStarter } from "./apiCalls";
 const NameDisplay = ({starters, setplayerPokemon, setPlayerDefined, pokemonMoves}) => {
   const [userName, setUserName] = useState('')
   const [selectedStarter, setSelectedStarter] = useState([])
   let selectSound = new Audio(select)
   
-  const handlePokemonSelect = (event) => {
+  const handlePokemonSelect = async(event) => {
     const [filteredStarter] = starters.filter(starter => starter.name === event.target.id)
-    //Set initial Stats Here (Moves, Level, Current Experience)
     filteredStarter['moves'] = []
     const scratch = pokemonMoves.find(move => move.name === 'scratch')
     filteredStarter.moves.push(scratch)
-    filteredStarter['current_exp'] = 0
-    filteredStarter['current_level'] = 1
-    generateIvs(filteredStarter)
-    generateHP(filteredStarter)
-    generateStats(filteredStarter)
-    filteredStarter['current_hp'] = filteredStarter.current_stats[0].hp
-    setSelectedStarter(filteredStarter)
-    
+    const finishedStarter = await generateStarter(filteredStarter)
+    setSelectedStarter(finishedStarter)
     selectSound.currentTime = 0.25
     selectSound.play()
-   
   }
   
   const handleSubmit = (event) => {
@@ -53,9 +45,6 @@ const NameDisplay = ({starters, setplayerPokemon, setPlayerDefined, pokemonMoves
           Submit!
         </button>
       </form>
-    
-    
-    
     <div id='definePlayerPokemon'>
     <div className="starterPage">
     <h2>Choose your Starter!</h2>

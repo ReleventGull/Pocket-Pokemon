@@ -1,6 +1,7 @@
+const BASE_URL = 'http://localhost:4000/api'
 export const fetchAllPokemon = async () => {
         try {
-            const response = await fetch('http://localhost:4000/api/pokemon')
+            const response = await fetch(`${BASE_URL}/pokemon`)
             const result = await response.json()
             
             return result
@@ -12,7 +13,7 @@ export const fetchAllPokemon = async () => {
 
 export const fetchAllMoves = async () => {
     try {
-    const response = await fetch(`http://localhost:4000/api/moves`)
+    const response = await fetch(`${BASE_URL}/moves`)
     const result = response.json()
     return result
     }catch(error) {
@@ -50,6 +51,44 @@ export const fetchPokemonById = async(id) => {
         const result = await response.json()
         return result
     }catch(error) {
+        throw error
+    }
+  }
+
+  export const generateStarter = async(pokemon) => {
+    try {
+    const response = await fetch (`${BASE_URL}/player/selectStarter`, {
+        method: "POST",
+        headers : {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            pokemon: pokemon
+        })
+    }).then(result => result.json())
+    console.log("completed response", response)
+    return response
+    }catch(error) {
+        console.error("there was an error generating the starter in the src api", error)
+    }
+  }
+
+  export const fetchEncounteredPokemon = async(pokemon) => {
+    try {
+        console.log("did I get this far", pokemon)
+    const response = await fetch(`${BASE_URL}/encounter/encounterPokemon`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            pokemon: pokemon
+        })
+    }).then(result => result.json())
+    console.log("Response here", response)
+    return response
+    }catch(error) {
+        console.error("There was an error catching the encounteredPokemon", error)
         throw error
     }
   }
