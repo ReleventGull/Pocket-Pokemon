@@ -10,18 +10,13 @@ const Encounter = ({
 }) => {
   const [playerTurn, setPlayerTurn] = useState(1)
   const [view, setView] = useState('')
-  let battleSong = new Audio(wildbattle);
 
 
+console.log(pokemonEncountered)
 
-  useEffect(() => {
-    if (encounter == true) {
-     ;
-      battleSong.currentTime = 0.4;
-    }
-  }, [encounter]);
-
+  
   return (
+    pokemonEncountered  ?
     <div id="grid-encoutner">
       <div className="encounter-container">
         <div className="backgroundBattle">
@@ -81,6 +76,8 @@ const Encounter = ({
 
       </div>
     </div>
-  );
+  :
+  <h2>Loading</h2>
+  )
 };
 export default Encounter;

@@ -9,18 +9,13 @@ const GameBoard = ({
   setEncounter,
   playerPokemon
 }) => {
-  
   const [rows, setRows] = useState(Array(20).fill("1"));
   const [columns, setColumns] = useState(Array(20).fill("1"));
  
-      
-
-
   return (
   encounter ? 
   <Encounter encounter={encounter} pokemonEncountered={pokemonEncountered} setEncounter={setEncounter} playerPokemon={playerPokemon}/>
   :
-
     <div id='grid'>
         <table>
           {rows.map((eachRow, rowIndex) => (
