@@ -1,32 +1,37 @@
 const express = require("express");
-const { getAllPokemon, getPokemonById } = require("../db/");
 const pokeRouter = express.Router();
-
-pokeRouter.get((req, res, next) => {
-  console.log("A request is being made to api/pokemon");
-  next();
-});
-
-pokeRouter.get("/", async (req, res, next) => {
+const {getExperienceRate} = require('../db/experince_rate')
+const {createPokemon, getAllPokemon} = require('../db/pokemon')
+pokeRouter.get('/', async(req, res, next) => {
+    try {
+      const allPokemon = await getAllPokemon()
+      console.log('All Pokemon Here', allPokemon)
+      res.send({message:"Success"})
+    }catch(error){
+      console.error("There was an erroring fetching all the pokemon", error)
+      throw error
+    }
+})
+pokeRouter.post('/', async(req, res, next) => {
   try {
-    const pokemon = await getAllPokemon();
-    res.send(pokemon);
-  } catch (error) {
-    console.log("There was an error getting the pokemon");
-    throw error;
+    const {name, type1, type2 = null, base_experience, catch_rate, legendary, mythical, experience_rate} = req.body
+    const experienceRate = await getExperienceRate(experience_rate)
+    let pokemon = await createPokemon({
+      name: name,
+      type1: type1,
+      type2: type2,
+      catchRate: catch_rate,
+      isLegendary: legendary,
+      isMythical: mythical,
+      baseExperience: base_experience,
+      experience_rate: experienceRate.id
+    })
+    res.send({message: "Incomplete"})
+  }catch(error) {
+    console.error("There was an error posting to the pokemon", error)
+    throw error
   }
-});
-
-pokeRouter.get("/:pokeId", async (req, res, next) => {
-  try {
-    const { pokeId } = req.params;
-    const pokemon = await getPokemonById(pokeId);
-    res.send(pokemon);
-  } catch (error) {
-    next(error);
-  }
-});
-
+})
 
 
 module.exports = pokeRouter;

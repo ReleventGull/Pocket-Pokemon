@@ -1,6 +1,6 @@
 const express = require('express')
 const movesRouter = express()
-const {getAllmoves} = require('../db')
+const {getAllmoves} = require('../db/moves.js')
 
 movesRouter.get('/', async(req, res, send) => {
     try {
