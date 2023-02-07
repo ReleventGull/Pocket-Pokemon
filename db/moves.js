@@ -1,38 +1,40 @@
-const moves = [{
-    name: 'scratch',
-    type : 'Normal',
-    power: 40,
-},
-{
-    name: 'take Down',
-    type : 'Normal',
-    power: 90,
-},
-{
-    name: 'body Slam',
-    type : 'Normal',
-    power: 85,
-},
-{
-    name: 'water Gun',
-    type : 'Water',
-    power: 40,
-},
-{
-    name: 'peck',
-    type : 'Flying',
-    power: 35,
-},
-{
-    name: 'razor Leaf',
-    type : 'Grass',
-    power: 55,
-},
-{
-    name: 'dragon Rage',
-    type : 'Dragon',
-    power: 100,
-},
-]
+const client = require('./index')
 
-module.exports = moves
+
+const generateMoves = async ({ name, type, power }) => {
+  console.log("Starting to generateMoves");
+  try {
+    const { rows } = await client.query(
+      `
+INSERT INTO pokemoves (name, type, power)
+VALUES($1, $2, $3)
+RETURNING *;
+`,
+      [name, type, power]
+    );
+    console.log("Finished generating moves!");
+    console.log("Moves Create", rows);
+  } catch (error) {
+    console.log("There was an error in gernerateMoves");
+    throw error;
+  }
+};
+
+
+const getAllmoves = async() => {
+  try {
+    const {rows: moves} = await client.query(`
+    SELECT * FROM pokemoves;
+    `)
+    return moves
+  }catch(error) {
+    console.log("There was an error getting all of the moves")
+    throw error
+  }
+}
+
+
+module.exports = {
+  generateMoves,
+  getAllmoves
+};

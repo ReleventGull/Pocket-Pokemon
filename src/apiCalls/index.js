@@ -3,12 +3,64 @@ export const fetchAllPokemon = async () => {
         try {
             const response = await fetch(`${BASE_URL}/pokemon`)
             const result = await response.json()
-            
             return result
         }catch(error) {
-            console.log("There was an error fetching pokemon")
+            console.error("There was an error fetching pokemon", error)
             throw error
         }
+}
+export const uploadLevels = async ({name, levels}) => {
+    try {
+        const response = await fetch(`${BASE_URL}/levels`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+            levels,
+            name,
+            })
+        }).then(result => result.json())
+        console.log(response)
+    }catch(error) {
+        console.error("There was an erroring uploading the levels", error)
+        throw error
+    }
+}
+export const uploadingPokemon = async ({name, type1, type2, base_experience, catch_rate, legendary, mythical, experience_rate}) => {
+    try {
+        const response = await fetch(`${BASE_URL}/pokemon`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify( {
+                name, 
+                type1,
+                type2, 
+                base_experience,
+                catch_rate,
+                legendary,
+                mythical,
+                experience_rate
+            })
+        }).then(result => result.json())
+        return response
+
+    }catch(error) {
+        console.error("There was an error uploading the pokemon", error)
+        throw error
+    }
+}
+export const getAllLevels = async () => {
+    try {
+        const response = await fetch(`${BASE_URL}/levels`).then(result => 
+            result.json())
+        return response
+    }catch(error) {
+        console.error("There was an error getting all the levels", error)
+        throw error
+    }
 }
 
 export const fetchAllMoves = async () => {
