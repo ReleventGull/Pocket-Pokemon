@@ -22,10 +22,13 @@ const getAllPokemon = async () => {
     FROM pokemon
     JOIN experience ON pokemon.experience_rate=experience.id
     `)
-    console.log('Pokemon here', pokemon)
     const {rows: levels} = await client.query(`
-    SELECT levels.*
+    SELECT exp, level, experience_rate_id
     FROM levels
+    `)
+    const {rows: stats} = await client.query(`
+    SELECT * 
+    FROM pokemonStats
     `)
    let allPokemon = []
    let currentPokemonObject = {}
@@ -33,6 +36,12 @@ const getAllPokemon = async () => {
     let currentPokemon = pokemon[i]
     currentPokemonObject = currentPokemon
     currentPokemonObject['levels'] = []
+    currentPokemonObject['stats'] = {}
+    for(let b = 0; b < stats.length; b++) {
+        if (stats[b].pokemon_id == currentPokemon.id) {
+            currentPokemonObject.stats[stats[b].name] = {value: stats[b].value, effort: stats[b].effort}
+        }
+    }
     for(let j = 0; j < levels.length; j++) {
         if (levels[j].experience_rate_id == currentPokemon.experience_rate) {
             currentPokemonObject.levels.push(levels[j])
@@ -44,7 +53,7 @@ const getAllPokemon = async () => {
         }
     }
 }
-console.log(allPokemon[0])
+ return allPokemon
     }catch(error) {
         console.error("There was an error getting all the pokemon", error)
         throw error

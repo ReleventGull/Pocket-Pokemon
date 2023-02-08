@@ -21,13 +21,12 @@ export const uploadLevels = async ({name, levels}) => {
             name,
             })
         }).then(result => result.json())
-        console.log(response)
     }catch(error) {
         console.error("There was an erroring uploading the levels", error)
         throw error
     }
 }
-export const uploadingPokemon = async ({name, type1, type2, base_experience, catch_rate, legendary, mythical, experience_rate}) => {
+export const uploadingPokemon = async ({name, type1, type2, base_experience, catch_rate, legendary, mythical, experience_rate, stats}) => {
     try {
         const response = await fetch(`${BASE_URL}/pokemon`, {
             method: "POST",
@@ -42,7 +41,8 @@ export const uploadingPokemon = async ({name, type1, type2, base_experience, cat
                 catch_rate,
                 legendary,
                 mythical,
-                experience_rate
+                experience_rate,
+                stats
             })
         }).then(result => result.json())
         return response
@@ -69,7 +69,7 @@ export const fetchAllMoves = async () => {
     const result = response.json()
     return result
     }catch(error) {
-        console.log("There was an error fetching all of")
+        console.error("There was an error fetching all of the moves", error)
         throw error
     }
 }
@@ -90,13 +90,10 @@ export const fetchPokemonById = async(id) => {
     const result = await response.json()
     return result
     }catch(error) {
-    console.log("There was an error fetching pokemon rates")
+    console.error("There was an error fetching pokemon rates", error)
     throw error
     }
   }
-
-
-
   export const fetchPokemonLevels = async (id) => {
     try {
         const response = await fetch(`https://pokeapi.co/api/v2/growth-rate/${id}/`)
@@ -118,16 +115,15 @@ export const fetchPokemonById = async(id) => {
             pokemon: pokemon
         })
     }).then(result => result.json())
-    console.log("completed response", response)
     return response
     }catch(error) {
         console.error("there was an error generating the starter in the src api", error)
+        throw error
     }
   }
 
   export const fetchEncounteredPokemon = async(pokemon) => {
     try {
-        console.log("did I get this far", pokemon)
     const response = await fetch(`${BASE_URL}/encounter/encounterPokemon`, {
         method: 'POST',
         headers: {
@@ -137,7 +133,6 @@ export const fetchPokemonById = async(id) => {
             pokemon: pokemon
         })
     }).then(result => result.json())
-    console.log("Response here", response)
     return response
     }catch(error) {
         console.error("There was an error catching the encounteredPokemon", error)

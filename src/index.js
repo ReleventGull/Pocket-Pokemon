@@ -11,12 +11,12 @@ const App = () => {
     const [starters, setStarters] = useState([])
     const [loadBar, setLoadBar] = useState(0)
   
-    let numberofPokemon = 10
+    let numberofPokemon = 40
     const seedPokemon = async() => {
       for(let i=1; i <= numberofPokemon; i++)  {
         let pokemonStats = await fetchPokemonRates(i)
         let pokeMon = await fetchPokemonById(i)
-  
+        console.log(pokeMon.name)
         if (pokeMon.types[1]) {
           await uploadingPokemon({
             name: pokeMon.name,
@@ -42,7 +42,8 @@ const App = () => {
             })
         }
       }
-      await fetchAllPokemon()
+      let allPoke = await fetchAllPokemon()
+      console.log(allPoke)
     }
 
     const seedPokemonLevels = async() => {
