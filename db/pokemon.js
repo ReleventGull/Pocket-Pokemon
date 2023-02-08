@@ -16,18 +16,35 @@ const createPokemon = async({name, type1, type2, catchRate, isLegendary, isMythi
 
 const getAllPokemon = async () => {
     try {
-    const {rows: response} = await client.query(`
-    SELECT pokemon.id, pokemon.name, pokemon.type1, pokemon.type2, pokemon."catchRate", pokemon."isLegendary", pokemon."isMythical", pokemon."baseExperience", pokemon.experience_rate,
-    experience.name
+    const {rows: pokemon} = await client.query(`
+    SELECT pokemon.id, pokemon.name, pokemon.type1, pokemon.type2, pokemon."catchRate", pokemon."isLegendary", pokemon."isMythical", pokemon."baseExperience", pokemon.experience_rate, 
+    experience.name AS experience_type
     FROM pokemon
     JOIN experience ON pokemon.experience_rate=experience.id
     `)
+    console.log('Pokemon here', pokemon)
     const {rows: levels} = await client.query(`
-    SELECT exp, level
+    SELECT levels.*
     FROM levels
-    WHERE experience_rate_id=$1
-    `, [id])
-    console.log('All the pokemon here', response)
+    `)
+   let allPokemon = []
+   let currentPokemonObject = {}
+   for(let i = 0; i < pokemon.length; i++) {
+    let currentPokemon = pokemon[i]
+    currentPokemonObject = currentPokemon
+    currentPokemonObject['levels'] = []
+    for(let j = 0; j < levels.length; j++) {
+        if (levels[j].experience_rate_id == currentPokemon.experience_rate) {
+            currentPokemonObject.levels.push(levels[j])
+        }
+        if(j == levels.length - 1 ) {
+            delete currentPokemonObject.experience_rate
+            allPokemon.push(currentPokemonObject)
+            currentPokemonObject = {}
+        }
+    }
+}
+console.log(allPokemon[0])
     }catch(error) {
         console.error("There was an error getting all the pokemon", error)
         throw error
