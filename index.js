@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors');
 const apiRouter = require('./api/index')
@@ -16,6 +17,7 @@ PORT = 4000
 
 
 //For Logging
+
 app.use(cors())
 app.use(express.static(require('path').join(__dirname, 'build')));
 app.use(morgan('dev'))

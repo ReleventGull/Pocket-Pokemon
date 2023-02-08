@@ -60,23 +60,15 @@ const App = () => {
       setIsLoaded(true)
       console.log(allPokemon)
     }
-
-    
     useEffect(() => {
       if(seedData) {
         seedPokeData()
       }else {
         fetchGameData()
       }
-      
-      
     }, [])
-
-
-
     return (
     isLoaded && starters ? 
-  
     <Game  starters={starters} pokemonMoves={pokemonMoves} pokemon={pokemon}/>:
     <div className='loadingBar'>
       <h1 >Loading...</h1>
