@@ -1,7 +1,8 @@
 import e from "cors";
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import {fetchAllPokemon, uploadingPokemon, uploadLevels, getAllLevels, fetchAllMoves, fetchPokemonById, fetchPokemonRates, fetchPokemonLevels} from "./apiCalls/index"
+import {fetchAllPokemon, fetchAllMoves} from "./apiCalls/index"
+import { uploadLevels, uploadingPokemon, fetchPokemonById, fetchPokemonRates, fetchPokemonLevels,getAllLevels } from "./apiCalls/seedApi";
 import Game from './Game';
 
 const App = () => {
@@ -10,13 +11,15 @@ const App = () => {
     const [pokemonMoves, setPokemonMoves] = useState([])
     const [starters, setStarters] = useState([])
     const [loadBar, setLoadBar] = useState(0)
-  
+    
+    //For seeding all the pokemon, acts as a toggle. If pokemon is present in the database, set to false, if not , set to true
+    const [seedData, setSeedData] = useState(false)
+    //
     let numberofPokemon = 40
     const seedPokemon = async() => {
       for(let i=1; i <= numberofPokemon; i++)  {
         let pokemonStats = await fetchPokemonRates(i)
         let pokeMon = await fetchPokemonById(i)
-        console.log(pokeMon.name)
         if (pokeMon.types[1]) {
           await uploadingPokemon({
             name: pokeMon.name,
@@ -42,11 +45,8 @@ const App = () => {
             })
         }
       }
-      let allPoke = await fetchAllPokemon()
-      console.log(allPoke)
     }
-
-    const seedPokemonLevels = async() => {
+    const seedPokeData = async() => {
       for(let i = 1; i <= 6; i++){
         const result = await fetchPokemonLevels(i)
         await uploadLevels({name: result.name, levels: result.levels})
@@ -54,23 +54,34 @@ const App = () => {
         await seedPokemon()
     }
 
+    const fetchGameData = async() => {
+      let allPokemon = await fetchAllPokemon()
+      setPokemon(allPokemon)
+      setIsLoaded(true)
+      console.log(allPokemon)
+    }
 
     
     useEffect(() => {
-      seedPokemonLevels()
+      if(seedData) {
+        seedPokeData()
+      }else {
+        fetchGameData()
+      }
+      
+      
     }, [])
 
 
 
     return (
-      <h2>Loading</h2>
-    // isLoaded && starters ? 
+    isLoaded && starters ? 
   
-    // <Game  starters={starters} pokemonMoves={pokemonMoves} pokemon={pokemon}/>:
-    // <div className='loadingBar'>
-    //   <h1 >Loading...</h1>
-    // <progress value={loadBar} max='1'></progress>
-    // </div>
+    <Game  starters={starters} pokemonMoves={pokemonMoves} pokemon={pokemon}/>:
+    <div className='loadingBar'>
+      <h1 >Loading...</h1>
+    <progress value={loadBar} max='1'></progress>
+    </div>
     );
 }
 
