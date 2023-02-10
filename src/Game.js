@@ -5,7 +5,7 @@ import { fetchEncounteredPokemon } from "./apiCalls";
 
 
 
-const Game = ({pokemon, pokemonMoves, starters}) => {
+const Game = ({pokemon, pokemonMoves}) => {
   const [playerDefined, setPlayerDefined] = useState (false)
   const [player, setPlayer] = useState([1, 3]);
   const [playerDirection, setPlayerDirection] = useState("left");
@@ -90,7 +90,7 @@ const Game = ({pokemon, pokemonMoves, starters}) => {
         setEncounter={setEncounter}
         playerPokemon={playerPokemon}
         />:
-        <NameDisplay pokemonMoves={pokemonMoves} setPlayerDefined={setPlayerDefined} setplayerPokemon={setplayerPokemon} starters={starters}/>
+        <NameDisplay pokemonMoves={pokemonMoves} setPlayerDefined={setPlayerDefined} setplayerPokemon={setplayerPokemon}/>
   }
 
 

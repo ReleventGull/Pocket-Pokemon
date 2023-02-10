@@ -60,8 +60,23 @@ const getAllPokemon = async () => {
     }
 }
 
+const getStarters = async() => {
+    try {
+        const {rows: pokemon} = await client.query(`
+        SELECT pokemon.id, pokemon.name 
+        FROM pokemon
+        WHERE pokemon.name=$1 OR pokemon.name=$2 OR pokemon.name=$3
+        `, ['charmander', 'squirtle', 'bulbasaur'])
+        return pokemon
+    }catch(error) {
+        console.error("There was an error fetching the starts", error)
+        throw error
+    }
+}
+
 
 module.exports = {
     createPokemon,
-    getAllPokemon
+    getAllPokemon,
+    getStarters
 }

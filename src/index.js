@@ -15,7 +15,7 @@ const App = () => {
     //For seeding all the pokemon, acts as a toggle. If pokemon is present in the database, set to false, if not , set to true
     const [seedData, setSeedData] = useState(false)
     //
-    let numberofPokemon = 40
+    let numberofPokemon = 10
     const seedPokemon = async() => {
       for(let i=1; i <= numberofPokemon; i++)  {
         let pokemonStats = await fetchPokemonRates(i)

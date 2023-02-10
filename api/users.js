@@ -3,28 +3,38 @@ const userRouter =  express.Router()
 const {createUser, getUserById, getUserByUsername} = require('../db/users')
 const jwt = require('jsonwebtoken')
 const {JWT_SECRET} = process.env
+
+
 userRouter.post('/register', async(req, res, next) => {
     try {
-    const {password, username, name} = req.body
-    const existingUser = await getUserByUsername(username)
-    console.log('Existing user here', existingUser)
-    if(existingUser)  {
-        res.status(401).send({
-            error: "UserTake",
-            message:"A user by that username already exists"
-        })
-    }else {
-        console.log('Token here', JWT_SECRET)
+        const {password, username, name} = req.body
         const newUser = await createUser({name:name, username:username, password:password})
         const createdUser = await getUserById(newUser.id)
         const token = jwt.sign(createdUser, JWT_SECRET)
         res.send({message: `Welcome ${newUser.name}!`, token: token})
-    }
     }catch(error) {
         console.error("There was an error registering the user", error)
         throw error
     }
 })
+
+userRouter.post('/registerCheck', async(req,res,next) => {
+    try {
+        const {password, username, name} = req.body
+        const existingUser = await getUserByUsername(username)
+        if(existingUser)  {
+            res.status(401).send({
+                error: "UserTake",
+                message:"A user by that username already exists"
+            })
+        }else {
+            res.send({message:"Clear!"})
+        }
+    }catch(error) {
+        console.error("There was an error registering the account")
+    }
+})
+
 userRouter.post('/login', async(req, res, next) => {
     try {
         const {username, password} = req.body
