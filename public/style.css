@@ -3,11 +3,11 @@
 }
 
 body {
-    background-image: url('./images/pokemon.png');
+    background-image: url('https://pixelz.cc/wp-content/uploads/2019/12/pokemon-sword-and-shield-sobble-grookey-scorbunny-uhd-4k-wallpaper.jpg');
+    background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    height: 100vh;
 }
 header {
     background-image: url('./images/pokemon.png');
@@ -43,15 +43,29 @@ main {
 
 
 .starterPage {
-    background-color: gray;
-    height: 700px;
+    background-image: url('https://picstatio.com/large/nzzi06/pokemon-minimalism-wallpaper.png');
+    background-size: cover;
+    
+    height: 1000px;
+    min-width: 1600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 13px;
+    
+    
 }
-
+.cancelButton {
+    height: 40px;
+    width: 100px;
+    background-color: red;
+    border-radius: 20px;
+}
 .starterPage h2 {
  text-align: center;
 }
 .starterBall {
-    margin-top: 50px; 
+    margin-top: 20px; 
     height: 60px;
     width: 60px;
 }
@@ -60,7 +74,8 @@ main {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    height: 600px;
+    height: 400px;
+    margin-top: 40px;
 }
 .starterContainers {
     display: flex;
@@ -69,9 +84,37 @@ main {
     width: 500px;
     align-items: center;
 }
+.starterContainers.true{
+    scale: 100%;
+    transition: .3s
+}
+.starterContainers.false{
+    scale: 0;
+    transition: .3s;
+}
 
-
-
+.registerForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    width: 100%;
+    gap: 10px
+}
+.registerForm input{
+    width: 40%;
+    text-align: center;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 1em;
+}
+.confirmRegister {
+    height: 40px;
+    width: 100px;
+    background-color: green;
+    border-radius: 20px;
+}
 .starterImage {
     background-image: url(./images/black-white.png);
     background-size: 3100%;
@@ -80,6 +123,11 @@ main {
     border-radius: 10%;
     height: 250px;
     width: 250px;
+    transition: .2s;
+}
+.starterImage:hover {
+    scale: 1.1;
+    transition: .2s;
 }
 .starterImage.selected {
     background-image: url(./images/black-white.png);
@@ -101,20 +149,37 @@ main {
     background-position-y: 0;
 
 }
-
+#definePlayerPokemon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .starterImage.squirtle {
     background-color: blue;
     background-position-y: 0;
     background-position-x: -600%;
 }
 
-
-
 .gameName{
     justify-content: center;
     align-self: center;
 }
 
+.submitName {
+    margin-top: 40px;
+    height: 120px;
+    width: 320px;
+    color: white;
+    border-radius: 20px;
+    background-color: blue;
+    font-size: 1.8em;
+    transition: .3s
+}
+.submitName:hover {
+    color: blue;
+    background-color: white;
+    transition: .3s
+}
 
 #playerStatus  {
     text-align: center;

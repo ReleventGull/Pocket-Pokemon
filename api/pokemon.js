@@ -1,8 +1,20 @@
 const express = require("express");
 const pokeRouter = express.Router();
 const {getExperienceRate} = require('../db/experince_rate')
-const {createPokemon, getAllPokemon} = require('../db/pokemon')
+const {createPokemon, getAllPokemon, getStarters} = require('../db/pokemon')
 const {createPokemonStats} = require('../db/stats')
+
+pokeRouter.get('/starters', async(req, res, next) => {
+  try {
+   let starters =  await getStarters()
+   console.log(starters)
+   res.send(starters)
+  }catch(error) {
+    console.error("there was an error getting the pokemon starts", error)
+    throw error
+  }
+})
+
 pokeRouter.get('/', async(req, res, next) => {
     try {
       const allPokemon = await getAllPokemon()
@@ -36,6 +48,8 @@ pokeRouter.post('/', async(req, res, next) => {
     throw error
   }
 })
+
+
 
 
 module.exports = pokeRouter;

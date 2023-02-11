@@ -1,30 +1,62 @@
 const express = require('express')
 const userRouter =  express.Router()
 const {createUser, getUserById, getUserByUsername} = require('../db/users')
+const {getPokemonById, createPlayerPokemon, createPlayerPokmonStats} = require('../db/pokemon')
 const jwt = require('jsonwebtoken')
 const {JWT_SECRET} = process.env
+
+
 userRouter.post('/register', async(req, res, next) => {
     try {
-    const {password, username, name} = req.body
-    const existingUser = await getUserByUsername(username)
-    console.log('Existing user here', existingUser)
-    if(existingUser)  {
-        res.status(401).send({
-            error: "UserTake",
-            message:"A user by that username already exists"
-        })
-    }else {
-        console.log('Token here', JWT_SECRET)
+        const {pokemonId, password, username, name} = req.body
+        let pokemonById = await getPokemonById(pokemonId)
+        console.log(pokemonById)
         const newUser = await createUser({name:name, username:username, password:password})
         const createdUser = await getUserById(newUser.id)
+        console.log(pokemonById.baseExperience)
+        const newPlayerPokemon = await createPlayerPokemon({
+            name: pokemonById.name,
+            onPlayer : true,
+            exp: pokemonById.baseExperience,
+            pokemon_id: pokemonById.id,
+            user_id: createdUser.id,
+            level: 1
+        })
+        for(let key in pokemonById.stats) {
+            await createPlayerPokmonStats({
+                name: key,
+                effort: pokemonById.stats[key].effort,
+                value: pokemonById.stats[key].value,
+                currentValue:pokemonById.stats[key].value,
+                individual: Math.floor(Math.random() * 31),
+                player_pokemon_id: newPlayerPokemon.id
+            })
+        }
         const token = jwt.sign(createdUser, JWT_SECRET)
         res.send({message: `Welcome ${newUser.name}!`, token: token})
-    }
     }catch(error) {
         console.error("There was an error registering the user", error)
         throw error
     }
 })
+
+userRouter.post('/registerCheck', async(req,res,next) => {
+    try {
+        const {password, username, name} = req.body
+        const existingUser = await getUserByUsername(username)
+        if(existingUser)  {
+            res.status(401).send({
+                error: "UserTake",
+                message:"A user by that username already exists"
+            })
+        }else {
+            res.send({message:"Clear!"})
+        }
+    }catch(error) {
+        console.error("There was an error registering the account")
+    }
+})
+
 userRouter.post('/login', async(req, res, next) => {
     try {
         const {username, password} = req.body

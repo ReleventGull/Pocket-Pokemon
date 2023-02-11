@@ -11,11 +11,11 @@ const App = () => {
     const [pokemonMoves, setPokemonMoves] = useState([])
     const [starters, setStarters] = useState([])
     const [loadBar, setLoadBar] = useState(0)
-    
+    console.log(pokemon)
     //For seeding all the pokemon, acts as a toggle. If pokemon is present in the database, set to false, if not , set to true
-    const [seedData, setSeedData] = useState(false)
+    const [seedData, setSeedData] = useState(true)
     //
-    let numberofPokemon = 40
+    let numberofPokemon = 10
     const seedPokemon = async() => {
       for(let i=1; i <= numberofPokemon; i++)  {
         let pokemonStats = await fetchPokemonRates(i)
@@ -45,6 +45,7 @@ const App = () => {
             })
         }
       }
+      fetchGameData()
     }
     const seedPokeData = async() => {
       for(let i = 1; i <= 6; i++){
@@ -68,7 +69,7 @@ const App = () => {
       }
     }, [])
     return (
-    isLoaded && starters ? 
+    isLoaded && starters && pokemon? 
     <Game  starters={starters} pokemonMoves={pokemonMoves} pokemon={pokemon}/>:
     <div className='loadingBar'>
       <h1 >Loading...</h1>

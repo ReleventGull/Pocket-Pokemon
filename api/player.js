@@ -1,6 +1,8 @@
 const express = require('express')
 const playerRouter = express.Router()
 const { generateHP, generateIvs, generateStats } = require('./statFunctions')
+
+
 playerRouter.post('/selectStarter', async (req, res, next) => {
     try {
     const {pokemon} = req.body
