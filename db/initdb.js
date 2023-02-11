@@ -4,9 +4,8 @@ const dropTables = async () => {
     try {
       console.log("Starting to drop Tables");
       await client.query(`
-
-          DROP TABLE IF EXISTS playerPokemon;
           DROP TABLE IF EXISTS playerPokemonStats;
+          DROP TABLE IF EXISTS playerPokemon;
           DROP TABLE IF EXISTS pokemonStats;
           DROP TABLE IF EXISTS pokemoves;
           DROP TABLE IF EXISTS pokemon;
@@ -49,17 +48,27 @@ const dropTables = async () => {
           );
           CREATE TABLE users (
             id SERIAL PRIMARY KEY,
-            name VARCHAR (15) NOT NULL,
-            username VARCHAR(15) UNIQUE NOT NULL,
-            password VARCHAR(20) NOT NULL
+            name VARCHAR (150) NOT NULL,
+            username VARCHAR(150) UNIQUE NOT NULL,
+            password VARCHAR(150) NOT NULL
           );
           CREATE TABLE playerPokemon (
             id SERIAL PRIMARY KEY,
             name VARCHAR(255) UNIQUE NOT NULL,
             "onPlayer" BOOLEAN default false,
+            exp INTEGER NOT NULL,
             level INTEGER NOT NULL,
             pokemon_id INTEGER REFERENCES pokemon(id),
             user_id INTEGER REFERENCES users(id)
+          );
+          CREATE TABLE playerPokemonStats (
+            id SERIAL PRIMARY KEY,
+            name VARCHAR(150),
+            value INTEGER NOT NULL,
+            "currentValue" INTEGER NOT NULL,
+            effort INTEGER NOT NULL,
+            individual INTEGER NOT NULL,
+            player_pokemon_id INTEGER REFERENCES playerPokemon(id)
           );
           CREATE TABLE levels (
             id SERIAL PRIMARY KEY,

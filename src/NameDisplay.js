@@ -36,7 +36,7 @@ const NameDisplay = ({setplayerPokemon, setPlayerDefined, pokemonMoves}) => {
     }
     else {
       const existingUser = await checkUser({password: password, username: username, name:name})
-      if (existingUser) {
+      if (existingUser.error) {
         setErrorMesage('A user by that username already exists!')
       }else {
         setErrorMesage('')
@@ -45,6 +45,10 @@ const NameDisplay = ({setplayerPokemon, setPlayerDefined, pokemonMoves}) => {
     }
   }
   
+  const handleRegister = async() => {
+    let newUser = await registerUser({pokemonId: selectedStarter, password: password, username: username, name: name})
+  }
+
   useEffect(() => {
     getStarters()
   }, [])
@@ -80,7 +84,7 @@ const NameDisplay = ({setplayerPokemon, setPlayerDefined, pokemonMoves}) => {
        )}  
           </div>  
       </div>
-    {selectedStarter  ? <button className='submitName'>Play!</button> : null}
+    {selectedStarter  ? <button onClick={handleRegister} className='submitName'>Play!</button> : null}
   </div>
 
   

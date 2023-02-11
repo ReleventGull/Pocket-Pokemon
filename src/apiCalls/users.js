@@ -13,13 +13,14 @@ export const checkUser = async({password, username, name}) => {
                 username,
                  name
             })
-        })
+        }).then(result => result.json())
+        return response
     }catch(error) {
 
     }
 }
 
-export const registerUser = async({password, username, name}) => {
+export const registerUser = async({pokemonId, password, username, name}) => {
     try {
         const response = await fetch(`${BASE_URL}/users/register`, {
             method: "POST",
@@ -29,9 +30,11 @@ export const registerUser = async({password, username, name}) => {
             body: JSON.stringify({
                 password, 
                 username,
-                 name
+                name,
+                pokemonId
             })
-        })
+        }).then(result => result.json())
+        return response
     }catch(error) {
 
     }
