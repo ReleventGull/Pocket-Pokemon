@@ -1,40 +1,48 @@
 const client = require('./index')
 
 
-const generateMoves = async ({ name, type, power }) => {
-  console.log("Starting to generateMoves");
+const createMove = async({name, type, category, pp, power, accuracy, learnedBy}) => {
   try {
-    const { rows } = await client.query(
-      `
-INSERT INTO pokemoves (name, type, power)
-VALUES($1, $2, $3)
-RETURNING *;
-`,
-      [name, type, power]
-    );
-    console.log("Finished generating moves!");
-    console.log("Moves Create", rows);
-  } catch (error) {
-    console.log("There was an error in gernerateMoves");
-    throw error;
+    console.log(power, "Name")
+    const {rows: [move]} = await client.query(`
+    INSERT INTO pokemoves (name, type, category, pp, power, accuracy, "learnedBy") 
+    VALUES($1, $2, $3, $4, $5, $6, $7)
+    RETURNING *;
+    `, [name, type, category, pp, power, accuracy, learnedBy])
+    console.log(move)
+    return move
+  }catch(error){
+    console.error("There was an error creating the moves", error)
+    throw error 
   }
-};
-
-
-const getAllmoves = async() => {
+}
+const getMoveByPokemon = async(name) => {
   try {
     const {rows: moves} = await client.query(`
-    SELECT * FROM pokemoves;
-    `)
-    return moves
+    SELECT * 
+    FROM pokemoves
+    WHERE "learnedBy"=$1;
+    `, [name])
+  return moves
   }catch(error) {
-    console.log("There was an error getting all of the moves")
+    console.error("There was an error getting the move by the pokemon name", error)
     throw error
   }
 }
 
+const createPlayerPokemonMove = async({move_id, pokemon_id, current_pp}) => {
+  try {
+    const {row: [move]} = await client.query(`
+    INSERT INTO playerPokemonMoves (move_id, pokemon_id, current_pp)
+    VALUES($1, )
+    `)
+  }catch(error){
+    console.error("There was an error creating the player pokemon mvoe", error)
+    throw error
+  }
+}
 
 module.exports = {
-  generateMoves,
-  getAllmoves
+  createMove,
+  getMoveByPokemon
 };

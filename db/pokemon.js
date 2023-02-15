@@ -130,14 +130,7 @@ const createPlayerPokmonStats = async({name, value, currentValue, effort, indivi
     }
 }
 
-const getUserPokemon = () => {
-    try {
 
-    }catch(error) {
-        console.error("There was an error getting the user pokemon", error)
-        throw error
-    }
-}
 module.exports = {
     createPokemon,
     getAllPokemon,

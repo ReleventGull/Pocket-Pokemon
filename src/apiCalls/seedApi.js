@@ -42,7 +42,16 @@ export const uploadingPokemon = async ({name, type1, type2, base_experience, cat
         throw error
     }
 }
-
+export const fetchMoves = async(id) => {
+    try {
+        const response = await fetch(`https://pokeapi.co/api/v2/move/${id}`)
+        .then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an erroing fetching the pokemon moves", error)
+        throw error
+    }
+}
 export const fetchPokemonById = async(id) => {
     try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
@@ -80,6 +89,30 @@ export const fetchPokemonById = async(id) => {
         return response
     }catch(error) {
         console.error("There was an error getting all the levels", error)
+        throw error
+    }
+}
+
+export const seedMoves = async({name, type, category, pp, power, accuracy, learnedBy}) => {
+    try {
+        const response = await fetch(`${BASE_URL}/moves`, {
+            method: "POST",
+            headers :{
+                'Content-Type': "application/json"
+            },
+             body: JSON.stringify({
+            name: name,
+            type: type,
+            category: category,
+            pp: pp,
+            power: power,
+            accuracy: accuracy,
+            learnedBy: learnedBy
+             })
+        }).then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an error seeding the moves", error)
         throw error
     }
 }

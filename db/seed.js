@@ -1,7 +1,5 @@
 const client = require('./index.js')
-const {generateMoves } = require("./moves");
 const { dropTables, createTables} = require('./initdb')
-const moves = require('./moveObject')
 
 
 const generateInitialMoves = async () => {
