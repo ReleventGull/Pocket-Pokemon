@@ -83,7 +83,6 @@ const getPokemonById = async(id) => {
         ON pokemon.id=pokemonStats.pokemon_id
         WHERE pokemon.id = $1;
         `, [id])
-        console.log(pokemon)
         let pokeObject = {}
         for(let i = 0; i < pokemon.length; i++) {
             if (!pokeObject.id) {
@@ -103,13 +102,11 @@ const getPokemonById = async(id) => {
 }
 const createPlayerPokemon = async({name, onPlayer, exp, level, pokemon_id, user_id}) => {
     try {
-        console.log(exp)
         const {rows: [pokemon]} = await client.query(`
         INSERT INTO playerPokemon (name, "onPlayer", exp, level, pokemon_id, user_id)
         VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING *;
         `, [name, onPlayer, exp, level, pokemon_id, user_id])
-        console.log('POKEMON HERE', pokemon)
         return pokemon
     }catch(error) {
         console.error("There was an error creating the player pokemon", error)
@@ -130,6 +127,40 @@ const createPlayerPokmonStats = async({name, value, currentValue, effort, indivi
     }
 }
 
+const getUserPokemon = async(id) => {
+    try {
+        const {rows: pokemon} = await client.query(`
+        SELECT playerPokemon.*, playerPokemonStats.id AS "statId", playerPokemonStats.name AS "statName", playerPokemonStats.value, playerPokemonStats."currentValue", playerPokemonStats.effort, playerPokemonStats.individual
+        FROM playerPokemon
+        JOIN playerPokemonStats ON playerPokemon.id=playerPokemonStats.player_pokemon_id
+        WHERE playerPokemon.user_id=$1
+        `, [id])
+        let pokemonArray = []
+        let currentPokeObject = {}
+        for(let i = 0; i < pokemon.length; i++) {
+            if(!currentPokeObject.name) {
+                currentPokeObject.id = pokemon[i].id,
+                currentPokeObject.name = pokemon[i].name 
+                currentPokeObject.exp = pokemon[i].exp,
+                currentPokeObject.level = pokemon[i].level,
+                currentPokeObject.onPlayer = pokemon[i].onPlayer,
+                currentPokeObject.statObject = {}
+            }
+            currentPokeObject.statObject[pokemon[i].statName] = {id: pokemon[i].statId, value: pokemon[i].value, current_value: pokemon[i].currentValue}
+            if (i = pokemon.length - 1) {
+                pokemonArray.push(currentPokeObject)
+                currentPokeObject = {}
+            }
+        }
+        console.log('User pokemon here', currentPokeObject)
+        console.log(pokemonArray)
+        return pokemonArray
+    }catch(error){
+        console.error("There was an error getting the user pokemon", error)
+        throw error
+    }
+}
+
 
 module.exports = {
     createPokemon,
@@ -137,5 +168,6 @@ module.exports = {
     getStarters,
     getPokemonById,
     createPlayerPokemon,
-    createPlayerPokmonStats
+    createPlayerPokmonStats,
+    getUserPokemon
 }

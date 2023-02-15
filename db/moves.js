@@ -32,17 +32,21 @@ const getMoveByPokemon = async(name) => {
 
 const createPlayerPokemonMove = async({move_id, pokemon_id, current_pp}) => {
   try {
-    const {row: [move]} = await client.query(`
+    console.log("All values", move_id, pokemon_id, current_pp)
+    const {rows: [move]} = await client.query(`
     INSERT INTO playerPokemonMoves (move_id, pokemon_id, current_pp)
-    VALUES($1, )
-    `)
+    VALUES($1, $2, $3)
+    RETURNING *;
+    `, [move_id, pokemon_id, current_pp])
+    return move
   }catch(error){
-    console.error("There was an error creating the player pokemon mvoe", error)
+    console.error("There was an error creating the player pokemon mvee", error)
     throw error
   }
 }
 
 module.exports = {
   createMove,
-  getMoveByPokemon
+  getMoveByPokemon,
+  createPlayerPokemonMove
 };

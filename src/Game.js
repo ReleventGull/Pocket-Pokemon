@@ -6,7 +6,7 @@ import { fetchEncounteredPokemon } from "./apiCalls";
 
 
 const Game = ({pokemon, pokemonMoves}) => {
-  const [playerDefined, setPlayerDefined] = useState (false)
+  const [token, setToken] = useState (false)
   const [player, setPlayer] = useState([1, 3]);
   const [playerDirection, setPlayerDirection] = useState("left");
   const [encounter, setEncounter] = useState(false);
@@ -33,7 +33,7 @@ const Game = ({pokemon, pokemonMoves}) => {
   };
   useEffect(() => {
     const handler = function keyPress(e) {
-      if (!playerDefined) {
+      if (!token) {
         return
       }
       if (encounter === false) {
@@ -81,7 +81,7 @@ const Game = ({pokemon, pokemonMoves}) => {
         <h1 className="gameName">Pokemon!</h1>
       </header>
       <>
-      {playerDefined && playerPokemon ? 
+      {token && playerPokemon ? 
         <GameBoard
         encounter={encounter}
         playerDirection={playerDirection}
@@ -90,7 +90,7 @@ const Game = ({pokemon, pokemonMoves}) => {
         setEncounter={setEncounter}
         playerPokemon={playerPokemon}
         />:
-        <NameDisplay pokemonMoves={pokemonMoves} setPlayerDefined={setPlayerDefined} setplayerPokemon={setplayerPokemon}/>
+        <NameDisplay setToken={setToken} pokemonMoves={pokemonMoves}  setplayerPokemon={setplayerPokemon}/>
   }
 
 

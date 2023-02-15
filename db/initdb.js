@@ -65,7 +65,7 @@ const dropTables = async () => {
           );
           CREATE TABLE playerPokemon (
             id SERIAL PRIMARY KEY,
-            name VARCHAR(255) UNIQUE NOT NULL,
+            name VARCHAR(255) NOT NULL,
             "onPlayer" BOOLEAN default false,
             exp INTEGER NOT NULL,
             level INTEGER NOT NULL,
