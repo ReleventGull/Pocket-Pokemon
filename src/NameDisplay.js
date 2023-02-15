@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import select from "./audiofiles/select.mp3";
 import { fetchStarters } from "./apiCalls/index";
 import { registerUser, checkUser } from "./apiCalls/users";
-const NameDisplay = ({setplayerPokemon, setPlayerDefined, pokemonMoves}) => {
+const NameDisplay = ({setplayerPokemon, setToken}) => {
   
   const [starters, setStarters] = useState([])
   const [selectedStarter, setSelectedStarter] = useState()
@@ -47,6 +47,7 @@ const NameDisplay = ({setplayerPokemon, setPlayerDefined, pokemonMoves}) => {
   
   const handleRegister = async() => {
     let newUser = await registerUser({pokemonId: selectedStarter, password: password, username: username, name: name})
+    setToken(newUser.token)
   }
 
   useEffect(() => {
