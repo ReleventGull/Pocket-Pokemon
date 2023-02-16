@@ -39,3 +39,18 @@ export const registerUser = async({pokemonId, password, username, name}) => {
 
     }
 }
+
+export const fetchUserPokemon = async(token) => {
+    try {
+        const response = await fetch(`${BASE_URL}/player/pokemon`, {
+            method:"GET",
+            headers : {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(result => result.json())
+        return response
+    }catch(error){
+        console.error("There was an error fetching the use pokemon", error)
+        throw error
+    }
+}

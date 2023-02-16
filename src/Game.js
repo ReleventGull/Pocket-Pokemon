@@ -2,27 +2,37 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import {GameBoard, NameDisplay} from "./Exported";
 import { fetchEncounteredPokemon } from "./apiCalls";
+import { fetchUserPokemon } from "./apiCalls/users";
 
 
-
-const Game = ({pokemon, pokemonMoves}) => {
-  const [token, setToken] = useState (false)
+const Game = ({token, pokemon}) => {
   const [player, setPlayer] = useState([1, 3]);
   const [playerDirection, setPlayerDirection] = useState("left");
   const [encounter, setEncounter] = useState(false);
   const [pokemonEncountered, setPokemonEncounterd] = useState(null);
   const [playerPokemon, setplayerPokemon] = useState([])
- 
+
+  console.log(pokemon)
+  const getUserPokemon = async() => {
+    let userPokemon = await fetchUserPokemon(token)
+    console.log(userPokemon )
+    setplayerPokemon(userPokemon)
+    }
+   
+    useEffect(() => {
+    if(token) {
+       getUserPokemon()
+    }
+   }, [])
+  
   const pokemonEncounter = async() => {
     const randomPokemon = pokemon[Math.floor(Math.random() * pokemon.length)];
     const pokemonFromApi = await fetchEncounteredPokemon(randomPokemon)
-    playerPokemon['battleStats'] = playerPokemon.current_stats.slice(1)
     setPokemonEncounterd(pokemonFromApi);
   };
 
   const encounterChance = () => {
     let d = Math.random();
-    
     if(d > 0.8) {
        pokemonEncounter()
        if (pokemonEncounter) {
@@ -34,6 +44,7 @@ const Game = ({pokemon, pokemonMoves}) => {
   useEffect(() => {
     const handler = function keyPress(e) {
       if (!token) {
+        console.log('It no run?')
         return
       }
       if (encounter === false) {
@@ -81,24 +92,18 @@ const Game = ({pokemon, pokemonMoves}) => {
         <h1 className="gameName">Pokemon!</h1>
       </header>
       <>
-      {token && playerPokemon ? 
+        {
+        playerPokemon ? 
         <GameBoard
         encounter={encounter}
         playerDirection={playerDirection}
         player={player}
         pokemonEncountered={pokemonEncountered}
         setEncounter={setEncounter}
-        playerPokemon={playerPokemon}
-        />:
-        <NameDisplay setToken={setToken} pokemonMoves={pokemonMoves}  setplayerPokemon={setplayerPokemon}/>
+        playerPokemon={playerPokemon} />
+        :
+        <h3>Loading ...</h3>
   }
-
-
-        
-       
-        
-        
-        
       </>
     </main>
   );

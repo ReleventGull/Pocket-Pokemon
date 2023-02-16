@@ -1,27 +1,30 @@
 
  function generateIvs(pokemon) {
-    for(let i = 0; i < 6; i++) {
-        let randomIV = Math.floor(Math.random() * 31)
-        pokemon.stats[i]['individual'] = randomIV
-      }
+  for(let key in pokemon.stats) {
+    let randomIV = Math.floor(Math.random() * 31)
+    pokemon.stats[key]['individual'] = randomIV
+  }
       return pokemon
   }
   
   
  function generateHP(pokemon) {
-    pokemon.current_stats = []
-      const hp = Math.floor((((2 * pokemon.stats[0].base_stat + pokemon.stats[0].individual + (pokemon.stats[0].effort/4)) * pokemon.current_level)/100) + pokemon.current_level + 10)
-      pokemon.current_stats.push({hp: hp})
+      const hp = Math.floor((((2 * pokemon.stats.hp.value + pokemon.stats.hp.individual + (pokemon.stats.hp.effort/4)) * pokemon.level)/100) + pokemon.level + 10)
+      console.log('Health', hp)
+      pokemon.stats.hp.value = hp
+      pokemon.stats.hp.current_value = hp
       return pokemon
   }
   
  function generateStats(pokemon) {
-    for(let i = 1; i < 6; i++) {
-      let objectToPush = {}
-      const stat = Math.floor(((((2 * pokemon.stats[i].base_stat + pokemon.stats[i].individual + (pokemon.stats[i].effort/4)) * pokemon.current_level)/100) + 5))
-      let currentName = pokemon.stats[i].stat.name
-      objectToPush[currentName] =  stat
-      pokemon.current_stats.push(objectToPush)
+    for(let key in pokemon.stats) {
+      if (key == 'hp') {
+        console.log("Skip HP")
+        continue
+      }
+      const stat = Math.floor(((((2 * pokemon.stats[key].value + pokemon.stats[key].individual + (pokemon.stats[key].effort/4)) * pokemon.level)/100) + 5))
+      pokemon.stats[key].value = stat
+      pokemon.stats[key].current_value = stat
      
     }
     return pokemon

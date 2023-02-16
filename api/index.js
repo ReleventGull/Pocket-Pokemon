@@ -1,5 +1,6 @@
 const express = require('express')
 const apiRouter = express.Router()
+const jwt = require('jsonwebtoken')
 const {JWT_SECRET} = process.env
 const {getUserById} = require('../db/users')
 
@@ -8,7 +9,9 @@ apiRouter.use(async(req, res, next) => {
     const auth = req.header('Authorization')
     if(auth) {
         try {
-            const [ , token] = auth
+            let tok = auth.split(' ')
+            const [,token] = tok
+            console.log("Token here", token)
             const {id} = jwt.verify(token, JWT_SECRET)
             req.user = await getUserById(id)
             next()

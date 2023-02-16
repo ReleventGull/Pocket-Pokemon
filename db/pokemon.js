@@ -137,23 +137,24 @@ const getUserPokemon = async(id) => {
         `, [id])
         let pokemonArray = []
         let currentPokeObject = {}
+        console.log('Length right here', pokemon.length)
         for(let i = 0; i < pokemon.length; i++) {
+       
             if(!currentPokeObject.name) {
                 currentPokeObject.id = pokemon[i].id,
                 currentPokeObject.name = pokemon[i].name 
                 currentPokeObject.exp = pokemon[i].exp,
                 currentPokeObject.level = pokemon[i].level,
                 currentPokeObject.onPlayer = pokemon[i].onPlayer,
-                currentPokeObject.statObject = {}
+                currentPokeObject.stats = {}
             }
-            currentPokeObject.statObject[pokemon[i].statName] = {id: pokemon[i].statId, value: pokemon[i].value, current_value: pokemon[i].currentValue}
-            if (i = pokemon.length - 1) {
+            currentPokeObject.stats[pokemon[i].statName] = {id: pokemon[i].statId, value: pokemon[i].value, current_value: pokemon[i].currentValue}
+            console.log('Current Object', currentPokeObject)
+            if (i == pokemon.length - 1 || currentPokeObject !== pokemon[i].id) {
                 pokemonArray.push(currentPokeObject)
                 currentPokeObject = {}
             }
         }
-        console.log('User pokemon here', currentPokeObject)
-        console.log(pokemonArray)
         return pokemonArray
     }catch(error){
         console.error("There was an error getting the user pokemon", error)
