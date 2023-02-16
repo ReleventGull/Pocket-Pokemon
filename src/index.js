@@ -4,21 +4,20 @@ import ReactDOM from "react-dom/client";
 import {fetchAllPokemon, fetchAllMoves} from "./apiCalls/index"
 import { uploadLevels, uploadingPokemon, fetchPokemonById, fetchPokemonRates, fetchPokemonLevels, fetchMoves, seedMoves } from "./apiCalls/seedApi";
 import Game from './Game';
-
+import NameDisplay from "./NameDisplay";
 
 
 
 
 const App = () => {
+    const [token, setToken] = useState(window.localStorage.getItem('token') || '')
     const [isLoaded, setIsLoaded] = useState(false);
     const [pokemon, setPokemon] = useState([]);
-    const [pokemonMoves, setPokemonMoves] = useState([])
-    const [starters, setStarters] = useState([])
     const [loadBar, setLoadBar] = useState(0)
     //For seeding all the pokemon, acts as a toggle. If pokemon is present in the database, set to false, if not , set to true
     const [seedData, setSeedData] = useState(false)
     //
-    let numberofPokemon = 10
+    let numberofPokemon = 100
     
     
     const seedPokemon = async() => {
@@ -82,19 +81,26 @@ const App = () => {
       let allPokemon = await fetchAllPokemon()
       setPokemon(allPokemon)
       setIsLoaded(true)
-      console.log(allPokemon)
+
     }
     
     useEffect(() => {
       if(seedData) {
+        window.localStorage.removeItem('token')
         seedPokeData()
       }else {
         fetchGameData()
       }
     }, [])
+
+
     return (
-    isLoaded && starters && pokemon? 
-    <Game  starters={starters} pokemonMoves={pokemonMoves} pokemon={pokemon}/>:
+    isLoaded && pokemon ? 
+    token ?
+    <Game token={token} pokemon={pokemon}/>
+    : 
+    <NameDisplay setToken={setToken}/>
+    :
     <div className='loadingBar'>
       <h1 >Loading...</h1>
     <progress value={loadBar} max='1'></progress>

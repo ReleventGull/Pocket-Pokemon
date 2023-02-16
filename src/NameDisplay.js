@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import select from "./audiofiles/select.mp3";
 import { fetchStarters } from "./apiCalls/index";
-import { registerUser, checkUser } from "./apiCalls/users";
-const NameDisplay = ({setplayerPokemon, setToken}) => {
-  
+import { registerUser, checkUser} from "./apiCalls/users";
+
+
+const NameDisplay = ({setToken}) => {
+
   const [starters, setStarters] = useState([])
   const [selectedStarter, setSelectedStarter] = useState()
-  
   const [register, setRegister] = useState(false)
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
@@ -48,11 +49,15 @@ const NameDisplay = ({setplayerPokemon, setToken}) => {
   const handleRegister = async() => {
     let newUser = await registerUser({pokemonId: selectedStarter, password: password, username: username, name: name})
     setToken(newUser.token)
+    localStorage.setItem('token', newUser.token)
   }
 
   useEffect(() => {
     getStarters()
   }, [])
+
+
+  //ACTIONS THAT WILL TAKE PLACE IF THE TOKEN IS DEFINED
 
 
 
@@ -87,8 +92,6 @@ const NameDisplay = ({setplayerPokemon, setToken}) => {
       </div>
     {selectedStarter  ? <button onClick={handleRegister} className='submitName'>Play!</button> : null}
   </div>
-
-  
   );
 };
 

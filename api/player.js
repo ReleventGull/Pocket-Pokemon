@@ -1,7 +1,7 @@
 const express = require('express')
 const playerRouter = express.Router()
 const { generateHP, generateIvs, generateStats } = require('./statFunctions')
-
+const {getUserPokemon} = require('../db/pokemon')
 
 playerRouter.post('/selectStarter', async (req, res, next) => {
     try {
@@ -15,6 +15,16 @@ playerRouter.post('/selectStarter', async (req, res, next) => {
     res.send(pokemon)
     }catch(error) {
         console.error("there was an error generating the start for the player", )
+    }
+})
+
+playerRouter.get('/pokemon', async (req, res, next) => {
+    try {
+        const userPokemon = await getUserPokemon(req.user.id)
+        res.send(userPokemon)
+    }catch(error) {
+        console.error("There was an error getting the player pokemon in the API", error)
+        throw error
     }
 })
 
