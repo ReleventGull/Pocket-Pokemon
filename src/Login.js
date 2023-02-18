@@ -23,7 +23,6 @@ const handleLogin = async (e) => {
             username: username,
             password: password
         })
-        console.log(response)
         if(response.error) {
             setErrorMesage(response.message)
         }else {

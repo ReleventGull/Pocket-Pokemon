@@ -44,9 +44,25 @@ const createPlayerPokemonMove = async({move_id, pokemon_id, current_pp}) => {
     throw error
   }
 }
+const getPlayerPokemonMove = async(id) => {
+  try {
+    const {rows: moves} = await 
+    client.query(`
+    SELECT playerPokemonMoves.id, playerPokemonMoves.current_pp, pokemoves.name, pokemoves.type, pokemoves.category, pokemoves.pp, pokemoves.power, pokemoves.accuracy
+    FROM playerPokemonMoves
+    JOIN pokemoves ON playerPokemonMoves.move_id=pokemoves.id
+    WHERE playerPokemonMoves.pokemon_id=$1;
+    ` , [id])
+   return moves
+  }catch(error) {
+    console.error("There was an error getting the player pokemon by the id", id)
+    throw error
+  }
+}
 
 module.exports = {
   createMove,
   getMoveByPokemon,
-  createPlayerPokemonMove
+  createPlayerPokemonMove,
+  getPlayerPokemonMove
 };
