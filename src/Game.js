@@ -11,11 +11,11 @@ const Game = ({token, pokemon}) => {
   const [encounter, setEncounter] = useState(false);
   const [pokemonEncountered, setPokemonEncounterd] = useState(null);
   const [playerPokemon, setplayerPokemon] = useState([])
+  const [allowMove, setAllowMove] = useState(false)
 
-  console.log(pokemon)
+
   const getUserPokemon = async() => {
     let userPokemon = await fetchUserPokemon(token)
-    console.log(userPokemon )
     setplayerPokemon(userPokemon)
     }
    
@@ -42,9 +42,11 @@ const Game = ({token, pokemon}) => {
     }
   };
   useEffect(() => {
+    setAllowMove(true)
+  }, [])
+  useEffect(() => {
     const handler = function keyPress(e) {
-      if (!token) {
-        console.log('It no run?')
+      if (!allowMove) {
         return
       }
       if (encounter === false) {
@@ -100,7 +102,9 @@ const Game = ({token, pokemon}) => {
         player={player}
         pokemonEncountered={pokemonEncountered}
         setEncounter={setEncounter}
-        playerPokemon={playerPokemon} />
+        playerPokemon={playerPokemon} 
+        setAllowMove={setAllowMove}
+        />
         :
         <h3>Loading ...</h3>
   }

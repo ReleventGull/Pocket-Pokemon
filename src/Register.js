@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate, Link} from "react-router-dom";
 import select from "./audiofiles/select.mp3";
 import { fetchStarters } from "./apiCalls/index";
 import { registerUser, checkUser} from "./apiCalls/users";
 
 
-const NameDisplay = ({setToken}) => {
+const Register = ({setToken}) => {
 
   const [starters, setStarters] = useState([])
   const [selectedStarter, setSelectedStarter] = useState()
@@ -14,7 +15,8 @@ const NameDisplay = ({setToken}) => {
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
   const [errorMesage, setErrorMesage] = useState('')
-
+  
+  const navigate = useNavigate()
   let selectSound = new Audio(select)
   
   const handlePokemonSelect = async(name) => {
@@ -48,8 +50,15 @@ const NameDisplay = ({setToken}) => {
   
   const handleRegister = async() => {
     let newUser = await registerUser({pokemonId: selectedStarter, password: password, username: username, name: name})
-    setToken(newUser.token)
-    localStorage.setItem('token', newUser.token)
+    if (newUser.error) {
+      alert(newUser.error)
+    }else {
+      setToken(newUser.token)
+      localStorage.setItem('token', newUser.token)
+      navigate('/')
+  
+    }
+  
   }
 
   useEffect(() => {
@@ -65,6 +74,7 @@ const NameDisplay = ({setToken}) => {
   return (
     <div id='definePlayerPokemon'>
     <div className="starterPage">
+    <p>Already have an account? <Link to='/login'>Login</Link></p>
     <h2>Welcome!</h2>
       <form className='registerForm'>
         <label>Username</label>
@@ -76,8 +86,12 @@ const NameDisplay = ({setToken}) => {
         <label>Nickname</label>
         <input type='username' onChange={(event) => setName(event.target.value)} value={name} disabled={register ? true : false}></input>
       </form>
-      <h2>{errorMesage}</h2>
-      {!register ? <button className='confirmRegister' onClick={() => handleAccountConfirm()}>Confirm!</button>: 
+      <h2 className="errorMessage">{errorMesage}</h2>
+      {!register ? 
+      <>
+      <button className='confirmRegister' onClick={() => handleAccountConfirm()}>Confirm!</button>
+      </>
+      : 
       <button onClick={() => {setSelectedStarter(null), setRegister(false)}}className="cancelButton">Cancel</button>
       }
       <div id='pokemonStarters'>
@@ -95,4 +109,4 @@ const NameDisplay = ({setToken}) => {
   );
 };
 
-export default NameDisplay;
+export default Register;
