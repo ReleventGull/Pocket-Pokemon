@@ -1,3 +1,5 @@
+import { json } from "react-router-dom";
+
 const BASE_URL = "http://localhost:4000/api";
 
 
@@ -37,6 +39,25 @@ export const registerUser = async({pokemonId, password, username, name}) => {
         return response
     }catch(error) {
 
+    }
+}
+
+export const loginUser = async ({username, password}) => {
+    try {
+        const response = await fetch(`${BASE_URL}/users/login`, {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                username, 
+                password
+            })
+        }).then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an error login in the user", error)
+        throw error
     }
 }
 

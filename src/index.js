@@ -4,8 +4,9 @@ import ReactDOM from "react-dom/client";
 import {fetchAllPokemon} from "./apiCalls/index"
 import { uploadLevels, uploadingPokemon, fetchPokemonById, fetchPokemonRates, fetchPokemonLevels, fetchMoves, seedMoves } from "./apiCalls/seedApi";
 import Game from './Game';
-import Register from "./Register";
-import e from "cors";
+import {Register, Login} from "./Exported";
+
+
 
 
 
@@ -98,7 +99,7 @@ const App = () => {
       if (!token) {
         navigate('/register')
       }
-    })
+    }, [])
     
     // isLoaded && pokemon ? 
     // token ?
@@ -107,6 +108,7 @@ const App = () => {
    <Routes>
     <Route path='/' element={<Game token={token} pokemon={pokemon}/>}/>
     <Route path='/register' element={<Register setToken={setToken}/>}/>
+    <Route path='/login' element={<Login setToken={setToken} />}/>
   </Routes>
     );
 }
