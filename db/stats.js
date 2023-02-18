@@ -1,7 +1,7 @@
 const client = require('./index')
 
 
-const createPokemonStats= async({name, value, effort, pokemon_id}) => {
+const createPokemonStats = async({name, value, effort, pokemon_id}) => {
     try {
         const {rows: [stat]} = await client.query(`
         INSERT INTO pokemonStats(name, value, effort, pokemon_id)

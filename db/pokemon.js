@@ -115,11 +115,13 @@ const createPlayerPokemon = async({name, onPlayer, exp, level, pokemon_id, user_
 }
 const createPlayerPokmonStats = async({name, value, currentValue, effort, individual, player_pokemon_id}) => {
     try {
+        console.log(individual)
         const {rows: stats} = await client.query(`
         INSERT INTO playerPokemonStats (name, value, "currentValue", effort, individual, player_pokemon_id)
         VALUES($1, $2, $3, $4, $5, $6)
         RETURNING *;
         `, [name, value, currentValue, effort, individual, player_pokemon_id])
+        console.log(stats)
         return stats
     }catch(error) {
         console.error("There was an error creating the player pokemon stats", error)
@@ -137,7 +139,7 @@ const getUserPokemon = async(id) => {
         `, [id])
         let pokemonArray = []
         let currentPokeObject = {}
-        console.log('Length right here', pokemon.length)
+      
         for(let i = 0; i < pokemon.length; i++) {
        
             if(!currentPokeObject.name) {
@@ -148,13 +150,13 @@ const getUserPokemon = async(id) => {
                 currentPokeObject.onPlayer = pokemon[i].onPlayer,
                 currentPokeObject.stats = {}
             }
-            currentPokeObject.stats[pokemon[i].statName] = {id: pokemon[i].statId, value: pokemon[i].value, current_value: pokemon[i].currentValue}
-            console.log('Current Object', currentPokeObject)
-            if (i == pokemon.length - 1 || currentPokeObject !== pokemon[i].id) {
+            currentPokeObject.stats[pokemon[i].statName] = {id: pokemon[i].statId, value: pokemon[i].value, current_value: pokemon[i].currentValue, IV :pokemon[i].in}
+            if (i == pokemon.length - 1 || currentPokeObject.id !== pokemon[i].id) {
                 pokemonArray.push(currentPokeObject)
                 currentPokeObject = {}
             }
         }
+        console.log('pokemon array', pokemonArray)
         return pokemonArray
     }catch(error){
         console.error("There was an error getting the user pokemon", error)

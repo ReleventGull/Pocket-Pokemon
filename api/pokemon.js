@@ -7,7 +7,6 @@ const {createPokemonStats} = require('../db/stats')
 pokeRouter.get('/starters', async(req, res, next) => {
   try {
    let starters =  await getStarters()
-   console.log(starters)
    res.send(starters)
   }catch(error) {
     console.error("there was an error getting the pokemon starts", error)
