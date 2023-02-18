@@ -1,10 +1,11 @@
-import e from "cors";
 import React, { useEffect, useState } from "react";
+import {BrowserRouter, Routes, Route, useNavigate} from 'react-router-dom'
 import ReactDOM from "react-dom/client";
-import {fetchAllPokemon, fetchAllMoves} from "./apiCalls/index"
+import {fetchAllPokemon} from "./apiCalls/index"
 import { uploadLevels, uploadingPokemon, fetchPokemonById, fetchPokemonRates, fetchPokemonLevels, fetchMoves, seedMoves } from "./apiCalls/seedApi";
 import Game from './Game';
-import NameDisplay from "./NameDisplay";
+import Register from "./Register";
+import e from "cors";
 
 
 
@@ -17,6 +18,7 @@ const App = () => {
     //For seeding all the pokemon, acts as a toggle. If pokemon is present in the database, set to false, if not , set to true
     const [seedData, setSeedData] = useState(false)
     //
+    const navigate = useNavigate()
     let numberofPokemon = 100
     
     
@@ -92,22 +94,27 @@ const App = () => {
         fetchGameData()
       }
     }, [])
-
+    useEffect(() => {
+      if (!token) {
+        navigate('/register')
+      }
+    })
+    
+    // isLoaded && pokemon ? 
+    // token ?
 
     return (
-    isLoaded && pokemon ? 
-    token ?
-    <Game token={token} pokemon={pokemon}/>
-    : 
-    <NameDisplay setToken={setToken}/>
-    :
-    <div className='loadingBar'>
-      <h1 >Loading...</h1>
-    <progress value={loadBar} max='1'></progress>
-    </div>
+   <Routes>
+    <Route path='/' element={<Game token={token} pokemon={pokemon}/>}/>
+    <Route path='/register' element={<Register setToken={setToken}/>}/>
+  </Routes>
     );
 }
 
 
 const root = ReactDOM.createRoot(document.getElementById("app"));
-root.render(<App />);
+root.render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+);

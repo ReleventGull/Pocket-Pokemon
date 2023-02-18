@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import select from "./audiofiles/select.mp3";
 import { fetchStarters } from "./apiCalls/index";
 import { registerUser, checkUser} from "./apiCalls/users";
 
 
-const NameDisplay = ({setToken}) => {
+const Register = ({setToken}) => {
 
   const [starters, setStarters] = useState([])
   const [selectedStarter, setSelectedStarter] = useState()
@@ -14,7 +15,8 @@ const NameDisplay = ({setToken}) => {
   const [password, setPassword] = useState('')
   const [password2, setPassword2] = useState('')
   const [errorMesage, setErrorMesage] = useState('')
-
+  
+  const navigate = useNavigate()
   let selectSound = new Audio(select)
   
   const handlePokemonSelect = async(name) => {
@@ -48,8 +50,15 @@ const NameDisplay = ({setToken}) => {
   
   const handleRegister = async() => {
     let newUser = await registerUser({pokemonId: selectedStarter, password: password, username: username, name: name})
-    setToken(newUser.token)
-    localStorage.setItem('token', newUser.token)
+    if (newUser.error) {
+      alert(newUser.error)
+    }else {
+      setToken(newUser.token)
+      localStorage.setItem('token', newUser.token)
+      navigate('/')
+  
+    }
+  
   }
 
   useEffect(() => {
@@ -95,4 +104,4 @@ const NameDisplay = ({setToken}) => {
   );
 };
 
-export default NameDisplay;
+export default Register;

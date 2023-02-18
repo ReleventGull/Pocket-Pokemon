@@ -1,5 +1,5 @@
 import React, { useState, useEffect} from "react";
-
+import { Link } from "react-router-dom";
 import Encounter from './Encounter'
 const GameBoard = ({
   player,
@@ -16,6 +16,7 @@ const GameBoard = ({
   encounter ? 
   <Encounter encounter={encounter} pokemonEncountered={pokemonEncountered} setEncounter={setEncounter} playerPokemon={playerPokemon}/>
   :
+  <>
     <div id='grid'>
         <table>
           {rows.map((eachRow, rowIndex) => (
@@ -32,7 +33,13 @@ const GameBoard = ({
           ))}
         </table>
         </div>
-  
+  <div className="settingsBox">
+    <button>Pokemon</button>
+    <button>Pokedex</button>
+    <button>Settings</button>
+    <button>Settings</button>
+  </div>
+  </>
     
   )
 }

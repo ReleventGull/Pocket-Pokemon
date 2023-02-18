@@ -404,7 +404,26 @@ border-radius: 10%;
     border-radius: 7%;
 }
 
+.settingsBox {
+    background-color: black;
+    margin-top: 10px;
+    height: 180px;
+    width: 1000px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
 
+.settingsBox button {
+    width: 50%;
+    color: white;
+    text-decoration: none;
+    background-color: tan;
+    text-align: center;
+    height: 50%;
+}
 
 
 
