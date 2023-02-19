@@ -8,7 +8,8 @@ const GameBoard = ({
   pokemonEncountered,
   setEncounter,
   playerPokemon,
-  setAllowMove
+  setAllowMove,
+  setPokemonEncounterd
 }) => {
   const [rows, setRows] = useState(Array(20).fill("1"));
   const [columns, setColumns] = useState(Array(20).fill("1"));
@@ -16,7 +17,7 @@ const GameBoard = ({
   
   return (
   encounter ? 
-  <Encounter encounter={encounter} pokemonEncountered={pokemonEncountered} setEncounter={setEncounter} playerPokemon={playerPokemon}/>
+  <Encounter setPokemonEncounterd={setPokemonEncounterd} encounter={encounter} pokemonEncountered={pokemonEncountered} setEncounter={setEncounter} playerPokemon={playerPokemon}/>
   :
   <>
   {display == 'settings' ? 

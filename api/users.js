@@ -14,7 +14,6 @@ userRouter.post('/register', async(req, res, next) => {
         let pokemonMoves = await getMoveByPokemon(pokemonById.name)
         let attackMoves = pokemonMoves.filter(move => move.power > 0)
         let randomMove = attackMoves[Math.floor(Math.random() * attackMoves.length)]
-        console.log('Random move here', randomMove)
 
         const newUser = await createUser({name:name, username:username, password:password})
         const createdUser = await getUserById(newUser.id)
@@ -26,7 +25,6 @@ userRouter.post('/register', async(req, res, next) => {
             user_id: createdUser.id,
             level: 1
         })
-        console.log('Player pokemon here', newPlayerPokemon.id)
         const playerPokeMove = await createPlayerPokemonMove({
             move_id:randomMove.id,
             pokemon_id: newPlayerPokemon.id,

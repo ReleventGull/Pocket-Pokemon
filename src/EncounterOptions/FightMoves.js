@@ -1,18 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { fetchPokemonMovesById } from "../apiCalls/userPokemon";
-
-const FightMoves = ({setView, playerPokemon}) => {
+import {attack} from '../apiCalls/battle'
+const FightMoves = ({setView, playerPokemon, pokemonEncountered, setPokemonEncounterd, setEncounter}) => {
   const [pokemonMoves, setPokemonMoves] = useState([])
   
   const fetchPokemonMoves = async() => {
-    console.log(playerPokemon[0].id)
     let moves = await fetchPokemonMovesById(playerPokemon[0].id)
-    console.log(moves)
     setPokemonMoves(moves)
   }
   useEffect(() => {
     fetchPokemonMoves()
   }, [])
+  
+  const handleMoveClick = async(move) => {
+    let resultOfAttack = await attack({attackingPokemon: playerPokemon[0], defendingPokemon:pokemonEncountered, move:move})
+
+    if(resultOfAttack.pokemon.stats.hp.current_value < 0) {
+      setEncounter(false)
+    }
+    setPokemonEncounterd(resultOfAttack.pokemon)
+
+  }
+
   return (
     pokemonMoves.length > 0 ?
     <>
@@ -20,7 +29,7 @@ const FightMoves = ({setView, playerPokemon}) => {
       
     {
      pokemonMoves.map(move => 
-       <div className="fightButton">
+       <div key={move.id} onClick={() => handleMoveClick(move)} className="fightButton">
          <p>{move.name}</p>
          <p>power: {move.power}</p>
          <p>PP:{move.current_pp}/{move.pp}</p>
