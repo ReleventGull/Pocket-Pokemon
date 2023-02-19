@@ -6,6 +6,7 @@ const Encounter = ({
   pokemonEncountered,
   setEncounter,
   playerPokemon,
+  setPokemonEncounterd,
   encounter,
 }) => {
   const [playerTurn, setPlayerTurn] = useState(1)
@@ -69,7 +70,7 @@ const Encounter = ({
           
         </div>
         {view == '' ? <FightOptions setEncounter={setEncounter} setView={setView}/>: null}
-        {view == 'fight' ? <FightMoves setView={setView} playerPokemon={playerPokemon}/>: null}
+        {view == 'fight' ? <FightMoves setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} playerPokemon={playerPokemon}/>: null}
   
 
 

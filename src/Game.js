@@ -104,6 +104,7 @@ const Game = ({token, pokemon}) => {
         setEncounter={setEncounter}
         playerPokemon={playerPokemon} 
         setAllowMove={setAllowMove}
+        setPokemonEncounterd={setPokemonEncounterd}
         />
         :
         <h3>Loading ...</h3>

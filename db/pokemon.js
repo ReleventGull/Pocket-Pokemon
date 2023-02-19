@@ -17,7 +17,7 @@ const createPokemon = async({name, type1, type2, catchRate, isLegendary, isMythi
 const getAllPokemon = async () => {
     try {
     const {rows: pokemon} = await client.query(`
-    SELECT pokemon.id, pokemon.name, pokemon.type1, pokemon.type2, pokemon."catchRate", pokemon."isLegendary", pokemon."isMythical", pokemon."baseExperience", pokemon.experience_rate, 
+    SELECT pokemon.id AS pokemon_id, pokemon.name, pokemon.type1, pokemon.type2, pokemon."catchRate", pokemon."isLegendary", pokemon."isMythical", pokemon."baseExperience", pokemon.experience_rate, 
     experience.name AS experience_type
     FROM pokemon
     JOIN experience ON pokemon.experience_rate=experience.id
@@ -38,7 +38,7 @@ const getAllPokemon = async () => {
     currentPokemonObject['levels'] = []
     currentPokemonObject['stats'] = {}
     for(let b = 0; b < stats.length; b++) {
-        if (stats[b].pokemon_id == currentPokemon.id) {
+        if (stats[b].pokemon_id == currentPokemon.pokemon_id) {
             currentPokemonObject.stats[stats[b].name] = {value: stats[b].value, effort: stats[b].effort}
         }
     }
@@ -115,13 +115,11 @@ const createPlayerPokemon = async({name, onPlayer, exp, level, pokemon_id, user_
 }
 const createPlayerPokmonStats = async({name, value, currentValue, effort, individual, player_pokemon_id}) => {
     try {
-        console.log(individual)
         const {rows: stats} = await client.query(`
         INSERT INTO playerPokemonStats (name, value, "currentValue", effort, individual, player_pokemon_id)
         VALUES($1, $2, $3, $4, $5, $6)
         RETURNING *;
         `, [name, value, currentValue, effort, individual, player_pokemon_id])
-        console.log(stats)
         return stats
     }catch(error) {
         console.error("There was an error creating the player pokemon stats", error)
@@ -139,27 +137,42 @@ const getUserPokemon = async(id) => {
         `, [id])
         let pokemonArray = []
         let currentPokeObject = {}
-      
+        console.log('Length right here', pokemon.length)
         for(let i = 0; i < pokemon.length; i++) {
        
             if(!currentPokeObject.name) {
                 currentPokeObject.id = pokemon[i].id,
+                currentPokeObject.pokemon_id = pokemon[i].pokemon_id
                 currentPokeObject.name = pokemon[i].name 
                 currentPokeObject.exp = pokemon[i].exp,
                 currentPokeObject.level = pokemon[i].level,
                 currentPokeObject.onPlayer = pokemon[i].onPlayer,
                 currentPokeObject.stats = {}
             }
-            currentPokeObject.stats[pokemon[i].statName] = {id: pokemon[i].statId, value: pokemon[i].value, current_value: pokemon[i].currentValue, IV :pokemon[i].in}
+            currentPokeObject.stats[pokemon[i].statName] = {id: pokemon[i].statId, value: pokemon[i].value, current_value: pokemon[i].currentValue}
             if (i == pokemon.length - 1 || currentPokeObject.id !== pokemon[i].id) {
                 pokemonArray.push(currentPokeObject)
                 currentPokeObject = {}
             }
         }
-        console.log('pokemon array', pokemonArray)
+        console.log(pokemonArray)
         return pokemonArray
     }catch(error){
         console.error("There was an error getting the user pokemon", error)
+        throw error
+    }
+}
+
+const getPokemonTypes = async(id) => {
+    try {
+        const {rows: [types]} = await client.query(`
+        SELECT pokemon.type1, pokemon.type2
+        FROM pokemon
+        WHERE id=$1
+        `, [id])
+        return types
+    }catch(error) {
+        console.error("There was an error getting the pokemon types" ,error)
         throw error
     }
 }
@@ -172,5 +185,6 @@ module.exports = {
     getPokemonById,
     createPlayerPokemon,
     createPlayerPokmonStats,
-    getUserPokemon
+    getUserPokemon,
+    getPokemonTypes
 }

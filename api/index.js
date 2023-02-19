@@ -11,7 +11,6 @@ apiRouter.use(async(req, res, next) => {
         try {
             let tok = auth.split(' ')
             const [,token] = tok
-            console.log("Token here", token)
             const {id} = jwt.verify(token, JWT_SECRET)
             req.user = await getUserById(id)
             next()
