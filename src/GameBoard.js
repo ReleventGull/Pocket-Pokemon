@@ -44,7 +44,7 @@ const GameBoard = ({
     <div className="settingsBox">
       <button>Pokemon</button>
       <button>Pokedex</button>
-      <button>Settings</button>
+      <button>Shop</button>
       <button onClick={() => {
       setAllowMove(false),
       setDisplay('settings')

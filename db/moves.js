@@ -60,9 +60,24 @@ const getPlayerPokemonMove = async(id) => {
   }
 }
 
+const getMovesByPokemon = async (name) => {
+  try {
+    const {rows: moves} = await client.query(`
+    SELECT name, type, category, pp, power, accuracy
+    FROM pokemoves
+    WHERE "learnedBy"=$1
+    `, [name])
+    return moves
+  }catch(error){
+    console.error("There was an error gettign the moves by the pokemon", error)
+    throw error
+  }
+}
+
 module.exports = {
   createMove,
   getMoveByPokemon,
   createPlayerPokemonMove,
-  getPlayerPokemonMove
+  getPlayerPokemonMove,
+  getMovesByPokemon
 };
