@@ -1,7 +1,8 @@
 const express = require('express')
 const encounterRouter = express.Router()
-const { generateHP, generateIvs, generateStats } = require('./statFunctions')
+const { generateHP, generateIvs, generateStats, generateRandomMoves} = require('./statFunctions')
 const {getPokemonTypes} = require('../db/pokemon')
+const {getMovesByPokemon} = require('../db/moves')
 const {damage, typeTable} = require('./battle')
 
 encounterRouter.post('/attack' , async (req, res, next) => {
@@ -18,8 +19,10 @@ encounterRouter.post('/attack' , async (req, res, next) => {
     }else {
         crit = 1
     } 
-    const returnPokmon = damage({attackingTypes: attackingPokemonTypes, defendingTypes: defendingPokemonTypes, pokemonAttacking:attackingPokemon, pokemondefending:defendingPokemon, move:move, critical: crit})
-    res.send({pokemon: returnPokmon})
+    const returnPokemon = damage({attackingTypes: attackingPokemonTypes, defendingTypes: defendingPokemonTypes, pokemonAttacking:attackingPokemon, pokemondefending:defendingPokemon, move:move, critical: crit})
+    
+    
+    res.send({pokemon: returnPokemon})
     }catch(error) {
         console.error("There was an erroring posting to /attack in the backend API", error)
         throw error
@@ -30,18 +33,27 @@ encounterRouter.post('/encounterPokemon', async (req, res, next) => {
     try {
     const {pokemon} = req.body
     const randomLevel = pokemon.levels[Math.floor((Math.random() * 99))]
-  
+        
     pokemon['level'] = randomLevel.level
     pokemon['exp'] = randomLevel.exp
     pokemon['isWild'] = true
+    pokemon['moves'] = []
+    //generate the moves of the pokemon
+    
+
     //Generate The Ivs Of the Pokemon
+    
     generateIvs(pokemon)
     
     //Generate The Hp For The Pokemon
     generateHP(pokemon)
    
     //Generate The Stats of the Random Pokemon
+    
     generateStats(pokemon)
+
+    await generateRandomMoves(pokemon)
+    console.log('POKEMON HERE', pokemon)
     res.send(pokemon)
     }catch(error) {
         console.error("there was an error with encounter pokemon API", error)

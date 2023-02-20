@@ -14,7 +14,7 @@ const Encounter = ({
 
 
 
-  
+  console.log(pokemonEncountered)
   return (
     pokemonEncountered  ?
     <div id="grid-encoutner">

@@ -1,5 +1,6 @@
-
- function generateIvs(pokemon) {
+const {getMovesByPokemon} = require('../db/moves')
+ 
+function generateIvs(pokemon) {
   for(let key in pokemon.stats) {
     let randomIV = Math.floor(Math.random() * 31)
     pokemon.stats[key]['individual'] = randomIV
@@ -28,10 +29,21 @@
     return pokemon
   }
   
+  async function generateRandomMoves (pokemon)  {
+      let moves =  await getMovesByPokemon(pokemon.name)
+
+      for(let i = 1; i < 4; i++) {
+        let randomMove = moves[Math.floor(Math.random() * moves.length)]
+        pokemon.moves.push(randomMove)
+      }
+      return pokemon
+  }
+  
   module.exports = {
     generateHP,
     generateIvs,
-    generateStats
+    generateStats,
+    generateRandomMoves
   }
   
   

@@ -14,12 +14,10 @@ const FightMoves = ({setView, playerPokemon, pokemonEncountered, setPokemonEncou
   
   const handleMoveClick = async(move) => {
     let resultOfAttack = await attack({attackingPokemon: playerPokemon[0], defendingPokemon:pokemonEncountered, move:move})
-
     if(resultOfAttack.pokemon.stats.hp.current_value < 0) {
       setEncounter(false)
     }
     setPokemonEncounterd(resultOfAttack.pokemon)
-
   }
 
   return (

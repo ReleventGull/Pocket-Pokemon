@@ -56,7 +56,6 @@ const App = () => {
     const fetchSeedMoves = async() => {
       for(let b = 1; b <= 60; b++) {
         const result = await fetchMoves(b)
-        console.log(result.accuracy, b)
         seedMoves({
           name: result.name,
           type: result.type.name,
