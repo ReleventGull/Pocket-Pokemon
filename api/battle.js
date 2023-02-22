@@ -388,15 +388,18 @@ function damage ({attackingTypes, defendingTypes, pokemonAttacking, pokemondefen
     d = pokemondefending.stats.special-defense.current_value
   }
 
- 
+  let min = 217
+  let max = 255
+  let randomNum = Math.floor(Math.random() * (max - min + 1) + min)
+  console.log(randomNum)
     // A is the effective Attack stat of the attacking pokémon if the used move is a 
     // physical move, or the effective special stat of the attacking pokémon if the used move is a special 
     // move (for a critical hit, all modifiers are ignored, and the unmodified Attack or 
     // special is used instead). if either this or D are greater than 255, both are divided by 4 and rounded down.
-let damageDone = Math.floor(((((((2*pokemonAttacking.level*critical)/5)+2)* move.power * a/d)/50)+2) * STAB * Type1 * Type2 )
+let damageDone = Math.floor(((((((2*pokemonAttacking.level*critical)/5)+2)* move.power * a/d)/50)+2) * STAB * Type1 * Type2 * (randomNum/255))
 
 pokemondefending.stats.hp.current_value -= damageDone
-
+console.log(damageDone)
 return pokemondefending
 }
 
