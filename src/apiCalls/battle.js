@@ -1,7 +1,5 @@
 const BASE_URL = "http://localhost:4000/api"
 
-
-
 export const attack = async({attackingPokemon, defendingPokemon, move}) => {
     try {
         console.log(attackingPokemon, defendingPokemon, move)
@@ -19,6 +17,24 @@ export const attack = async({attackingPokemon, defendingPokemon, move}) => {
         return response
     }catch(error) {
         console.error("There was an error attacking in the api", error)
+        throw error
+    }
+}
+
+export const enemyPokemonMove = async(moves) => {
+    try {
+        const response = await fetch(`${BASE_URL}/encounter/selectMove`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                moves
+            })
+        }).then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an error fetching the player pokemon moves", error)
         throw error
     }
 }

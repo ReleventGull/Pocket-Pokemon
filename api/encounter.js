@@ -28,6 +28,16 @@ encounterRouter.post('/attack' , async (req, res, next) => {
         throw error
     }
 })
+encounterRouter.post('/selectMove', async(req, res, next) => {
+    try {
+        const {moves} = req.body
+        let randomMove = moves[Math.floor(Math.random() * moves.length)]
+        res.send(randomMove)
+    }catch(error) {
+        console.error("There was an error selecting the random move by the pokemon", error)
+        throw error
+    }
+})
 
 encounterRouter.post('/encounterPokemon', async (req, res, next) => {
     try {

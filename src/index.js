@@ -56,6 +56,9 @@ const App = () => {
     const fetchSeedMoves = async() => {
       for(let b = 1; b <= 60; b++) {
         const result = await fetchMoves(b)
+        if(result.power == null) continue
+
+        console.log(result.power)
         seedMoves({
           name: result.name,
           type: result.type.name,
@@ -104,6 +107,8 @@ const App = () => {
     // token ?
 
     return (
+    seedData ? <h2>Seeding Data</h2> :
+      
    <Routes>
     <Route path='/' element={<Game token={token} pokemon={pokemon}/>}/>
     <Route path='/register' element={<Register setToken={setToken}/>}/>

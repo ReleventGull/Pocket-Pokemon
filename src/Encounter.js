@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import wildbattle from "./audiofiles/wildbattle.mp3";
 import {default as FightMoves} from './EncounterOptions/FightMoves'
 import { default as FightOptions } from './EncounterOptions/FightOptions'
+import {enemyPokemonMove, attack} from './apiCalls/battle'
 const Encounter = ({
   pokemonEncountered,
   setEncounter,
@@ -12,9 +13,21 @@ const Encounter = ({
   const [playerTurn, setPlayerTurn] = useState(1)
   const [view, setView] = useState('')
 
+const attackPlayer = async() => {
+let move = await enemyPokemonMove(pokemonEncountered.moves)
+console.log('move here', move)
+if (move.power == null || move.category == 'status') return
+let result = await attack({move: move, attackingPokemon: pokemonEncountered, defendingPokemon: playerPokemon[0]})
+}
 
-
-  console.log(pokemonEncountered)
+useEffect(() => {
+  if (playerTurn == 1) {
+    return
+  }else {
+    attackPlayer()
+    setPlayerTurn(1)
+  }
+}, [playerTurn])
   return (
     pokemonEncountered  ?
     <div id="grid-encoutner">
@@ -70,7 +83,7 @@ const Encounter = ({
           
         </div>
         {view == '' ? <FightOptions setEncounter={setEncounter} setView={setView}/>: null}
-        {view == 'fight' ? <FightMoves setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} playerPokemon={playerPokemon}/>: null}
+        {view == 'fight' ? <FightMoves playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} playerPokemon={playerPokemon}/>: null}
   
 
 

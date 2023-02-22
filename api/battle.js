@@ -363,6 +363,7 @@ const typeTable =  {
 
 
 function damage ({attackingTypes, defendingTypes, pokemonAttacking, pokemondefending, move, critical}) {
+  console.log(move)
   let Type1
   let Type2
   let a
@@ -384,9 +385,10 @@ function damage ({attackingTypes, defendingTypes, pokemonAttacking, pokemondefen
     a = pokemonAttacking.stats.attack.current_value
     d = pokemondefending.stats.defense.current_value
   }else {
-    a = pokemonAttacking.stats.special-attack.current_value
-    d = pokemondefending.stats.special-defense.current_value
-  }
+    console.log(pokemonAttacking)
+    a = pokemonAttacking.stats['special-attack'].current_value
+    d = pokemondefending.stats['special-defense'].current_value
+}
 
   let min = 217
   let max = 255
