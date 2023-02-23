@@ -2,21 +2,54 @@ import React, { useState, useEffect } from "react";
 import wildbattle from "./audiofiles/wildbattle.mp3";
 import {default as FightMoves} from './EncounterOptions/FightMoves'
 import { default as FightOptions } from './EncounterOptions/FightOptions'
+import {enemyPokemonMove, defend} from './apiCalls/battle'
+import { fetchUserPokemon } from "./apiCalls/users";
 const Encounter = ({
   pokemonEncountered,
   setEncounter,
-  playerPokemon,
   setPokemonEncounterd,
+  token,
+  setAllowMove,
   encounter,
 }) => {
   const [playerTurn, setPlayerTurn] = useState(1)
   const [view, setView] = useState('')
+  const [playerPokemon, setplayerPokemon] = useState(null)
 
+  const getUserPokemon = async() => {
+      let userPokemon = await fetchUserPokemon(token)
+      if(userPokemon.message) {
+        setEncounter(false)
+        setAllowMove(true)
+        return
+      }
+      setplayerPokemon(userPokemon)
+  }
+    
+    useEffect(() => {
+         getUserPokemon()
+     }, [])
 
+const attackPlayer = async() => {
+let move = await enemyPokemonMove(pokemonEncountered.moves)
+if (move.power == null || move.category == 'status') return
+let result = await defend({move: move, attackingPokemon: pokemonEncountered, defendingPokemon: playerPokemon})
 
-  console.log(pokemonEncountered)
+getUserPokemon()
+console.log(result)
+
+}
+
+useEffect(() => {
+  if (playerTurn == 1) {
+    return
+  }else {
+    attackPlayer()
+    setPlayerTurn(1)
+  }
+}, [playerTurn])
   return (
-    pokemonEncountered  ?
+    pokemonEncountered  && playerPokemon ?
     <div id="grid-encoutner">
       <div className="encounter-container">
         <div className="backgroundBattle">
@@ -45,24 +78,24 @@ const Encounter = ({
           </div>
 
           <div /***************** PLAYER STATS START *****************/className="top two">
-          <div className={`pokemonE forPlayer ${playerPokemon[0].name}`} src={playerPokemon}/>
+          <div className={`pokemonE forPlayer ${playerPokemon.name}`} src={playerPokemon}/>
             <div id="pokemonPlayerHealthContainer">
               <div id="pokemonHealthName">
-                <p>{playerPokemon[0].name}</p>
-                <p>Lv.{playerPokemon[0].level}</p>
+                <p>{playerPokemon.name}</p>
+                <p>Lv.{playerPokemon.level}</p>
               </div>
 
               <div id="pokemonHp">
                 <span>HP</span>
                 <progress
                   id="pokemonPlayerHealth"
-                  value={playerPokemon[0].stats.hp.current_value}
-                  max={playerPokemon[0].stats.hp.value}
+                  value={playerPokemon.stats.hp.current_value}
+                  max={playerPokemon.stats.hp.value}
                 ></progress>
               </div>
               <p>
-                {playerPokemon[0].stats.hp.current_value}/
-                {playerPokemon[0].stats.hp.value}
+                {playerPokemon.stats.hp.current_value}/
+                {playerPokemon.stats.hp.value}
               </p>
             </div>
           </div>
@@ -70,7 +103,7 @@ const Encounter = ({
           
         </div>
         {view == '' ? <FightOptions setEncounter={setEncounter} setView={setView}/>: null}
-        {view == 'fight' ? <FightMoves setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} playerPokemon={playerPokemon}/>: null}
+        {view == 'fight' ? <FightMoves playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} playerPokemon={playerPokemon}/>: null}
   
 
 

@@ -33,7 +33,14 @@ playerRouter.get('/pokemon/:pokemonId', async(req, res, next) => {
 playerRouter.get('/pokemon', async (req, res, next) => {
     try {
         const userPokemon = await getUserPokemon(req.user.id)
-        res.send(userPokemon)
+        userPokemon.sort((a, b) => a.slot - b.slot)
+        for(let i = 0; i < userPokemon.length; i++) {
+            if(userPokemon[i].stats.hp.current_value > 0) {
+                res.send(userPokemon[i])
+                return
+            }
+        }
+        res.send({message: "No Pokemon available"})
     }catch(error) {
         console.error("There was an error getting the player pokemon in the API", error)
         throw error

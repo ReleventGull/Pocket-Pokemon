@@ -70,7 +70,8 @@ const dropTables = async () => {
             exp INTEGER NOT NULL,
             level INTEGER NOT NULL,
             pokemon_id INTEGER REFERENCES pokemon(id),
-            user_id INTEGER REFERENCES users(id)
+            user_id INTEGER REFERENCES users(id),
+            slot INTEGER
           );
           CREATE TABLE playerPokemonStats (
             id SERIAL PRIMARY KEY,
