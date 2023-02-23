@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import {GameBoard, NameDisplay} from "./Exported";
 import { fetchEncounteredPokemon } from "./apiCalls";
-import { fetchUserPokemon } from "./apiCalls/users";
+
 
 
 const Game = ({token, pokemon}) => {
@@ -10,21 +10,8 @@ const Game = ({token, pokemon}) => {
   const [playerDirection, setPlayerDirection] = useState("left");
   const [encounter, setEncounter] = useState(false);
   const [pokemonEncountered, setPokemonEncounterd] = useState(null);
-  const [playerPokemon, setplayerPokemon] = useState([])
   const [allowMove, setAllowMove] = useState(false)
 
-
-  const getUserPokemon = async() => {
-    let userPokemon = await fetchUserPokemon(token)
-    setplayerPokemon(userPokemon)
-    }
-   
-    useEffect(() => {
-    if(token) {
-       getUserPokemon()
-    }
-   }, [])
-  
   const pokemonEncounter = async() => {
     const randomPokemon = pokemon[Math.floor(Math.random() * pokemon.length)];
     const pokemonFromApi = await fetchEncounteredPokemon(randomPokemon)
@@ -95,19 +82,18 @@ const Game = ({token, pokemon}) => {
       </header>
       <>
         {
-        playerPokemon ? 
+       
         <GameBoard
         encounter={encounter}
         playerDirection={playerDirection}
         player={player}
         pokemonEncountered={pokemonEncountered}
         setEncounter={setEncounter}
-        playerPokemon={playerPokemon} 
         setAllowMove={setAllowMove}
         setPokemonEncounterd={setPokemonEncounterd}
+        token={token}
         />
-        :
-        <h3>Loading ...</h3>
+      
   }
       </>
     </main>

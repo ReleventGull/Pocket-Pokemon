@@ -1,6 +1,7 @@
 const express = require('express')
 const encounterRouter = express.Router()
 const { generateHP, generateIvs, generateStats, generateRandomMoves} = require('./statFunctions')
+const {updatePokemonHp} = require('../db/stats')
 const {getPokemonTypes} = require('../db/pokemon')
 const {getMovesByPokemon} = require('../db/moves')
 const {damage, typeTable} = require('./battle')
@@ -19,12 +20,35 @@ encounterRouter.post('/attack' , async (req, res, next) => {
     }else {
         crit = 1
     } 
-    const returnPokemon = damage({attackingTypes: attackingPokemonTypes, defendingTypes: defendingPokemonTypes, pokemonAttacking:attackingPokemon, pokemondefending:defendingPokemon, move:move, critical: crit})
-    
-    
-    res.send({pokemon: returnPokemon})
+    const returnDmg = damage({attackingTypes: attackingPokemonTypes, defendingTypes: defendingPokemonTypes, pokemonAttacking:attackingPokemon, pokemondefending:defendingPokemon, move:move, critical: crit})
+    defendingPokemon.stats.hp.current_value -= returnDmg
+    res.send({pokemon: defendingPokemon})
     }catch(error) {
         console.error("There was an erroring posting to /attack in the backend API", error)
+        throw error
+    }
+})
+encounterRouter.post('/defend', async (req, res, next) => {
+    try {
+        let crit
+        const {attackingPokemon, defendingPokemon, move} = req.body
+        const attackingPokemonTypes = await getPokemonTypes(attackingPokemon.pokemon_id)
+       
+        const defendingPokemonTypes = await getPokemonTypes(defendingPokemon.pokemon_id)
+      
+        const critChance = Math.random()
+        if (critChance > 0.89) {
+            crit = 2
+        }else {
+            crit = 1
+        } 
+       
+        const returnDmg = damage({attackingTypes: attackingPokemonTypes, defendingTypes: defendingPokemonTypes, pokemonAttacking:attackingPokemon, pokemondefending:defendingPokemon, move:move, critical: crit})
+        let remaining = defendingPokemon.stats.hp.current_value -= returnDmg
+        await updatePokemonHp({hp:remaining, id: defendingPokemon.stats.hp.id})
+        res.send({pokemon: defendingPokemon})
+    }catch(error) {
+        console.error("There was an error making a call to defend in the API", error)
         throw error
     }
 })
@@ -63,7 +87,7 @@ encounterRouter.post('/encounterPokemon', async (req, res, next) => {
     generateStats(pokemon)
 
     await generateRandomMoves(pokemon)
-    console.log('POKEMON HERE', pokemon)
+
     res.send(pokemon)
     }catch(error) {
         console.error("there was an error with encounter pokemon API", error)

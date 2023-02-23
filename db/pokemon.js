@@ -91,7 +91,6 @@ const getPokemonById = async(id) => {
                 pokeObject.baseExperience = pokemon[i].baseExperience
                 pokeObject.stats = {}
             }
-           
             pokeObject.stats[pokemon[i].statName] = {value: pokemon[i].value, effort: pokemon[i].effort}
         }
         return pokeObject
@@ -100,13 +99,13 @@ const getPokemonById = async(id) => {
         throw error
     }
 }
-const createPlayerPokemon = async({name, onPlayer, exp, level, pokemon_id, user_id}) => {
+const createPlayerPokemon = async({name, onPlayer, exp, level, pokemon_id, user_id, slot}) => {
     try {
         const {rows: [pokemon]} = await client.query(`
-        INSERT INTO playerPokemon (name, "onPlayer", exp, level, pokemon_id, user_id)
-        VALUES ($1, $2, $3, $4, $5, $6)
+        INSERT INTO playerPokemon (name, "onPlayer", exp, level, pokemon_id, user_id, slot)
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
         RETURNING *;
-        `, [name, onPlayer, exp, level, pokemon_id, user_id])
+        `, [name, onPlayer, exp, level, pokemon_id, user_id, slot])
         return pokemon
     }catch(error) {
         console.error("There was an error creating the player pokemon", error)
@@ -133,11 +132,10 @@ const getUserPokemon = async(id) => {
         SELECT playerPokemon.*, playerPokemonStats.id AS "statId", playerPokemonStats.name AS "statName", playerPokemonStats.value, playerPokemonStats."currentValue", playerPokemonStats.effort, playerPokemonStats.individual
         FROM playerPokemon
         JOIN playerPokemonStats ON playerPokemon.id=playerPokemonStats.player_pokemon_id
-        WHERE playerPokemon.user_id=$1
+        WHERE playerPokemon.user_id=$1 AND playerPokemon."onPlayer"=true;
         `, [id])
         let pokemonArray = []
         let currentPokeObject = {}
-        console.log('Length right here', pokemon.length)
         for(let i = 0; i < pokemon.length; i++) {
        
             if(!currentPokeObject.name) {
@@ -155,13 +153,44 @@ const getUserPokemon = async(id) => {
                 currentPokeObject = {}
             }
         }
-        console.log(pokemonArray)
         return pokemonArray
     }catch(error){
         console.error("There was an error getting the user pokemon", error)
         throw error
     }
 }
+const getUserPokemonBySlot = async({slot, id}) => {
+    try {
+        const {rows: pokemon} = await client.query(` 
+        SELECT playerPokemon.*, playerPokemonStats.id AS "statId", playerPokemonStats.name AS "statName", playerPokemonStats.value, playerPokemonStats."currentValue", playerPokemonStats.effort, playerPokemonStats.individual
+        FROM playerPokemon
+        JOIN playerPokemonStats ON playerPokemon.id=playerPokemonStats.player_pokemon_id
+        WHERE playerPokemon.slot=$1 AND playerPokemon.user_id=$2
+        `, [slot, id])
+
+        let currentPokeObject = {}
+   
+        for(let i = 0; i < pokemon.length; i++) {
+            if(!currentPokeObject.name) {
+                currentPokeObject.id = pokemon[i].id,
+                currentPokeObject.pokemon_id = pokemon[i].pokemon_id
+                currentPokeObject.name = pokemon[i].name 
+                currentPokeObject.exp = pokemon[i].exp,
+                currentPokeObject.level = pokemon[i].level,
+                currentPokeObject.onPlayer = pokemon[i].onPlayer,
+                currentPokeObject.stats = {}
+            }
+            currentPokeObject.stats[pokemon[i].statName] = {id: pokemon[i].statId, value: pokemon[i].value, current_value: pokemon[i].currentValue}
+        }
+        console.log(currentPokeObject)
+        return currentPokeObject
+
+    }catch(error) {
+        console.error("There was an error getting the pokemon by slots", error)
+        throw error
+    }
+}
+
 
 const getPokemonTypes = async(id) => {
     try {
@@ -178,6 +207,8 @@ const getPokemonTypes = async(id) => {
 }
 
 
+
+
 module.exports = {
     createPokemon,
     getAllPokemon,
@@ -186,5 +217,7 @@ module.exports = {
     createPlayerPokemon,
     createPlayerPokmonStats,
     getUserPokemon,
-    getPokemonTypes
+    getPokemonTypes,
+    getUserPokemonBySlot,
+    
 }

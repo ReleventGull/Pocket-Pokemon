@@ -2,7 +2,7 @@ const express = require('express')
 const userRouter =  express.Router()
 const {getMoveByPokemon, createPlayerPokemonMove} = require('../db/moves')
 const {createUser, getUserById, getUserByUsername} = require('../db/users')
-const {getPokemonById, createPlayerPokemon, createPlayerPokmonStats, getUserPokemon} = require('../db/pokemon')
+const {getPokemonById, createPlayerPokemon, createPlayerPokmonStats, getUserPokemonBySlot} = require('../db/pokemon')
 const jwt = require('jsonwebtoken')
 const {JWT_SECRET} = process.env
 
@@ -23,7 +23,8 @@ userRouter.post('/register', async(req, res, next) => {
             exp: pokemonById.baseExperience,
             pokemon_id: pokemonById.id,
             user_id: createdUser.id,
-            level: 1
+            level: 1,
+            slot: 1
         })
         const playerPokeMove = await createPlayerPokemonMove({
             move_id:randomMove.id,
@@ -40,6 +41,7 @@ userRouter.post('/register', async(req, res, next) => {
                 player_pokemon_id: newPlayerPokemon.id
             })
         }
+        await getUserPokemonBySlot({slot: 1, id: createdUser.id})
         const token = jwt.sign(createdUser, JWT_SECRET)
         res.send({message: `Welcome ${newUser.name}!`, token: token})
     }catch(error) {

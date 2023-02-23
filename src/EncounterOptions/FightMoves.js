@@ -5,7 +5,7 @@ const FightMoves = ({setView, playerTurn, setPlayerTurn, playerPokemon, pokemonE
   const [pokemonMoves, setPokemonMoves] = useState([])
   
   const fetchPokemonMoves = async() => {
-    let moves = await fetchPokemonMovesById(playerPokemon[0].id)
+    let moves = await fetchPokemonMovesById(playerPokemon.id)
     setPokemonMoves(moves)
   }
   useEffect(() => {
@@ -16,7 +16,7 @@ const FightMoves = ({setView, playerTurn, setPlayerTurn, playerPokemon, pokemonE
     if(playerTurn !== 1) {
       return
     }
-    let resultOfAttack = await attack({attackingPokemon: playerPokemon[0], defendingPokemon:pokemonEncountered, move:move})
+    let resultOfAttack = await attack({attackingPokemon: playerPokemon, defendingPokemon:pokemonEncountered, move:move})
     if(resultOfAttack.pokemon.stats.hp.current_value < 0) {
       setEncounter(false)
     }

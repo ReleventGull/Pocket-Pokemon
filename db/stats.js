@@ -15,7 +15,23 @@ const createPokemonStats = async({name, value, effort, pokemon_id}) => {
     }
 }
 
+const updatePokemonHp = async({hp, id}) => {
+    try {
+        const {rows: pokemon} = await client.query(`
+        UPDATE playerPokemonStats
+        SET "currentValue"=$1
+        WHERE id=$2
+        RETURNING *
+        `, [hp, id])
+        return pokemon
+    }catch(error) {
+        console.error("There was an error updating the pokemon HP", error)
+        throw error
+    }
+}
+
 
 module.exports = {
-    createPokemonStats
+    createPokemonStats,
+    updatePokemonHp
 }

@@ -22,7 +22,7 @@ const App = () => {
     const navigate = useNavigate()
     let numberofPokemon = 100
     
-    
+
     const seedPokemon = async() => {
       for(let i=1; i <= numberofPokemon; i++)  {
         let pokemonStats = await fetchPokemonRates(i)
@@ -58,7 +58,7 @@ const App = () => {
         const result = await fetchMoves(b)
         if(result.power == null) continue
 
-        console.log(result.power)
+
         seedMoves({
           name: result.name,
           type: result.type.name,

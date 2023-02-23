@@ -363,7 +363,7 @@ const typeTable =  {
 
 
 function damage ({attackingTypes, defendingTypes, pokemonAttacking, pokemondefending, move, critical}) {
-  console.log(move)
+
   let Type1
   let Type2
   let a
@@ -385,7 +385,7 @@ function damage ({attackingTypes, defendingTypes, pokemonAttacking, pokemondefen
     a = pokemonAttacking.stats.attack.current_value
     d = pokemondefending.stats.defense.current_value
   }else {
-    console.log(pokemonAttacking)
+  
     a = pokemonAttacking.stats['special-attack'].current_value
     d = pokemondefending.stats['special-defense'].current_value
 }
@@ -393,17 +393,33 @@ function damage ({attackingTypes, defendingTypes, pokemonAttacking, pokemondefen
   let min = 217
   let max = 255
   let randomNum = Math.floor(Math.random() * (max - min + 1) + min)
-  console.log(randomNum)
+  console.log('crticical here', critical)
     // A is the effective Attack stat of the attacking pokémon if the used move is a 
     // physical move, or the effective special stat of the attacking pokémon if the used move is a special 
     // move (for a critical hit, all modifiers are ignored, and the unmodified Attack or 
     // special is used instead). if either this or D are greater than 255, both are divided by 4 and rounded down.
 let damageDone = Math.floor(((((((2*pokemonAttacking.level*critical)/5)+2)* move.power * a/d)/50)+2) * STAB * Type1 * Type2 * (randomNum/255))
 
-pokemondefending.stats.hp.current_value -= damageDone
-console.log(damageDone)
-return pokemondefending
+
+return damageDone
 }
+
+
+
+
+//function experienceGained () {
+  //  A=1 (If pokemon is wild)
+  //  B = Base exp yield from the enemy pokemon
+  //  E = 1.5 if the winning pokemon is holding a Lucky Egg (If not , 1)
+  //  L = is the level of the fainted/caughtGen VI+ Pokémon
+  //  S = If no Pokémon in the party is holding an Exp. Share...
+  //  The number of Pokémon that participated in the battle and have not fainted
+  //  If at least one Pokémon in the party is holding an Exp. Share...
+  //  Twice the number of Pokémon that participated and have not fainted, when calculating the experience of a Pokémon that participated in battle
+  //  Twice the number of Pokémon holding an Exp. Share, when calculating the experience of a Pokémon holding Exp. Share
+  //const result = (((b * l)/7) * (1/s) * e *a)
+  //}
+  
 
 module.exports = {
   typeTable,
