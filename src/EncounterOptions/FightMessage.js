@@ -3,13 +3,15 @@ import { useEffect, useState } from "react"
 const FightMessage = ({message, setView}) => {
     const [mes, setMes] = useState('')
     const [currentL, setCurrentLetter] = useState(0)
-  
+    
+
 useEffect(() => {
+        if(!message) {
+            setCurrentLetter(0)
+            setMes('')
+            return
+        }
         if(currentL >= message.length) {
-            setTimeout(() => {
-            setView('')
-            }, 2000)
-       
             return
         }
         setTimeout(() => {
@@ -17,7 +19,7 @@ useEffect(() => {
         setCurrentLetter((pre) => pre + 1)
         }, 30)
     
-}, [mes])
+}, [message, mes])
     
 
     return (

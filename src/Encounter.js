@@ -39,10 +39,12 @@ let result = await defend({move: move, attackingPokemon: pokemonEncountered, def
 setMessage(result.message)
 setTimeout(() => {
   setView('message')
-}, 1000)
-setTimeout(() => {
   getUserPokemon()
-}, 3000)
+  setTimeout(() => {
+    setView('')
+  }, 1000)
+}, 2000)
+
 
 }
 

@@ -27,9 +27,9 @@ const FightMoves = ({setMessage, setView, playerTurn, setPlayerTurn, playerPokem
     }, 10)
     setTimeout(() => {
       setPokemonEncounterd(resultOfAttack.pokemon)
-
     }, 2000)
     setTimeout(() => {
+      setMessage('')
       setPlayerTurn(2)
     }, 3000)
   }
