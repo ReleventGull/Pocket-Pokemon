@@ -261,16 +261,200 @@
     background-position-x: -1700%;
   }
   
-  .pokemon.Encountered.diglet {
+  .pokemon.Encountered.diglett {
     background-position-y: -100%;
     background-position-x: -1800%;
   }
   
-  .pokemon.Encountered.diglet {
+  .pokemon.Encountered.dugtrio {
     background-position-y: -100%;
     background-position-x: -1900%;
   }
+  .pokemon.Encountered.meowth {
+    background-position-y: -100%;
+    background-position-x: -2000%;
+  }
+  .pokemon.Encountered.persian {
+    background-position-y: -100%;
+    background-position-x: -2100%;
+  }
+  .pokemon.Encountered.psyduck {
+    background-position-y: -100%;
+    background-position-x: -2200%;
+  }
+  .pokemon.Encountered.golduck {
+    background-position-y: -100%;
+    background-position-x: -2300%;
+  }
+
+  .pokemon.Encountered.mankey {
+    background-position-y: -100%;
+    background-position-x: -2400%;
+  }
+  .pokemon.Encountered.primeape {
+    background-position-y: -100%;
+    background-position-x: -2500%;
+  }
+  .pokemon.Encountered.growlithe {
+    background-position-y: -100%;
+    background-position-x: -2600%;
+  }
+  .pokemon.Encountered.arcanine {
+    background-position-y: -100%;
+    background-position-x: -2700%;
+  }
+  .pokemon.Encountered.poliwag {
+    background-position-y: -100%;
+    background-position-x: -2800%;
+  }
+  .pokemon.Encountered.poliwhirl {
+    background-position-y: -100%;
+    background-position-x: -2900%;
+  }
+  .pokemon.Encountered.polywrath {
+    background-position-y: -100%;
+    background-position-x: -3000%;
+  }
   
+  /*THIRD ROW */
+  .pokemon.Encountered.abra {
+    background-position-y: -200%;
+    background-position-x: 0%;
+  }
+  .pokemon.Encountered.kadabra {
+    background-position-y: -200%;
+    background-position-x: -100%;
+  }
+  .pokemon.Encountered.alakazam {
+    background-position-y: -200%;
+    background-position-x: -200%;
+  }
+  .pokemon.Encountered.machop {
+    background-position-y: -200%;
+    background-position-x: -300%;
+  }
+  .pokemon.Encountered.machoke {
+    background-position-y: -200%;
+    background-position-x: -400%;
+  }
+  .pokemon.Encountered.machamp {
+    background-position-y: -200%;
+    background-position-x: -500%;
+  }
+  .pokemon.Encountered.bellsprout {
+    background-position-y: -200%;
+    background-position-x: -600%;
+  }
+  .pokemon.Encountered.weepinbell {
+    background-position-y: -200%;
+    background-position-x: -700%;
+  }
+  .pokemon.Encountered.victreebel {
+    background-position-y: -200%;
+    background-position-x: -800%;
+  }
+  .pokemon.Encountered.tentacool {
+    background-position-y: -200%;
+    background-position-x: -900%;
+  }
+  .pokemon.Encountered.tentacruel {
+    background-position-y: -200%;
+    background-position-x: -1000%;
+  }
+  .pokemon.Encountered.geodude {
+    background-position-y: -200%;
+    background-position-x: -1100%;
+  }
+  .pokemon.Encountered.graveler {
+    background-position-y: -200%;
+    background-position-x: -1200%;
+  }
+  .pokemon.Encountered.golem {
+    background-position-y: -200%;
+    background-position-x: -1300%;
+  }
+  .pokemon.Encountered.ponyta {
+    background-position-y: -200%;
+    background-position-x: -1400%;
+  }
+  .pokemon.Encountered.rapidash {
+    background-position-y: -200%;
+    background-position-x: -1500%;
+  }
+  .pokemon.Encountered.slowpoke {
+    background-position-y: -200%;
+    background-position-x: -1600%;
+  }
+  .pokemon.Encountered.slowbro {
+    background-position-y: -200%;
+    background-position-x: -1700%;
+  }
+  .pokemon.Encountered.magnemite {
+    background-position-y: -200%;
+    background-position-x: -1800%;
+  }
+  .pokemon.Encountered.magneton {
+    background-position-y: -200%;
+    background-position-x: -1900%;
+  }
+  .pokemon.Encountered.farfetchd {
+    background-position-y: -200%;
+    background-position-x: -2000%;
+  }
+  .pokemon.Encountered.duduo {
+    background-position-y: -200%;
+    background-position-x: -2100%;
+  }
+  .pokemon.Encountered.dudrio {
+    background-position-y: -200%;
+    background-position-x: -2200%;
+  }
+  .pokemon.Encountered.dewgong {
+    background-position-y: -200%;
+    background-position-x: -2300%;
+  }
+  .pokemon.Encountered.seel {
+    background-position-y: -200%;
+    background-position-x: -2400%;
+  }
+  .pokemon.Encountered.grimer {
+    background-position-y: -200%;
+    background-position-x: -2500%;
+  }
+  .pokemon.Encountered.muk {
+    background-position-y: -200%;
+    background-position-x: -2600%;
+  }
+  .pokemon.Encountered.cloyster {
+    background-position-y: -200%;
+    background-position-x: -2700%;
+  }
+  .pokemon.Encountered.shellder {
+    background-position-y: -200%;
+    background-position-x: -2700%;
+  }
+  .pokemon.Encountered.cloyster {
+    background-position-y: -200%;
+    background-position-x: -2800%;
+  }
+  .pokemon.Encountered.gastly {
+    background-position-y: -200%;
+    background-position-x: -2900%;
+  }
+  .pokemon.Encountered.gengar {
+    background-position-y: -200%;
+    background-position-x: -2000%;
+  }
+
+
+
+
+
+
+
+
+
+
 
   .pokemon.Encountered.giratina {
     background-position-y: -1500%;
