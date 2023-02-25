@@ -324,6 +324,14 @@ table {
 .top.three {
     height: 200px;
 }
+.attackMessageBox {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background-color: white;
+}
+.meess
 
 #pokemonRandomHealth {
     margin-right: 40px;

@@ -22,7 +22,7 @@ encounterRouter.post('/attack' , async (req, res, next) => {
     } 
     const returnDmg = damage({attackingTypes: attackingPokemonTypes, defendingTypes: defendingPokemonTypes, pokemonAttacking:attackingPokemon, pokemondefending:defendingPokemon, move:move, critical: crit})
     defendingPokemon.stats.hp.current_value -= returnDmg
-    res.send({pokemon: defendingPokemon})
+    res.send({pokemon: defendingPokemon, message:`${attackingPokemon.name} used ${move.name}!`})
     }catch(error) {
         console.error("There was an erroring posting to /attack in the backend API", error)
         throw error
@@ -46,7 +46,7 @@ encounterRouter.post('/defend', async (req, res, next) => {
         const returnDmg = damage({attackingTypes: attackingPokemonTypes, defendingTypes: defendingPokemonTypes, pokemonAttacking:attackingPokemon, pokemondefending:defendingPokemon, move:move, critical: crit})
         let remaining = defendingPokemon.stats.hp.current_value -= returnDmg
         await updatePokemonHp({hp:remaining, id: defendingPokemon.stats.hp.id})
-        res.send({pokemon: defendingPokemon})
+        res.send({pokemon: defendingPokemon, message: `${attackingPokemon.name} used ${move.name}!`})
     }catch(error) {
         console.error("There was an error making a call to defend in the API", error)
         throw error

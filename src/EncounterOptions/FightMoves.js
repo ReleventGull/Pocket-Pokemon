@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchPokemonMovesById } from "../apiCalls/userPokemon";
 import {attack} from '../apiCalls/battle'
-const FightMoves = ({setView, playerTurn, setPlayerTurn, playerPokemon, pokemonEncountered, setPokemonEncounterd, setEncounter}) => {
+const FightMoves = ({setMessage, setView, playerTurn, setPlayerTurn, playerPokemon, pokemonEncountered, setPokemonEncounterd, setEncounter}) => {
   const [pokemonMoves, setPokemonMoves] = useState([])
   
   const fetchPokemonMoves = async() => {
@@ -20,8 +20,18 @@ const FightMoves = ({setView, playerTurn, setPlayerTurn, playerPokemon, pokemonE
     if(resultOfAttack.pokemon.stats.hp.current_value < 0) {
       setEncounter(false)
     }
-    setPokemonEncounterd(resultOfAttack.pokemon)
-    setPlayerTurn(2)
+     setTimeout(() => {
+      console.log("message!!")
+      setView('message')
+      setMessage(resultOfAttack.message)
+    }, 10)
+    setTimeout(() => {
+      setPokemonEncounterd(resultOfAttack.pokemon)
+
+    }, 2000)
+    setTimeout(() => {
+      setPlayerTurn(2)
+    }, 3000)
   }
 
   return (
