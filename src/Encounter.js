@@ -38,7 +38,6 @@ if (move.power == null || move.category == 'status') return
 let result = await defend({move: move, attackingPokemon: pokemonEncountered, defendingPokemon: playerPokemon})
 setMessage(result.message)
 setTimeout(() => {
-  setView('message')
   getUserPokemon()
   setTimeout(() => {
     setView('')
