@@ -35,6 +35,7 @@ playerRouter.get('/pokemon', async (req, res, next) => {
         const userPokemon = await getUserPokemon(req.user.id)
         userPokemon.sort((a, b) => a.slot - b.slot)
         for(let i = 0; i < userPokemon.length; i++) {
+            console.log(userPokemon[i])
             if(userPokemon[i].stats.hp.current_value > 0) {
                 res.send(userPokemon[i])
                 return
