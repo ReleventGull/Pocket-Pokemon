@@ -182,7 +182,6 @@ const getUserPokemonBySlot = async({slot, id}) => {
             }
             currentPokeObject.stats[pokemon[i].statName] = {id: pokemon[i].statId, value: pokemon[i].value, current_value: pokemon[i].currentValue}
         }
-        console.log(currentPokeObject)
         return currentPokeObject
 
     }catch(error) {
@@ -191,7 +190,21 @@ const getUserPokemonBySlot = async({slot, id}) => {
     }
 }
 
-
+const getUserPokemonHp = async(id) => {
+    try {
+        const {rows: values} = await client.query(`
+        SELECT playerPokemon.name, playerPokemonStats.name, playerPokemonStats.value, playerPokemonStats.id
+        FROM playerPokemon
+        JOIN playerPokemonStats
+        ON playerPokemonStats.player_pokemon_id=playerPokemon.id
+        WHERE playerPokemon.user_id=$1 AND playerPokemon."onPlayer"=true AND playerPokemonStats.name='hp';
+        `, [id])
+        return values
+    }catch(error) {
+        console.error("There was an error getting the userpokemon HP in /db", error)
+        throw error
+    }
+}
 const getPokemonTypes = async(id) => {
     try {
         const {rows: [types]} = await client.query(`
@@ -219,5 +232,6 @@ module.exports = {
     getUserPokemon,
     getPokemonTypes,
     getUserPokemonBySlot,
+    getUserPokemonHp
     
 }
