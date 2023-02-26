@@ -10,3 +10,18 @@ export const fetchPokemonMovesById = async(id) => {
         throw error
     }
 }
+
+export const healPokemon = async(token) => {
+    try {
+        const response = await fetch(`${BASE_URL}/player/heal`, {
+            method: "GET",
+            headers :{
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+    }catch(error) {
+        console.error("There was an error healing the pokemon", error)
+        throw error
+    }
+}

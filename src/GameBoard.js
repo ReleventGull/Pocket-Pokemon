@@ -25,7 +25,7 @@ const GameBoard = ({
   <Settings setAllowMove={setAllowMove} setDisplay={setDisplay}/>
   : 
   display == 'shop' ?
-  <Shop setAllowMove={setAllowMove} setDisplay={setDisplay}/>
+  <Shop token={token} setAllowMove={setAllowMove} setDisplay={setDisplay}/>
   :
   
   <>

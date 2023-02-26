@@ -1,6 +1,6 @@
 import { useState } from "react"
-
-const Shop = ({setDisplay, setAllowMove}) => {
+import { healPokemon } from "./apiCalls/userPokemon"
+const Shop = ({token, setDisplay, setAllowMove}) => {
     const [heal, setHeal ] = useState(false)
     return (
 <>
@@ -87,7 +87,7 @@ const Shop = ({setDisplay, setAllowMove}) => {
             <div className="confirmHeal">
                 <h3>Heal your pokemon?</h3>
                 <div className="healOptions">
-                    <button className="yesHeal">Yes</button>
+                    <button onClick={async() =>{ healPokemon(token), setHeal(false)}}className="yesHeal">Yes</button>
                     <button className="noHeal" onClick={() => setHeal(false)}>No</button>
                 </div>
                 
