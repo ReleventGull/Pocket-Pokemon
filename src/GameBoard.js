@@ -1,5 +1,5 @@
 import React, { useState} from "react";
-import {Settings} from './Exported'
+import {Settings, Shop} from './Exported'
 import Encounter from './Encounter'
 const GameBoard = ({
   player,
@@ -22,9 +22,12 @@ const GameBoard = ({
   :
   <>
   {display == 'settings' ? 
-  
   <Settings setAllowMove={setAllowMove} setDisplay={setDisplay}/>
+  : 
+  display == 'shop' ?
+  <Shop setAllowMove={setAllowMove} setDisplay={setDisplay}/>
   :
+  
   <>
   <div id='grid'>
   <table>
@@ -45,7 +48,11 @@ const GameBoard = ({
     <div className="settingsBox">
       <button>Pokemon</button>
       <button>Pokedex</button>
-      <button>Shop</button>
+      <button onClick={() => {
+        setDisplay('shop'),
+        setAllowMove(false)
+      }}
+      > Shop</button>
       <button onClick={() => {
       setAllowMove(false),
       setDisplay('settings')
