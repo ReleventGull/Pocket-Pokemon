@@ -129,7 +129,7 @@ const createPlayerPokmonStats = async({name, value, currentValue, effort, indivi
 const getUserPokemon = async(id) => {
     try {
         const {rows: pokemon} = await client.query(`
-        SELECT playerPokemon.*, playerPokemonStats.id AS "statId", playerPokemonStats.name AS "statName", playerPokemonStats.value, playerPokemonStats."currentValue", playerPokemonStats.effort, playerPokemonStats.individual
+        SELECT playerPokemon.*, playerPokemon.slot, playerPokemonStats.id AS "statId", playerPokemonStats.name AS "statName", playerPokemonStats.value, playerPokemonStats."currentValue", playerPokemonStats.effort, playerPokemonStats.individual
         FROM playerPokemon
         JOIN playerPokemonStats ON playerPokemon.id=playerPokemonStats.player_pokemon_id
         WHERE playerPokemon.user_id=$1 AND playerPokemon."onPlayer"=true;
@@ -145,6 +145,7 @@ const getUserPokemon = async(id) => {
                 currentPokeObject.exp = pokemon[i].exp,
                 currentPokeObject.level = pokemon[i].level,
                 currentPokeObject.onPlayer = pokemon[i].onPlayer,
+                currentPokeObject.slot = pokemon[i].slot
                 currentPokeObject.stats = {}
             }
             currentPokeObject.stats[pokemon[i].statName] = {id: pokemon[i].statId, value: pokemon[i].value, current_value: pokemon[i].currentValue}
@@ -167,9 +168,7 @@ const getUserPokemonBySlot = async({slot, id}) => {
         JOIN playerPokemonStats ON playerPokemon.id=playerPokemonStats.player_pokemon_id
         WHERE playerPokemon.slot=$1 AND playerPokemon.user_id=$2
         `, [slot, id])
-
         let currentPokeObject = {}
-   
         for(let i = 0; i < pokemon.length; i++) {
             if(!currentPokeObject.name) {
                 currentPokeObject.id = pokemon[i].id,
@@ -178,12 +177,12 @@ const getUserPokemonBySlot = async({slot, id}) => {
                 currentPokeObject.exp = pokemon[i].exp,
                 currentPokeObject.level = pokemon[i].level,
                 currentPokeObject.onPlayer = pokemon[i].onPlayer,
+                currentPokeObject.slot = pokemon[i].slot
                 currentPokeObject.stats = {}
             }
             currentPokeObject.stats[pokemon[i].statName] = {id: pokemon[i].statId, value: pokemon[i].value, current_value: pokemon[i].currentValue}
         }
         return currentPokeObject
-
     }catch(error) {
         console.error("There was an error getting the pokemon by slots", error)
         throw error
@@ -202,6 +201,21 @@ const getUserPokemonHp = async(id) => {
         return values
     }catch(error) {
         console.error("There was an error getting the userpokemon HP in /db", error)
+        throw error
+    }
+}
+const checkUserPokemonHp = async(id) => {
+    try {
+        const {rows: pokemon} = await client.query(`
+        SELECT playerPokemon.name, playerPokemonStats."currentValue"
+        FROM playerPokemon
+        JOIN playerPokemonStats ON playerPokemonStats.player_pokemon_id=playerPokemon.id
+        WHERE playerPokemon.user_id=$1 AND playerPokemonStats.name='hp' AND playerPokemonStats."currentValue">0
+        `, [id])
+        console.log(pokemon)
+        return pokemon
+    }catch(error) {
+        console.error("There was an error checking the user pokemon hp", error)
         throw error
     }
 }
@@ -232,6 +246,6 @@ module.exports = {
     getUserPokemon,
     getPokemonTypes,
     getUserPokemonBySlot,
-    getUserPokemonHp
-    
+    getUserPokemonHp,
+    checkUserPokemonHp
 }

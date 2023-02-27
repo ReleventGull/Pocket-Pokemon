@@ -2,7 +2,7 @@ const express = require('express')
 const encounterRouter = express.Router()
 const { generateHP, generateIvs, generateStats, generateRandomMoves} = require('./statFunctions')
 const {updatePokemonHp} = require('../db/stats')
-const {getPokemonTypes} = require('../db/pokemon')
+const {getPokemonTypes, checkUserPokemonHp} = require('../db/pokemon')
 const {getMovesByPokemon} = require('../db/moves')
 const {damage, typeTable} = require('./battle')
 
@@ -48,8 +48,12 @@ encounterRouter.post('/defend', async (req, res, next) => {
        
         const returnDmg = damage({attackingTypes: attackingPokemonTypes, defendingTypes: defendingPokemonTypes, pokemonAttacking:attackingPokemon, pokemondefending:defendingPokemon, move:move, critical: crit})
         let remaining = defendingPokemon.stats.hp.current_value -= returnDmg
-        await updatePokemonHp({hp:remaining, id: defendingPokemon.stats.hp.id})
-        res.send({pokemon: defendingPokemon, message: `${attackingPokemon.name} used ${move.name}!`})
+        if (remaining <= 0) {
+            await updatePokemonHp({hp:0, id: defendingPokemon.stats.hp.id})
+        }else {
+            await updatePokemonHp({hp:remaining, id: defendingPokemon.stats.hp.id})
+        }
+        res.send({message: `${attackingPokemon.name} used ${move.name}!`})
     }catch(error) {
         console.error("There was an error making a call to defend in the API", error)
         throw error
@@ -62,6 +66,21 @@ encounterRouter.post('/selectMove', async(req, res, next) => {
         res.send(randomMove)
     }catch(error) {
         console.error("There was an error selecting the random move by the pokemon", error)
+        throw error
+    }
+})
+
+encounterRouter.get('/healthCheck', async(req, res, next) => {
+    try {
+        const checkPokemon = await checkUserPokemonHp(req.user.id)
+        console.log("Check pokemon", checkPokemon)
+        if(checkPokemon.length < 1) {
+            res.send({message:"You have no pokemonn left!"})
+        }else {
+            res.send({clear: 'execute'})
+        }
+    }catch(error) {
+        console.error("There was an error getting a pokemon health check", error)
         throw error
     }
 })

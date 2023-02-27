@@ -14,7 +14,6 @@ movesRouter.get('/', async(req, res, send) => {
 movesRouter.post('/', async(req, res, next) => {
     try {
         const {name, type, category, pp, power, accuracy, learnedBy} = req.body
-    
         for(let i = 0; i < learnedBy.length; i++) {
             const createdMove = await createMove({
                 name: name,
