@@ -17,9 +17,6 @@ const FightMoves = ({setMessage, setView, playerTurn, setPlayerTurn, playerPokem
       return
     }
     let resultOfAttack = await attack({attackingPokemon: playerPokemon, defendingPokemon:pokemonEncountered, move:move})
-    if(resultOfAttack.pokemon.stats.hp.current_value < 0) {
-      setEncounter(false)
-    }
      setTimeout(() => {
       console.log("message!!")
       setView('message')
@@ -27,11 +24,23 @@ const FightMoves = ({setMessage, setView, playerTurn, setPlayerTurn, playerPokem
     }, 10)
     setTimeout(() => {
       setPokemonEncounterd(resultOfAttack.pokemon)
-    }, 2000)
-    setTimeout(() => {
       setMessage('')
-      setPlayerTurn(2)
-    }, 3000)
+    }, 2000)
+    if(resultOfAttack.pokemon.stats.hp.current_value == 0) {
+      setTimeout(() => {
+        setMessage('')
+        setMessage(`The ${pokemonEncountered.name} fainted!`)
+        setTimeout(() => {
+          setEncounter(false)
+        }, 2000)
+      }, 3000)
+      
+    }else {
+      setTimeout(() => {
+        setMessage('')
+        setPlayerTurn(2)
+      }, 3000)
+    }
   }
 
   return (
