@@ -51,6 +51,9 @@ useEffect(() => {
   if (playerTurn == 1) {
     return
   }else {
+    if (pokemonEncountered.stats.hp.current_value <= 0) {
+      return
+    }
     attackPlayer()
     setPlayerTurn(1)
   }

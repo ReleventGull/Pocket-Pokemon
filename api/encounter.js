@@ -22,6 +22,9 @@ encounterRouter.post('/attack' , async (req, res, next) => {
     } 
     const returnDmg = damage({attackingTypes: attackingPokemonTypes, defendingTypes: defendingPokemonTypes, pokemonAttacking:attackingPokemon, pokemondefending:defendingPokemon, move:move, critical: crit})
     defendingPokemon.stats.hp.current_value -= returnDmg
+    if (defendingPokemon.stats.hp.current_value <= 0) {
+        defendingPokemon.stats.hp.current_value = 0
+    }
     res.send({pokemon: defendingPokemon, message:`${attackingPokemon.name} used ${move.name}!`})
     }catch(error) {
         console.error("There was an erroring posting to /attack in the backend API", error)
