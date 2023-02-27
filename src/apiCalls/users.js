@@ -74,3 +74,4 @@ export const fetchUserPokemon = async(token) => {
         throw error
     }
 }
+

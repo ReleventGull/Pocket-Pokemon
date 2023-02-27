@@ -25,3 +25,23 @@ export const healPokemon = async(token) => {
         throw error
     }
 }
+
+
+export const fetchCurrentPokemon = async({slot, token}) => {
+    try {
+        const response = await fetch(`${BASE_URL}/player/currentPokemon`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                slot
+            })   
+        }).then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an error fetching the pokemon by the slot", error)
+        throw error
+    }
+}

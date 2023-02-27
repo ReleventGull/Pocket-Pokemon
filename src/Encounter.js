@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import wildbattle from "./audiofiles/wildbattle.mp3";
 import {default as FightMoves} from './EncounterOptions/FightMoves'
 import { default as FightOptions } from './EncounterOptions/FightOptions'
 import {default as FightMessage} from './EncounterOptions/FightMessage'
-import {enemyPokemonMove, defend} from './apiCalls/battle'
+import {enemyPokemonMove, defend, checkForAlivePokemon} from './apiCalls/battle'
 import { fetchUserPokemon } from "./apiCalls/users";
+import {fetchCurrentPokemon} from './apiCalls/userPokemon'
 const Encounter = ({
   pokemonEncountered,
   setEncounter,
@@ -17,7 +17,16 @@ const Encounter = ({
   const [view, setView] = useState('')
   const [playerPokemon, setplayerPokemon] = useState(null)
   const [message, setMessage] = useState('')
+  
+  const checkForHp = async() => {
+      let hpCheck = await checkForAlivePokemon(token)
+      return hpCheck
+  }
 
+  const fetchCurrentUserPokemon = async() => {
+     let pok = await fetchCurrentPokemon({token: token, slot: playerPokemon.slot})
+     return pok
+  }
   const getUserPokemon = async() => {
       let userPokemon = await fetchUserPokemon(token)
       if(userPokemon.message) {
@@ -28,23 +37,47 @@ const Encounter = ({
       setplayerPokemon(userPokemon)
   }
     
-    useEffect(() => {
-         getUserPokemon()
-     }, [])
+useEffect(() => {
+  getUserPokemon()
+}, [])
 
 const attackPlayer = async() => {
 let move = await enemyPokemonMove(pokemonEncountered.moves)
 if (move.power == null || move.category == 'status') return
 let result = await defend({move: move, attackingPokemon: pokemonEncountered, defendingPokemon: playerPokemon})
+let userPokemon = await fetchCurrentUserPokemon()
+
+
+
 setMessage(result.message)
-setTimeout(() => {
-  getUserPokemon()
-  setTimeout(() => {
-    setView('')
-  }, 1000)
+setTimeout(async() => {
+  setplayerPokemon(userPokemon.pokemon)
+  if (userPokemon.message) {
+    let checkHp = await checkForHp()
+    console.log(checkHp)
+    setTimeout(() => {
+      setMessage('')
+    }, 1000)
+    setTimeout(() => {
+      setMessage(userPokemon.message)
+    }, 1500)
+    if (checkHp.message) {
+      setTimeout(() => {
+        setMessage('')
+        setTimeout(() => {
+          setMessage(checkHp.message)
+        }, 1000)
+        setTimeout(() => {
+          setEncounter(false)
+        }, 4500)
+      }, 5000)
+    }
+  }else {
+    setTimeout(() => {
+      setView('')
+    }, 1000)
+  }
 }, 2000)
-
-
 }
 
 useEffect(() => {

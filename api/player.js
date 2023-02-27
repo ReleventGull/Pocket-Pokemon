@@ -1,7 +1,7 @@
 const express = require('express')
 const playerRouter = express.Router()
 const { generateHP, generateIvs, generateStats } = require('./statFunctions')
-const {getUserPokemon, getUserPokemonHp} = require('../db/pokemon')
+const {getUserPokemon, getUserPokemonHp, getUserPokemonBySlot, getPokemonById} = require('../db/pokemon')
 const {getPlayerPokemonMove} = require('../db/moves')
 const {updatePokemonHp} = require('../db/stats')
 
@@ -43,9 +43,25 @@ playerRouter.get('/pokemon/:pokemonId', async(req, res, next) => {
         throw error
     }
 })
+playerRouter.post('/currentPokemon', async(req, res, next) => {
+    try {
+    const {slot} = req.body
+    let pokemon = await getUserPokemonBySlot({slot:slot, id: req.user.id})
+    if (pokemon.stats.hp.current_value == 0) {
+    res.send({pokemon: pokemon, message:`Your ${pokemon.name} has fainted!`})
+    }else {
+    res.send({pokemon: pokemon})
+    }
+    }catch(error) {
+        console.error("There was an error getting the current pokemon", error)
+        throw error
+    }
+})
+
 playerRouter.get('/pokemon', async (req, res, next) => {
     try {
         const userPokemon = await getUserPokemon(req.user.id)
+        console.log(userPokemon)
         userPokemon.sort((a, b) => a.slot - b.slot)
         for(let i = 0; i < userPokemon.length; i++) {
             console.log(userPokemon[i])

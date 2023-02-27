@@ -57,3 +57,19 @@ export const enemyPokemonMove = async(moves) => {
         throw error
     }
 }
+
+export const checkForAlivePokemon = async(token) => {
+    try {
+        const response = await fetch(`${BASE_URL}/encounter/healthCheck`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        }).then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an error checkingfor alive pokemon", error)
+        throw error
+    }
+}
