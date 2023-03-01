@@ -18,10 +18,7 @@ useEffect(() => {
         setMes((pre) => pre + message[currentL])
         setCurrentLetter((pre) => pre + 1)
         }, 30)
-    
 }, [message, mes])
-    
-
     return (
         <div className="attackMessageBox">
         <h2 className="attackMessage">{mes}</h2>

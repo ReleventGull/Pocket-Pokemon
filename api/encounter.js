@@ -4,7 +4,7 @@ const { generateHP, generateIvs, generateStats, generateRandomMoves} = require('
 const {updatePokemonHp} = require('../db/stats')
 const {getPokemonTypes, checkUserPokemonHp} = require('../db/pokemon')
 const {getMovesByPokemon} = require('../db/moves')
-const {damage, typeTable} = require('./battle')
+const {damage} = require('./battle')
 
 encounterRouter.post('/attack' , async (req, res, next) => {
     try {
@@ -36,7 +36,7 @@ encounterRouter.post('/defend', async (req, res, next) => {
         let crit
         const {attackingPokemon, defendingPokemon, move} = req.body
         const attackingPokemonTypes = await getPokemonTypes(attackingPokemon.pokemon_id)
-       
+      
         const defendingPokemonTypes = await getPokemonTypes(defendingPokemon.pokemon_id)
       
         const critChance = Math.random()
@@ -45,10 +45,12 @@ encounterRouter.post('/defend', async (req, res, next) => {
         }else {
             crit = 1
         } 
-       
+     
         const returnDmg = damage({attackingTypes: attackingPokemonTypes, defendingTypes: defendingPokemonTypes, pokemonAttacking:attackingPokemon, pokemondefending:defendingPokemon, move:move, critical: crit})
         let remaining = defendingPokemon.stats.hp.current_value -= returnDmg
+        
         if (remaining <= 0) {
+           
             await updatePokemonHp({hp:0, id: defendingPokemon.stats.hp.id})
         }else {
             await updatePokemonHp({hp:remaining, id: defendingPokemon.stats.hp.id})
@@ -73,9 +75,8 @@ encounterRouter.post('/selectMove', async(req, res, next) => {
 encounterRouter.get('/healthCheck', async(req, res, next) => {
     try {
         const checkPokemon = await checkUserPokemonHp(req.user.id)
-        console.log("Check pokemon", checkPokemon)
         if(checkPokemon.length < 1) {
-            res.send({message:"You have no pokemonn left!"})
+            res.send({message:"You have no pokemon left!"})
         }else {
             res.send({clear: 'execute'})
         }
@@ -117,5 +118,13 @@ encounterRouter.post('/encounterPokemon', async (req, res, next) => {
     }
 })
 
+encounterRouter.all('/expGain', async (req, res, next) => {
+    try {
+        const {faintedExpYeild, faintedLevel} = req.body
+    }catch(error) {
+        console.error("There was an error calling /expGain", error)
+        throw error
+    }
+})
 
 module.exports = encounterRouter

@@ -31,7 +31,6 @@ function generateIvs(pokemon) {
   
   async function generateRandomMoves (pokemon)  {
       let moves =  await getMovesByPokemon(pokemon.name)
-
       for(let i = 1; i < 4; i++) {
         let randomMove = moves[Math.floor(Math.random() * moves.length)]
         pokemon.moves.push(randomMove)
@@ -48,18 +47,14 @@ function generateIvs(pokemon) {
   
   
   
-  //function experienceGained () {
-  //  A=1 (If pokemon is wild)
-  //  B = Base exp yield from the enemy pokemon
-  //  E = 1.5 if the winning pokemon is holding a Lucky Egg (If not , 1)
-  //  L = is the level of the fainted/caughtGen VI+ Pokémon
-  //  S = If no Pokémon in the party is holding an Exp. Share...
-  //  The number of Pokémon that participated in the battle and have not fainted
-  //  If at least one Pokémon in the party is holding an Exp. Share...
-  //  Twice the number of Pokémon that participated and have not fainted, when calculating the experience of a Pokémon that participated in battle
-  //  Twice the number of Pokémon holding an Exp. Share, when calculating the experience of a Pokémon holding Exp. Share
-  //const result = (((b * l)/7) * (1/s) * e *a)
-  //}
+  function experienceGained ({faintedPokemonExp, faintedPokemonLevel, participatedPokmon}) {
+  //s (colculating the pokemon that participates) 2 * numOfParticipants(that haven't fainted)
+  //s (not calculating the pokemon that partcicpates) 2 * numOfParticipants(that haven't fainted) * num of pokemon in party
+   // A=1 (If pokemon is wild)
+   //B = Base exp yield from the enemy pokemon
+   //L = is the level of the fainted/caughtGen VI+ Pokémon
+  const result = (((b * l)/7) * (1/s) * 1 *1)
+  }
   
   
   

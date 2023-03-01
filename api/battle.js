@@ -393,7 +393,6 @@ function damage ({attackingTypes, defendingTypes, pokemonAttacking, pokemondefen
   let min = 217
   let max = 255
   let randomNum = Math.floor(Math.random() * (max - min + 1) + min)
-  console.log('crticical here', critical)
     // A is the effective Attack stat of the attacking pokémon if the used move is a 
     // physical move, or the effective special stat of the attacking pokémon if the used move is a special 
     // move (for a critical hit, all modifiers are ignored, and the unmodified Attack or 

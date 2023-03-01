@@ -30,7 +30,7 @@ export const defend = async({attackingPokemon, defendingPokemon, move}) => {
             body: JSON.stringify({
                attackingPokemon,
                defendingPokemon,
-               move
+               move,
             })
         }).then(result => result.json())
         return response
