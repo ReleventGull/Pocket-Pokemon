@@ -73,3 +73,24 @@ export const checkForAlivePokemon = async(token) => {
         throw error
     }
 }
+
+export const expGain = async({token, pokemonParticipating, faintedPokemonLevel, faintedPokemonBaseExperience}) => {
+    try {
+        console.log(token, pokemonParticipating, faintedPokemonBaseExperience, faintedPokemonLevel)
+        const response = await fetch(`${BASE_URL}/encounter/expGain`,{
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                pokemonParticipating, 
+                faintedPokemonBaseExperience,
+                faintedPokemonLevel
+            })
+        })
+    }catch(error){
+        console.error("There was an error calling exp gain", error)
+        throw error
+    }
+}

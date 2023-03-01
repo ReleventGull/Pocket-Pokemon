@@ -13,6 +13,7 @@ const Encounter = ({
   setAllowMove,
   encounter,
 }) => {
+  console.log(pokemonEncountered)
   const [playerTurn, setPlayerTurn] = useState(1)
   const [view, setView] = useState('')
   const [playerPokemon, setplayerPokemon] = useState(null)
@@ -157,7 +158,7 @@ useEffect(() => {
           
         </div>
         {view == '' ? <FightOptions setEncounter={setEncounter} setView={setView}/>: null}
-        {view == 'fight' ? <FightMoves pokemonParticpating={pokemonParticpating} setMessage={setMessage} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} playerPokemon={playerPokemon}/>: null}
+        {view == 'fight' ? <FightMoves token={token}pokemonParticpating={pokemonParticpating} setMessage={setMessage} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} playerPokemon={playerPokemon}/>: null}
         {view == 'message' ? <FightMessage setView={setView} message={message}/>: null}
 
 

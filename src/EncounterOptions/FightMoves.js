@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { fetchPokemonMovesById } from "../apiCalls/userPokemon";
-import {attack} from '../apiCalls/battle'
-const FightMoves = ({setMessage, setView, playerTurn, setPlayerTurn, playerPokemon, pokemonEncountered, setPokemonEncounterd, setEncounter}) => {
+import {attack, expGain} from '../apiCalls/battle'
+
+const FightMoves = ({token, pokemonParticpating, setMessage, setView, playerTurn, setPlayerTurn, playerPokemon, pokemonEncountered, setPokemonEncounterd, setEncounter}) => {
   const [pokemonMoves, setPokemonMoves] = useState([])
   
   const fetchPokemonMoves = async() => {
@@ -18,7 +19,6 @@ const FightMoves = ({setMessage, setView, playerTurn, setPlayerTurn, playerPokem
     }
     let resultOfAttack = await attack({attackingPokemon: playerPokemon, defendingPokemon:pokemonEncountered, move:move})
      setTimeout(() => {
-      console.log("message!!")
       setView('message')
       setMessage(resultOfAttack.message)
     }, 10)
@@ -27,6 +27,8 @@ const FightMoves = ({setMessage, setView, playerTurn, setPlayerTurn, playerPokem
       setMessage('')
     }, 2000)
     if(resultOfAttack.pokemon.stats.hp.current_value == 0) {
+      
+      await expGain({token: token, pokemonParticipating: pokemonParticpating, faintedPokemonBaseExperience: pokemonEncountered.baseExperience, faintedPokemonLevel: pokemonEncountered.level})
       setTimeout(() => {
         setMessage('')
         setMessage(`The ${pokemonEncountered.name} fainted!`)

@@ -406,22 +406,38 @@ return damageDone
 
 
 
-//function experienceGained () {
-  //  A=1 (If pokemon is wild)
+function experienceGainedInclusive ({pokemon, faintedPokemonLevel, fainedPokemonBaseExp}) {
+
   //  B = Base exp yield from the enemy pokemon
-  //  E = 1.5 if the winning pokemon is holding a Lucky Egg (If not , 1)
   //  L = is the level of the fainted/caughtGen VI+ Pokémon
   //  S = If no Pokémon in the party is holding an Exp. Share...
   //  The number of Pokémon that participated in the battle and have not fainted
   //  If at least one Pokémon in the party is holding an Exp. Share...
   //  Twice the number of Pokémon that participated and have not fainted, when calculating the experience of a Pokémon that participated in battle
   //  Twice the number of Pokémon holding an Exp. Share, when calculating the experience of a Pokémon holding Exp. Share
-  //const result = (((b * l)/7) * (1/s) * e *a)
-  //}
+
+  let s = pokemon * 2
+  let b = fainedPokemonBaseExp
+  let l = Number(faintedPokemonLevel)
+  console.log(s, b ,l)
+  const result = Math.floor((((b * l)/7) * (1/s)))
+  console.log(result)
+  }
+
+  
+  
+  
+  function expereinceGainedExclusive () {
+
+
+
+  const result = (((b * l)/7) * (1/s))
+  }
   
 
 module.exports = {
   typeTable,
-  damage
+  damage,
+  experienceGainedInclusive
 }
 

@@ -4,7 +4,7 @@ const { generateHP, generateIvs, generateStats, generateRandomMoves} = require('
 const {updatePokemonHp} = require('../db/stats')
 const {getPokemonTypes, checkUserPokemonHp} = require('../db/pokemon')
 const {getMovesByPokemon} = require('../db/moves')
-const {damage} = require('./battle')
+const {damage, experienceGainedInclusive} = require('./battle')
 
 encounterRouter.post('/attack' , async (req, res, next) => {
     try {
@@ -118,13 +118,17 @@ encounterRouter.post('/encounterPokemon', async (req, res, next) => {
     }
 })
 
-encounterRouter.all('/expGain', async (req, res, next) => {
+encounterRouter.post('/expGain', async (req, res, next) => {
     try {
-        const {faintedExpYeild, faintedLevel} = req.body
+        const {pokemonParticipating, faintedPokemonBaseExperience, faintedPokemonLevel} = req.body
+        experienceGainedInclusive({pokemon: Object.keys(pokemonParticipating).length, faintedPokemonLevel: faintedPokemonLevel, fainedPokemonBaseExp: faintedPokemonBaseExperience})
+        res.send({message: "Hello there"})
     }catch(error) {
         console.error("There was an error calling /expGain", error)
         throw error
     }
 })
+
+
 
 module.exports = encounterRouter
