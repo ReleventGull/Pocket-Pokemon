@@ -18,17 +18,24 @@ const Encounter = ({
   const [playerPokemon, setplayerPokemon] = useState(null)
   const [message, setMessage] = useState('')
   
+  const [pokemonParticpating, setPokemonParticpating] = useState({})
+  
   const checkForHp = async() => {
       let hpCheck = await checkForAlivePokemon(token)
       return hpCheck
   }
 
   const fetchCurrentUserPokemon = async() => {
-     let pok = await fetchCurrentPokemon({token: token, slot: playerPokemon.slot})
+     let pok = await fetchCurrentPokemon({pokemonParticpating:pokemonParticpating, token: token, slot: playerPokemon.slot})
+     
      return pok
   }
   const getUserPokemon = async() => {
+      let participateObject = {}
       let userPokemon = await fetchUserPokemon(token)
+      userPokemon['isFainted'] = false
+      participateObject[userPokemon.id] = userPokemon
+      setPokemonParticpating(participateObject)
       if(userPokemon.message) {
         setEncounter(false)
         setAllowMove(true)
@@ -46,6 +53,10 @@ let move = await enemyPokemonMove(pokemonEncountered.moves)
 if (move.power == null || move.category == 'status') return
 let result = await defend({move: move, attackingPokemon: pokemonEncountered, defendingPokemon: playerPokemon})
 let userPokemon = await fetchCurrentUserPokemon()
+if (userPokemon.pokemonParticpating) {
+  setPokemonParticpating(userPokemon.pokemonParticpating)
+  console.log('After death', userPokemon.pokemonParticpating)
+}
 
 
 
@@ -146,7 +157,7 @@ useEffect(() => {
           
         </div>
         {view == '' ? <FightOptions setEncounter={setEncounter} setView={setView}/>: null}
-        {view == 'fight' ? <FightMoves setMessage={setMessage} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} playerPokemon={playerPokemon}/>: null}
+        {view == 'fight' ? <FightMoves pokemonParticpating={pokemonParticpating} setMessage={setMessage} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} playerPokemon={playerPokemon}/>: null}
         {view == 'message' ? <FightMessage setView={setView} message={message}/>: null}
 
 

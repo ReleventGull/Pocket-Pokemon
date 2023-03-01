@@ -23,7 +23,6 @@ playerRouter.post('/selectStarter', async (req, res, next) => {
 playerRouter.get('/heal', async (req, res, next) => {
     try {
         let pokemonHp = await getUserPokemonHp(req.user.id)
-        console.log(pokemonHp)
         for(let i = 0; i < pokemonHp.length; i++) {
             await updatePokemonHp({hp:pokemonHp[i].value, id:pokemonHp[i].id})
         }
@@ -45,10 +44,11 @@ playerRouter.get('/pokemon/:pokemonId', async(req, res, next) => {
 })
 playerRouter.post('/currentPokemon', async(req, res, next) => {
     try {
-    const {slot} = req.body
+    const {slot, pokemonParticpating} = req.body
     let pokemon = await getUserPokemonBySlot({slot:slot, id: req.user.id})
     if (pokemon.stats.hp.current_value == 0) {
-    res.send({pokemon: pokemon, message:`Your ${pokemon.name} has fainted!`})
+        delete pokemonParticpating[pokemon.id]
+    res.send({pokemonParticpating:pokemonParticpating, pokemon: pokemon, message:`Your ${pokemon.name} has fainted!`})
     }else {
     res.send({pokemon: pokemon})
     }
@@ -61,10 +61,8 @@ playerRouter.post('/currentPokemon', async(req, res, next) => {
 playerRouter.get('/pokemon', async (req, res, next) => {
     try {
         const userPokemon = await getUserPokemon(req.user.id)
-        console.log(userPokemon)
         userPokemon.sort((a, b) => a.slot - b.slot)
         for(let i = 0; i < userPokemon.length; i++) {
-            console.log(userPokemon[i])
             if(userPokemon[i].stats.hp.current_value > 0) {
                 res.send(userPokemon[i])
                 return
