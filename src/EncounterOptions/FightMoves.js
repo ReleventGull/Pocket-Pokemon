@@ -7,10 +7,13 @@ const FightMoves = ({token, pokemonParticpating, setMessage, setView, playerTurn
   
   const fetchPokemonMoves = async() => {
     let moves = await fetchPokemonMovesById(playerPokemon.id)
+    console.log(moves)
     setPokemonMoves(moves)
   }
+  
   useEffect(() => {
     fetchPokemonMoves()
+   
   }, [])
   
   const handleMoveClick = async(move) => {
@@ -52,7 +55,7 @@ const FightMoves = ({token, pokemonParticpating, setMessage, setView, playerTurn
       
     {
      pokemonMoves.map(move => 
-       <div key={move.id} onClick={() => handleMoveClick(move)} className="fightButton">
+       <div key={move.id} onClick={() => handleMoveClick(move)} className={`fightButton ${move.type}`}>
          <p>{move.name}</p>
          <p>power: {move.power}</p>
          <p>PP:{move.current_pp}/{move.pp}</p>

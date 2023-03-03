@@ -380,17 +380,12 @@ border-radius: 10%;
   color: rgb(179, 179, 7);
 }
 
-
-
- 
 #pokemonHealthName {
     height: 56px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
  }
-    
-
 .top.three {
     background-color: black;
     flex-grow: 3;
@@ -400,19 +395,19 @@ border-radius: 10%;
 
 .button {
     background-color: white;
+    color: black;
+    transition: .2s;
     width: 50%;
-    border-radius: 7%;
 }
 
-.fightButton {
-    display: flex;
-    background-color: white;
+.button:hover {
+    background: black;
+    color: white;
+    transition: .2s;
     width: 50%;
-    border-radius: 7%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
+
+
 /**********************LOGIN*********************/
 .loginPage {
     background-image: url('https://cdn.wallpapersafari.com/91/72/QSBAG7.jpg');
@@ -484,14 +479,20 @@ border-radius: 10%;
     flex-wrap: wrap;
     align-items: center;
 }
+.settingsBox button:hover {
+    background-color: black;
+    color: white;
+    transition: .2s
+}
 
 .settingsBox button {
     width: 50%;
-    color: white;
     text-decoration: none;
-    background-color: tan;
+    background-color: white;
+    color: black;
     text-align: center;
     height: 50%;
+    transition: .2s
 }
 
 .settingsPage {
