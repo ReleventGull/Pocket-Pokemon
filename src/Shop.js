@@ -6,14 +6,8 @@ const Shop = ({token, setDisplay, setAllowMove}) => {
 <>
         <div className={!heal ? 'shopBody' : 'shopBody disable'}>
             <div className="top-shop">
-            
+            <button className='exitShop' disabled={heal} onClick={() => {setAllowMove(true), setDisplay('')}}>X</button>
             </div>
-            <div className="filterShop">
-            <button disabled={heal} onClick={() => {setAllowMove(true), setDisplay('')}}>Back</button>
-
-            </div>
-           
-            
             <div className="shop">
                 <div className="shopItems">
                     <div>Item</div>

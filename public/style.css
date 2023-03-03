@@ -520,13 +520,25 @@ border-radius: 10%;
     width: 1000px;
     position: relative;
 }
+.exitShop {
+    background-color: transparent;
+    border: none;
+    height: 50%;
+    font-size: 1.3em;
+    transition: .2s
+}
+.exitShop:hover {
+    color: red;
+    transition: .2s
+}
 .top-shop {
-    height: 90px;
+    border-bottom: 2px solid black;
+    height: 13%;
     width: 100%;
     color: black;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: right;
+    align-items: top;
     background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNb1zEtu2yc01x_I-S8ezGD9Nlwm3KfLnMXA&usqp=CAU');
     background-size: cover;
     background-position: center;
@@ -546,7 +558,7 @@ border-radius: 10%;
     height: 4%;
     transition: .2s;
     margin: 0;
-    height: 4.5%
+    height:  8%
 }
 .healPokemon:hover {
     background-color: white;
@@ -566,7 +578,7 @@ border-radius: 10%;
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 80%;
+    height: 85%;
 }
 .shopItems {
     width: 40%;
@@ -575,14 +587,16 @@ border-radius: 10%;
     align-items: center;
     overflow-y: scroll;
 }
+.shopItems div:nth-child(1) {
+    border: none
+}
 .shopItems div {
     width: 90%;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding: 10px;
     height: 150px;
     border-top: 1px solid black;
-   
 }
+
 .displayItem {
     border-left: 3px solid black;
     width: 60%;

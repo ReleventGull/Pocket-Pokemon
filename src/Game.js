@@ -70,7 +70,6 @@ const Game = ({token, pokemon}) => {
         }
       }
     };
-    document.title = `Player is at  ${player}`;
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
   });
