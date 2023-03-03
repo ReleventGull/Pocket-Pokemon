@@ -81,6 +81,17 @@ export const fetchPokemonById = async(id) => {
         throw error
     }
   }
+  
+  export const fetchItems = async(id) => {
+    try {
+        const response = await fetch(`https://pokeapi.co/api/v2/item/${id}`)
+        .then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an erroring fetching the items from pokeapi", error)
+        throw error
+    }
+}
 
   export const getAllLevels = async () => {
     try {
@@ -116,3 +127,24 @@ export const seedMoves = async({name, type, category, pp, power, accuracy, learn
         throw error
     }
 }
+
+export const seedItems = async ({description, name, cost, category}) => {
+    try {
+        const response = await fetch(`${BASE_URL}/shop`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                description,
+                name,
+                cost,
+                category
+            })
+        })
+    }catch(error) {
+        console.error("There was an error seeding the pokemon items", error)
+        throw error
+    }
+}
+

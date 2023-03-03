@@ -1,9 +1,18 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { healPokemon } from "./apiCalls/userPokemon"
+import {getAllItems} from './apiCalls/index'
 const Shop = ({token, setDisplay, setAllowMove}) => {
     const [heal, setHeal ] = useState(false)
-    return (
-<>
+    const fetchShopItems = async() => {
+        let items = await getAllItems()
+        console.log(items)
+    }
+    useEffect(() => {
+        fetchShopItems()
+    }, [])
+
+return (
+    <>
         <div className={!heal ? 'shopBody' : 'shopBody disable'}>
             <div className="top-shop">
             <button className='exitShop' disabled={heal} onClick={() => {setAllowMove(true), setDisplay('')}}>X</button>

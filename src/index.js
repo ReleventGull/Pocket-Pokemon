@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {BrowserRouter, Routes, Route, useNavigate} from 'react-router-dom'
 import ReactDOM from "react-dom/client";
 import {fetchAllPokemon} from "./apiCalls/index"
-import { uploadLevels, uploadingPokemon, fetchPokemonById, fetchPokemonRates, fetchPokemonLevels, fetchMoves, seedMoves } from "./apiCalls/seedApi";
+import { seedItems, fetchItems, uploadLevels, uploadingPokemon, fetchPokemonById, fetchPokemonRates, fetchPokemonLevels, fetchMoves, seedMoves } from "./apiCalls/seedApi";
 import Game from './Game';
 import {Register, Login} from "./Exported";
 
@@ -72,12 +72,26 @@ const App = () => {
     }
     return
   }
+const fetchSeedItems = async() => {
+  for(let i = 1; i <= 70; i++) {
+    let response = await  fetchItems(i)
+    if((response.category.name == 'standard-balls' || response.category.name == 'revival' || response.category.name == 'healing' || response.category.name == 'status-cures' || response.category.name == 'pp-recovery' || response.category.name == 'stat-boosts') && response.cost > 0){
+      console.log(response)
+      console.log(response.cost)
+      await seedItems({name: response.name, category: response.category.name, description: response.effect_entries[0].effect, cost: response.cost})
+    }else {
+      console.log(response.category.name)
+    }
+ 
+  }
+  
+}
     const seedPokeData = async() => {
       for(let i = 1; i <= 6; i++){
         const result = await fetchPokemonLevels(i)
          await uploadLevels({name: result.name, levels: result.levels})
       }
-      
+      await fetchSeedItems()
       await seedPokemon()
       await fetchSeedMoves()
       await fetchGameData()

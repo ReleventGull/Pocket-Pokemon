@@ -70,3 +70,14 @@ export const fetchEncounteredPokemon = async (pokemon) => {
     throw error;
   }
 };
+
+export const getAllItems = async() => {
+  try {
+    const response = await fetch(`${BASE_URL}/shop`)
+    .then(result => result.json())
+    return response
+  }catch(error) {
+    console.error("There was an error fetching all the pokemon moves", error)
+    throw error
+  }
+}

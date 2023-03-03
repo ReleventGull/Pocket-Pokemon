@@ -4,6 +4,7 @@ const dropTables = async () => {
     try {
       console.log("Starting to drop Tables");
       await client.query(`
+        DROP TABLE IF EXISTS playerItems;
           DROP TABLE IF EXISTS playerPokemonMoves;
           DROP TABLE IF EXISTS playerPokemonStats;
           DROP TABLE IF EXISTS playerPokemon;
@@ -13,6 +14,7 @@ const dropTables = async () => {
           DROP TABLE IF EXISTS levels;
           DROP TABLE IF EXISTS experience;
           DROP TABLE IF EXISTS users;
+          DROP TABLE IF EXISTS shopItems;
           `);
       console.log("Dropped all tables");
     } catch (error) {
@@ -93,6 +95,18 @@ const dropTables = async () => {
             move_id INTEGER REFERENCES pokemoves(id),
             pokemon_id INTEGER REFERENCES playerPokemon(id),
             current_pp INTEGER NOT NULL
+          );
+          CREATE TABLE shopItems (
+            id SERIAL PRIMARY KEY,
+            cost INTEGER NOT NULL,
+            name VARCHAR(255) UNIQUE NOT NULL,
+            description VARCHAR(255) NOT NULL,
+            category VARCHAR(255) NOT NULL
+          );
+          CREATE TABLE playerItems (
+            id SERIAL PRIMARY KEY,
+            user_id INTEGER REFERENCES users(id),
+            quantity INTEGER NOT NULL
           );
       `);
       console.log("Created all the Tables!");
