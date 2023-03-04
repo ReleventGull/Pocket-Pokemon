@@ -546,6 +546,9 @@ border-radius: 10%;
     background-size: 58%;
     
 }
+.item:hover {
+    cursor: pointer;
+}
 .top-shop h2 {
     text-align: center;
     width: 80%;
@@ -600,6 +603,52 @@ border-radius: 10%;
 .displayItem {
     border-left: 3px solid black;
     width: 60%;
+    display:flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+.itemDesc {
+    width: 80%
+}
+.costBox {
+    height: 60%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+.amountInput {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 70px;
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+.amountInput::-webkit-inner-spin-button,
+.amountInput::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.costItem {
+    color: green
+}
+.purchaseButton {
+    background-color: green;
+    width: 120px;
+    height: 70px;
+    color: white;
+    transition: .2s
+}
+.purchaseButton:hover {
+    background-color: white;
+    color: green;
+    transition: .2s
 }
 
 .confirmHeal {
@@ -616,6 +665,17 @@ border-radius: 10%;
     z-index: 999;
     border: 2px solid black;
     box-shadow: 0 0 10px 0 red;
+}
+.inputBox {
+    width: 16%;
+    display: flex;
+}
+.increaseDecrease {
+    display: flex;
+    flex-direction: column;
+}
+.increaseDecrease button {
+    height: 50%
 }
 .healOptions {
     display: flex;

@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react"
 import { healPokemon } from "./apiCalls/userPokemon"
 import {getAllItems} from './apiCalls/index'
+import e from "cors"
 const Shop = ({token, setDisplay, setAllowMove}) => {
     const [heal, setHeal ] = useState(false)
+    const [items, setItems] = useState([])
+    const [featuredItem, setFeaturedItem] = useState(null)
+    const [itemValue, setItemValue] = useState(1)
+    console.log(itemValue)
     const fetchShopItems = async() => {
         let items = await getAllItems()
-        console.log(items)
+        setItems(items)
     }
     useEffect(() => {
         fetchShopItems()
@@ -19,66 +24,35 @@ return (
             </div>
             <div className="shop">
                 <div className="shopItems">
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
-                    <div>Item</div>
+                {items.length > 0 ?
+                    items.map(item => 
+                        <div onClick={() => {setFeaturedItem(item), console.log(featuredItem)}} className="item">{item.name}</div>
+                    )
+                    :
+                    null
+                    }
                 </div>
                 <div className="displayItem">
-
+                    {featuredItem ?
+                    <>
+                    <h2>{featuredItem.name}</h2>
+                    <h3>{featuredItem.category}</h3>
+                    <div className="itemDesc">{featuredItem.description}</div>
+                    <div><span>Cost:</span><span className="costItem">{featuredItem.cost}</span></div>
+                        <div className="costBox">
+                            <div className="inputBox">
+                            <input  type='number' value={itemValue < 1 ? '' : itemValue} min='1' max='100' onChange={(e) => e.target.value > 100 ? null : setItemValue(Number(e.target.value))}className="amountInput"></input>
+                                <div className="increaseDecrease">
+                                    <button onClick={() => itemValue == 100 ? null : setItemValue((pre) => pre+1)}>+</button>
+                                    <button onClick={() => itemValue <= 1 ? null : setItemValue((pre) => pre - 1)}>-</button>
+                                </div>
+                            </div>
+                            <button className='purchaseButton' disabled={itemValue > 0 ? false : true}>Buy</button>
+                        </div>
+                    </>
+                    :
+                    null
+                    }
                 </div>
             </div>
             <button onClick={() => setHeal(true)}className="healPokemon">
