@@ -99,3 +99,17 @@ export const purchseItem = async ({itemId, quantity, token}) => {
     }
 }
 
+export const fetchUserCash = async(token) => {
+    try {
+        const response = await fetch(`${BASE_URL}/users/cash`, {
+            method: "GET",
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an error fetching user cash in src/api/users")
+    }
+}

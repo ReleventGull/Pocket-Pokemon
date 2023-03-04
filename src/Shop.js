@@ -1,18 +1,26 @@
 import { useState, useEffect } from "react"
 import { healPokemon } from "./apiCalls/userPokemon"
 import {getAllItems} from './apiCalls/index'
-import {purchseItem} from './apiCalls/users'
+import {purchseItem, fetchUserCash} from './apiCalls/users'
 const Shop = ({token, setDisplay, setAllowMove}) => {
     const [heal, setHeal ] = useState(false)
     const [items, setItems] = useState([])
     const [featuredItem, setFeaturedItem] = useState(null)
     const [itemValue, setItemValue] = useState(1)
+    const [userCash, setUserCash] = useState(0)
     console.log(itemValue)
+    
+    const getuserCash = async() => {
+        const cash = await fetchUserCash(token)
+        setUserCash(cash)
+    }
+    
     const fetchShopItems = async() => {
-        let items = await getAllItems()
+        let items = await getAllItems(token)
         setItems(items)
     }
     useEffect(() => {
+        getuserCash()
         fetchShopItems()
     }, [])
 
