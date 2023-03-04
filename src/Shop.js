@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { healPokemon } from "./apiCalls/userPokemon"
 import {getAllItems} from './apiCalls/index'
-import e from "cors"
+import {purchseItem} from './apiCalls/users'
 const Shop = ({token, setDisplay, setAllowMove}) => {
     const [heal, setHeal ] = useState(false)
     const [items, setItems] = useState([])
@@ -47,7 +47,7 @@ return (
                                     <button onClick={() => itemValue <= 1 ? null : setItemValue((pre) => pre - 1)}>-</button>
                                 </div>
                             </div>
-                            <button className='purchaseButton' disabled={itemValue > 0 ? false : true}>Buy</button>
+                            <button onClick={async() => await purchseItem({token: token, itemId: featuredItem.id, quantity: itemValue})}className='purchaseButton' disabled={itemValue > 0 ? false : true}>Buy</button>
                         </div>
                     </>
                     :

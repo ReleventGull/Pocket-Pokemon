@@ -106,6 +106,7 @@ const dropTables = async () => {
           CREATE TABLE playerItems (
             id SERIAL PRIMARY KEY,
             user_id INTEGER REFERENCES users(id),
+            item_id INTEGER REFERENCES shopItems(id),
             quantity INTEGER NOT NULL
           );
       `);

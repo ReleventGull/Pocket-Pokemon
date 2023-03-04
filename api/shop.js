@@ -1,6 +1,18 @@
 const express = require('express')
-const { getAllItems, createShopItem } = require('../db/shop')
+const { getAllItems, createShopItem, createPlayerItem } = require('../db/shop')
 const shopRouter = express.Router()
+
+shopRouter.post('/purchase', async(req, res, next) => {
+    try {
+        const {itemId, quantity} = req.body
+        console.log(req.body)
+        const item = await createPlayerItem({quantity: quantity, userId: req.user.id, itemId: itemId})
+        res.send(item)
+    }catch(error) {
+        console.error("there was an erroring purchasing an item", error)
+        throw error
+    }
+})
 
 shopRouter.post('/', async(req,res, next) => {
     try {
@@ -22,5 +34,7 @@ shopRouter.get('/', async(req, res, next) => {
         throw error
     }
 })
+
+
 
 module.exports = shopRouter
