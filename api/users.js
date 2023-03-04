@@ -1,7 +1,7 @@
 const express = require('express')
 const userRouter =  express.Router()
 const {getMoveByPokemon, createPlayerPokemonMove} = require('../db/moves')
-const {createUser, getUserById, getUserByUsername} = require('../db/users')
+const {createUser, getUserById, getUserByUsername, getUserCash} = require('../db/users')
 const {getPokemonById, createPlayerPokemon, createPlayerPokmonStats, getUserPokemonBySlot} = require('../db/pokemon')
 const jwt = require('jsonwebtoken')
 const {JWT_SECRET} = process.env
@@ -45,7 +45,7 @@ userRouter.post('/register', async(req, res, next) => {
         const token = jwt.sign(createdUser, JWT_SECRET)
         res.send({message: `Welcome ${newUser.name}!`, token: token})
     }catch(error) {
-        console.error("There was an error registering the user", error)
+        console.error("There was an error registering the user in api/users", error)
         throw error
     }
 })
@@ -63,7 +63,7 @@ userRouter.post('/registerCheck', async(req,res,next) => {
             res.send({message:"Clear!"})
         }
     }catch(error) {
-        console.error("There was an error registering the account")
+        console.error("There was an error registering the account in api/users")
     }
 })
 
@@ -89,7 +89,18 @@ userRouter.post('/login', async(req, res, next) => {
             }
         }
     }catch(error) {
-        console.error("There was an error logging in the user", error)
+        console.error("There was an error logging in the user in api/users", error)
+        throw error
+    }
+})
+userRouter.get('/cash', async(req, res, next) => {
+    try {
+        console.log(req.user.id)
+        const cash = await getUserCash(req.user.id)
+        
+        res.send({cash: cash})
+    }catch(error){
+        console.error("There was an error getting user cash in api/users", error)
         throw error
     }
 })
