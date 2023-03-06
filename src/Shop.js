@@ -36,9 +36,9 @@ return (
                 <p>Cash: <span>{userCash}</span></p>
                 </div>
                 <div className="filter">
-                    <div>All</div>
+                    <div onClick={() => fetchShopItems()}>All</div>
                     <div>Pokeballs</div>
-                    <div>Healing</div>
+                    <div >Healing</div>
                     <div>Revival</div>
                     <div>PP</div>
                     <div>Recovery</div>

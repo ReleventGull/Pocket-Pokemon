@@ -81,3 +81,12 @@ export const getAllItems = async() => {
     throw error
   }
 }
+
+const fetchItemsByName = () => {
+    try {
+      
+    }catch(error) {
+      console.error("There was an error getting the items by name in src/apiCalls/index", error)
+      error
+    }
+}

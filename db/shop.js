@@ -10,7 +10,7 @@ const createShopItem = async({description, cost, name, category}) => {
         
         return item
     }catch(error) {
-        console.error("There was an error creating the shop items", error)
+        console.error("There was an error creating the shop items in db/shop", error)
         throw error
     }
 }
@@ -22,7 +22,19 @@ const getAllItems = async() => {
         `)
         return items
     }catch(error){
-        console.error("There was an error getting all the shop items", error)
+        console.error("There was an error getting all the shop items in db/shop", error)
+        throw error
+    }
+}
+
+const getItemsByName = async(name) => {
+    try {
+        const {rows: items} = await client.query(`
+        SELECT * FROM shopItems
+        WHERE name=$1
+        `, [name])
+    }catch(error) {
+        console.error("There was an error getting the items by name in db/shop", error)
         throw error
     }
 }
@@ -36,7 +48,7 @@ const createPlayerItem = async({quantity, userId, itemId}) => {
         `, [userId, itemId, quantity])
         return item
     }catch(error) {
-        console.error("There was an error creating the player item", error)
+        console.error("There was an error creating the player item in db/shop", error)
         throw error
     }
 }
@@ -44,5 +56,6 @@ const createPlayerItem = async({quantity, userId, itemId}) => {
 module.exports = {
     getAllItems, 
     createShopItem,
-    createPlayerItem
+    createPlayerItem,
+    getItemsByName
 }
