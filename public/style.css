@@ -547,6 +547,9 @@ border-radius: 10%;
     background-size: 58%;
     
 }
+.item {
+    height: 36px;
+}
 .item:hover {
     cursor: pointer;
 }
@@ -597,10 +600,13 @@ border-radius: 10%;
 .shopItems div:nth-child(1) {
     border: none
 }
+.shopItems div:last-child {
+    border-bottom: 1px solid black;
+}
 .shopItems div {
     width: 90%;
     padding: 10px;
-    height: 150px;
+    height: 36px;
     border-top: 1px solid black;
 }
 

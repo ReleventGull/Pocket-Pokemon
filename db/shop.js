@@ -31,8 +31,9 @@ const getItemsByName = async(name) => {
     try {
         const {rows: items} = await client.query(`
         SELECT * FROM shopItems
-        WHERE name=$1
+        WHERE category=$1
         `, [name])
+        return items
     }catch(error) {
         console.error("There was an error getting the items by name in db/shop", error)
         throw error

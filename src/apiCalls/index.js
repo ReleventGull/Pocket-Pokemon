@@ -82,11 +82,15 @@ export const getAllItems = async() => {
   }
 }
 
-const fetchItemsByName = () => {
-    try {
-      
-    }catch(error) {
-      console.error("There was an error getting the items by name in src/apiCalls/index", error)
-      error
-    }
+export const fetchItemsByName = async(name) => {
+  try {
+    console.log("IM here")
+    const response = await fetch(`${BASE_URL}/shop/${name}`)
+    .then(result => result.json())
+    console.log(response)
+    return response
+  }catch(error) {
+    console.error("There was an error getting the items by name in src/apiCalls/index", error)
+    error
+  }
 }
