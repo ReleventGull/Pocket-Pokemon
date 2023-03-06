@@ -1,5 +1,5 @@
 const express = require('express')
-const { getAllItems, createShopItem, createPlayerItem } = require('../db/shop')
+const { getAllItems, createShopItem, createPlayerItem, getItemsByName} = require('../db/shop')
 const shopRouter = express.Router()
 
 shopRouter.post('/purchase', async(req, res, next) => {
@@ -25,6 +25,15 @@ shopRouter.post('/', async(req,res, next) => {
     }
 })
 
+shopRouter.get('/:item', async(req, res, next) => {
+    try {
+        const items = await getItemsByName(req.params.item)
+        res.send(items)
+    }catch(error) {
+        console.error("There was an error getting the shop items by name in api/shop", error)
+        throw error
+    }
+})
 shopRouter.get('/', async(req, res, next) => {
     try {
         const items = await getAllItems()
