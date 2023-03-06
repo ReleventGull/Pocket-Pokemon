@@ -12,7 +12,8 @@ const Shop = ({token, setDisplay, setAllowMove}) => {
     
     const getuserCash = async() => {
         const cash = await fetchUserCash(token)
-        setUserCash(cash)
+        console.log(cash.cash.cash)
+        setUserCash(cash.cash.cash)
     }
     
     const fetchShopItems = async() => {
@@ -29,6 +30,21 @@ return (
         <div className={!heal ? 'shopBody' : 'shopBody disable'}>
             <div className="top-shop">
             <button className='exitShop' disabled={heal} onClick={() => {setAllowMove(true), setDisplay('')}}>X</button>
+            </div>
+            <div className="filterOptions">
+                <div className="cashBox">
+                <p>Cash: <span>{userCash}</span></p>
+                </div>
+                <div className="filter">
+                    <div>All</div>
+                    <div>Pokeballs</div>
+                    <div>Healing</div>
+                    <div>Revival</div>
+                    <div>PP</div>
+                    <div>Recovery</div>
+                    <div>Status</div>
+                    <div>Stat</div>
+                </div>
             </div>
             <div className="shop">
                 <div className="shopItems">

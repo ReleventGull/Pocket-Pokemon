@@ -519,6 +519,7 @@ border-radius: 10%;
     height: 1000px;
     width: 1000px;
     position: relative;
+    border: 2px solid black;
 }
 .exitShop {
     background-color: transparent;
@@ -561,7 +562,10 @@ border-radius: 10%;
     height: 4%;
     transition: .2s;
     margin: 0;
-    height:  8%
+    height:  8%;
+    border: none;
+    border-top: 2px solid black;
+
 }
 .healPokemon:hover {
     background-color: white;
@@ -581,7 +585,7 @@ border-radius: 10%;
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 85%;
+    height: 75%;
 }
 .shopItems {
     width: 40%;
@@ -697,6 +701,55 @@ border-radius: 10%;
     box-shadow: 0 0 15px 0 red;
     transition: .2s;
 }
+
+.filterOptions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 10%;
+    border-bottom: 2px solid black;
+}
+
+.filter {
+    width: 78%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border-left: 2px solid black;
+}
+.cashBox {
+    width: 22%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.cashBox p {
+    font-size: 20px;
+}
+.cashBox p span {
+    color: green
+}
+.filter div {
+    flex-wrap: wrap;
+    height: 50%;
+    width: 25%;
+    background-color: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: .2s
+}
+.filter div:hover {
+    background-color: black;
+    color: white;
+    transition: .2s
+}
+
+
+
 
 ::-webkit-scrollbar {
     width: 20px;
