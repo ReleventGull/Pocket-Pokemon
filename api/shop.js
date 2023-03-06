@@ -27,7 +27,9 @@ shopRouter.post('/', async(req,res, next) => {
 
 shopRouter.get('/:item', async(req, res, next) => {
     try {
+        
         const items = await getItemsByName(req.params.item)
+        console.log(items)
         res.send(items)
     }catch(error) {
         console.error("There was an error getting the shop items by name in api/shop", error)

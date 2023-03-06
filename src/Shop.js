@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { healPokemon } from "./apiCalls/userPokemon"
-import {getAllItems} from './apiCalls/index'
+import {getAllItems, fetchItemsByName} from './apiCalls/index'
 import {purchseItem, fetchUserCash} from './apiCalls/users'
 const Shop = ({token, setDisplay, setAllowMove}) => {
     const [heal, setHeal ] = useState(false)
@@ -37,13 +37,13 @@ return (
                 </div>
                 <div className="filter">
                     <div onClick={() => fetchShopItems()}>All</div>
-                    <div>Pokeballs</div>
-                    <div >Healing</div>
-                    <div>Revival</div>
-                    <div>PP</div>
-                    <div>Recovery</div>
-                    <div>Status</div>
-                    <div>Stat</div>
+                    <div onClick={async() => {let items = await fetchItemsByName('standard-balls'); setItems(items)}}>Pokeballs</div>
+                    <div onClick={async() => {let items = await fetchItemsByName('healing'); setItems(items)}}>Healing</div>
+                    <div onClick={async() => {let items = await fetchItemsByName('revival'); setItems(items)}}>Revival</div>
+                    <div onClick={async() => {let items = await fetchItemsByName('pp-recovery'); setItems(items)}}>PP</div>
+                    <div onClick={async() => {let items = await fetchItemsByName('stat-recovery'); setItems(items)}}>Recovery</div>
+                    <div onClick={async() => {let items = await fetchItemsByName('status-cures'); setItems(items)}}>Status</div>
+                    <div onClick={async() => {let items = await fetchItemsByName('stat-boosts'); setItems(items)}}>Stat</div>
                 </div>
             </div>
             <div className="shop">
