@@ -30,10 +30,31 @@ const updatePokemonHp = async({hp, id}) => {
     }
 }
 
+const getPokemonLevel = async(id) => {
+    try {
+        const {rows: [level]} = await client.query(`
+        SELECT levels.*, playerPokemon.exp AS playerPokemonExp
+        FROM levels
+        JOIN pokemon ON levels.experience_rate_id=pokemon.experience_rate
+        JOIN playerPokemon ON playerPokemon.pokemon_id=pokemon.id
+        WHERE levels.exp <= playerPokemon.exp AND playerPokemon.id=$1
+        ORDER BY exp DESC
+        LIMIT 1;
+        `, [id])
+        console.log(level)
+        return level.level
+    }catch(error) {
+        console.error("There was an error getting the pokemon by its level in db/stats", error) 
+        throw error
+        }
+    }
+
+
 
 
 
 module.exports = {
     createPokemonStats,
-    updatePokemonHp
+    updatePokemonHp,
+    getPokemonLevel
 }
