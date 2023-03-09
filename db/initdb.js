@@ -71,7 +71,6 @@ const dropTables = async () => {
             name VARCHAR(255) NOT NULL,
             "onPlayer" BOOLEAN default false,
             exp INTEGER NOT NULL,
-            level INTEGER NOT NULL,
             pokemon_id INTEGER REFERENCES pokemon(id),
             user_id INTEGER REFERENCES users(id),
             slot INTEGER
