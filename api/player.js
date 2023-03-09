@@ -46,7 +46,8 @@ playerRouter.post('/currentPokemon', async(req, res, next) => {
     try {
     const {slot, pokemonParticpating} = req.body
     let pokemon = await getUserPokemonBySlot({slot:slot, id: req.user.id})
-    
+    let level = await getPokemonLevel(pokemon.id)
+    pokemon.level = level
     if (pokemon.stats.hp.current_value == 0) {
         delete pokemonParticpating[pokemon.id]
     res.send({pokemonParticpating:pokemonParticpating, pokemon: pokemon, message:`Your ${pokemon.name} has fainted!`})
@@ -62,8 +63,6 @@ playerRouter.post('/currentPokemon', async(req, res, next) => {
 playerRouter.get('/pokemon', async (req, res, next) => {
     try {
         const userPokemon = await getUserPokemon(req.user.id)
-        
-        
         userPokemon.sort((a, b) => a.slot - b.slot)
         for(let i = 0; i < userPokemon.length; i++) {
             if(userPokemon[i].stats.hp.current_value > 0) {

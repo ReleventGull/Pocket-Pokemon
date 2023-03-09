@@ -419,21 +419,9 @@ function experienceGainedInclusive ({pokemon, faintedPokemonLevel, fainedPokemon
   let s = pokemon * 2
   let b = fainedPokemonBaseExp
   let l = Number(faintedPokemonLevel)
-  console.log(s, b ,l)
   const result = Math.floor((((b * l)/7) * (1/s)))
-  console.log(result)
+  return result
   }
-
-  
-  
-  
-  function expereinceGainedExclusive () {
-
-
-
-  const result = (((b * l)/7) * (1/s))
-  }
-  
 
 module.exports = {
   typeTable,

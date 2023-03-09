@@ -28,9 +28,9 @@ const Encounter = ({
 
   const fetchCurrentUserPokemon = async() => {
      let pok = await fetchCurrentPokemon({pokemonParticpating:pokemonParticpating, token: token, slot: playerPokemon.slot})
-     
      return pok
   }
+  
   const getUserPokemon = async() => {
       let participateObject = {}
       let userPokemon = await fetchUserPokemon(token)
@@ -38,9 +38,9 @@ const Encounter = ({
       participateObject[userPokemon.id] = userPokemon
       setPokemonParticpating(participateObject)
       if(userPokemon.message) {
-        setEncounter(false)
-        setAllowMove(true)
-        return
+          setEncounter(false)
+          setAllowMove(true)
+          return
       }
       setplayerPokemon(userPokemon)
   }
@@ -56,7 +56,6 @@ let result = await defend({move: move, attackingPokemon: pokemonEncountered, def
 let userPokemon = await fetchCurrentUserPokemon()
 if (userPokemon.pokemonParticpating) {
   setPokemonParticpating(userPokemon.pokemonParticpating)
-  console.log('After death', userPokemon.pokemonParticpating)
 }
 
 

@@ -99,13 +99,13 @@ const getPokemonById = async(id) => {
         throw error
     }
 }
-const createPlayerPokemon = async({name, onPlayer, exp, level, pokemon_id, user_id, slot}) => {
+const createPlayerPokemon = async({name, onPlayer, exp, pokemon_id, user_id, slot}) => {
     try {
         const {rows: [pokemon]} = await client.query(`
-        INSERT INTO playerPokemon (name, "onPlayer", exp, level, pokemon_id, user_id, slot)
-        VALUES ($1, $2, $3, $4, $5, $6, $7)
+        INSERT INTO playerPokemon (name, "onPlayer", exp, pokemon_id, user_id, slot)
+        VALUES ($1, $2, $3, $4, $5, $6)
         RETURNING *;
-        `, [name, onPlayer, exp, level, pokemon_id, user_id, slot])
+        `, [name, onPlayer, exp, pokemon_id, user_id, slot])
         return pokemon
     }catch(error) {
         console.error("There was an error creating the player pokemon", error)
@@ -207,7 +207,7 @@ const getUserPokemonHp = async(id) => {
 const checkUserPokemonHp = async(id) => {
     try {
         const {rows: pokemon} = await client.query(`
-        SELECT playerPokemon.name, playerPokemonStats."currentValue"
+        SELECT playerPokemon.id, playerPokemon.name, playerPokemonStats."currentValue"
         FROM playerPokemon
         JOIN playerPokemonStats ON playerPokemonStats.player_pokemon_id=playerPokemon.id
         WHERE playerPokemon.user_id=$1 AND playerPokemonStats.name='hp' AND playerPokemonStats."currentValue">0
@@ -234,6 +234,22 @@ const getPokemonTypes = async(id) => {
 }
 
 
+// const getAliveUserPokemon = async(id) => {
+//     try {
+//         const {rows: [pokemon]} = await client(`
+//         SELECT playerPokemon.id, playerPokemonStats
+//         JOIN playerPokemonStats ON playerPokemon.id=playerPokemonStats.player_pokemon_id
+//         WHERE playerPokemon.user_id=$1 AND playerPokemonStats.name='hp' AND playerPokemonStats."currentValue" > 1 
+//         `, [id])
+//         console.log(pokemon)
+//         pokemon
+//     }catch(error) {
+//         console.error("There was an errror getting the alive pokemon in db/pokemon", error)
+//         throw error
+//     }
+// }
+
+
 
 
 module.exports = {
@@ -247,5 +263,6 @@ module.exports = {
     getPokemonTypes,
     getUserPokemonBySlot,
     getUserPokemonHp,
-    checkUserPokemonHp
+    checkUserPokemonHp,
+    
 }
