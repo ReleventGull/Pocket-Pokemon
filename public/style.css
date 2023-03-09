@@ -592,6 +592,7 @@ border-radius: 10%;
 }
 .shopItems {
     width: 40%;
+    height: 800px;
     display: flex;
     flex-direction: column;
     align-items: center;
