@@ -30,7 +30,7 @@ const updatePokemonHp = async({hp, id}) => {
     }
 }
 
-const getPokemonLevel = async(id) => {
+const getUserPokemonLevel = async(id) => {
     try {
         const {rows: [level]} = await client.query(`
         SELECT levels.*, playerPokemon.exp AS playerPokemonExp
@@ -49,16 +49,48 @@ const getPokemonLevel = async(id) => {
         }
     }
 
+const getPokemonlevel = async({id, exp}) => {
+    try {
+        const {rows: [level]} = await client.query(`
+        SELECT levels.experience_rate_id, levels.exp, levels.level, experience.name
+        FROM levels
+        JOIN experience ON experience.id = levels.experience_rate_id
+        JOIN pokemon ON pokemon.experience_rate=levels.experience_rate_id
+        WHERE levels.exp <= $1 AND pokemon.id = $2
+        ORDER BY levels.exp desc
+        LIMIT 1
+        `,[exp, id])
+        return level
+    }catch(error) {
+        console.error("There was an error getting the pokemon level in db/stats", error)
+        error
+    }
+}
+
+const getPokemonMaxExp = async(id) => {
+    try {
+    const {rows: [exp]} = await client.query(`
+    SELECT levels.exp, levels.level
+    FROM levels
+    JOIN pokemon ON levels.experience_rate_id=pokemon.experience_rate
+    WHERE pokemon.id=$1
+    ORDER BY exp desc
+    LIMIT 1
+    `, [id])
+    return exp
+    }catch(error) {
+        console.error("There was an error getting pokemon max hp in db/stats", error) 
+        throw error
+    }
+}
 const updateExp = async({exp, pokemonId}) => {
     try {
-        console.log(exp, pokemonId)
         const {rows: [pokemon]} = await client.query(`
         UPDATE playerPokemon
         SET exp = exp + $1
         WHERE id=$2
         RETURNING *
         `, [exp, pokemonId])
-        console.log('updatedHere', pokemon)
     }catch(error) {
         console.error("There was an error updating the exp in db/pok", error)
     }
@@ -69,6 +101,8 @@ const updateExp = async({exp, pokemonId}) => {
 module.exports = {
     createPokemonStats,
     updatePokemonHp,
-    getPokemonLevel,
-    updateExp
+    getUserPokemonLevel,
+    updateExp,
+    getPokemonlevel,
+    getPokemonMaxExp
 }

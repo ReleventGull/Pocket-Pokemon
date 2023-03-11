@@ -95,7 +95,6 @@ userRouter.post('/login', async(req, res, next) => {
 })
 userRouter.get('/cash', async(req, res, next) => {
     try {
-        console.log(req.user.id)
         const cash = await getUserCash(req.user.id)
         
         res.send({cash: cash})

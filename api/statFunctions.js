@@ -13,6 +13,7 @@ function generateIvs(pokemon) {
       const hp = Math.floor((((2 * pokemon.stats.hp.value + pokemon.stats.hp.individual + (pokemon.stats.hp.effort/4)) * pokemon.level)/100) + pokemon.level + 10)
       pokemon.stats.hp.value = hp
       pokemon.stats.hp.current_value = hp
+
       return pokemon
   }
   
@@ -47,15 +48,7 @@ function generateIvs(pokemon) {
   
   
   
-  function experienceGained ({faintedPokemonExp, faintedPokemonLevel, participatedPokmon}) {
-  //s (colculating the pokemon that participates) 2 * numOfParticipants(that haven't fainted)
-  //s (not calculating the pokemon that partcicpates) 2 * numOfParticipants(that haven't fainted) * num of pokemon in party
-   // A=1 (If pokemon is wild)
-   //B = Base exp yield from the enemy pokemon
-   //L = is the level of the fainted/caughtGen VI+ Pokémon
-  const result = (((b * l)/7) * (1/s) * 1 *1)
-  }
-  
+
   
   
   

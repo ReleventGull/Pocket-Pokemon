@@ -1,8 +1,8 @@
 const express = require('express')
 const encounterRouter = express.Router()
-const { generateHP, generateIvs, generateStats, generateRandomMoves} = require('./statFunctions')
-const {updatePokemonHp, updateExp} = require('../db/stats')
-const {getPokemonTypes, checkUserPokemonHp} = require('../db/pokemon')
+const { generateHP, generateIvs, generateStats, generateRandomMoves, } = require('./statFunctions')
+const {updatePokemonHp, updateExp, getPokemonlevel, getPokemonMaxExp} = require('../db/stats')
+const {getPokemonTypes, checkUserPokemonHp, getUserPokemonBySlot} = require('../db/pokemon')
 const {getMovesByPokemon} = require('../db/moves')
 const {damage, experienceGainedInclusive} = require('./battle')
 
@@ -90,7 +90,18 @@ encounterRouter.post('/encounterPokemon', async (req, res, next) => {
     try {
     const {pokemon} = req.body
     const randomLevel = pokemon.levels[Math.floor((Math.random() * 99))]
-        
+    
+    //Generates random exp for pokemon
+    let maxExpPossible = await getPokemonMaxExp(pokemon.pokemon_id)
+    const randomExp = Math.floor(Math.random() * maxExpPossible.exp)
+   
+    
+    let level = await getPokemonlevel({id: pokemon.pokemon_id, exp: randomExp})
+   
+    
+    
+    
+    
     pokemon['level'] = randomLevel.level
     pokemon['exp'] = randomLevel.exp
     pokemon['isWild'] = true
@@ -125,6 +136,16 @@ encounterRouter.post('/expGain', async (req, res, next) => {
         const exp = experienceGainedInclusive({pokemon: Object.keys(pokemonParticipating).length, faintedPokemonLevel: faintedPokemonLevel, fainedPokemonBaseExp: faintedPokemonBaseExperience})
         const alivePok = await checkUserPokemonHp(req.user.id)
         for(let i = 0; i < alivePok.length; i++) {
+            let current = await getUserPokemonBySlot({slot: alivePok[i].slot, id:req.user.id})
+            let pokLevel = await getPokemonLevel(alivePok[i].id)
+            alivePok[i].level = pokLevel
+            generateHP(current)
+
+
+            generateStats(current)
+       
+            
+            
             await updateExp({exp: exp, pokemonId:alivePok[i].id})
         }
         
