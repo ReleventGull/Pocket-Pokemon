@@ -9,23 +9,23 @@ function generateIvs(pokemon) {
   }
   
   
- function generateHP(pokemon) {
-      const hp = Math.floor((((2 * pokemon.stats.hp.value + pokemon.stats.hp.individual + (pokemon.stats.hp.effort/4)) * pokemon.level)/100) + pokemon.level + 10)
+ function generateHP(pokemon, level) {
+      const hp = Math.floor((((2 * pokemon.stats.hp.base_stat + pokemon.stats.hp.individual + (pokemon.stats.hp.effort/4)) * level)/100) + level + 10)
       pokemon.stats.hp.value = hp
       pokemon.stats.hp.current_value = hp
-
+      delete pokemon.stats.hp.base_stat
       return pokemon
   }
   
- function generateStats(pokemon) {
+ function generateStats(pokemon, level) {
     for(let key in pokemon.stats) {
       if (key == 'hp') {
         continue
       }
-      const stat = Math.floor(((((2 * pokemon.stats[key].value + pokemon.stats[key].individual + (pokemon.stats[key].effort/4)) * pokemon.level)/100) + 5))
+      const stat = Math.floor(((((2 * pokemon.stats[key].base_stat + pokemon.stats[key].individual + (pokemon.stats[key].effort/4)) * level)/100) + 5))
       pokemon.stats[key].value = stat
       pokemon.stats[key].current_value = stat
-     
+      delete pokemon.stats[key].base_stat
     }
     return pokemon
   }

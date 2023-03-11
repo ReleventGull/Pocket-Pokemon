@@ -92,11 +92,27 @@ const updateExp = async({exp, pokemonId}) => {
         RETURNING *
         `, [exp, pokemonId])
     }catch(error) {
-        console.error("There was an error updating the exp in db/pok", error)
+        console.error("There was an error updating the exp in db/stats", error)
     }
 }
 
-
+const getPokemonStats = async (id) => {
+    try {
+        const {rows: result} = await client.query(`
+        SELECT name, value AS base_stat, effort
+        FROM
+        pokemonStats
+        WHERE pokemon_id = $1
+        `, [id])
+        let object = {}
+        for(let i = 0; i < result.length; i++) {
+            object[result[i].name] = {base_stat: result[i].base_stat, effort: result[i].effort}
+        }
+        return object
+    }catch(error) {
+        console.error("There was an error getting pokemon stats in db/stats")
+    }
+}
 
 module.exports = {
     createPokemonStats,
@@ -104,5 +120,6 @@ module.exports = {
     getUserPokemonLevel,
     updateExp,
     getPokemonlevel,
-    getPokemonMaxExp
+    getPokemonMaxExp,
+    getPokemonStats
 }
