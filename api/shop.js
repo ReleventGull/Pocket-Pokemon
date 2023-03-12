@@ -5,7 +5,6 @@ const shopRouter = express.Router()
 shopRouter.post('/purchase', async(req, res, next) => {
     try {
         const {itemId, quantity} = req.body
-        console.log(req.body)
         const item = await createPlayerItem({quantity: quantity, userId: req.user.id, itemId: itemId})
         res.send(item)
     }catch(error) {
@@ -29,7 +28,6 @@ shopRouter.get('/:item', async(req, res, next) => {
     try {
         
         const items = await getItemsByName(req.params.item)
-        console.log(items)
         res.send(items)
     }catch(error) {
         console.error("There was an error getting the shop items by name in api/shop", error)

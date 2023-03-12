@@ -13,7 +13,6 @@ const Encounter = ({
   setAllowMove,
   encounter,
 }) => {
-  console.log(pokemonEncountered)
   const [playerTurn, setPlayerTurn] = useState(1)
   const [view, setView] = useState('')
   const [playerPokemon, setplayerPokemon] = useState(null)

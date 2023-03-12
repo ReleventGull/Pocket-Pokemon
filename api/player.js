@@ -3,10 +3,11 @@ const playerRouter = express.Router()
 const { generateHP, generateIvs, generateStats } = require('./statFunctions')
 const {getUserPokemon, getUserPokemonHp, getUserPokemonBySlot, getPokemonById} = require('../db/pokemon')
 const {getPlayerPokemonMove} = require('../db/moves')
-const {updatePokemonHp, getPokemonLevel} = require('../db/stats')
+const { getUserPokemonLevel, getPokemonOnPlayer, healPokemon} = require('../db/stats')
 
 playerRouter.post('/selectStarter', async (req, res, next) => {
     try {
+    console.log("HI")
     const {pokemon} = req.body
     pokemon['current_exp'] = 0
     pokemon['current_level'] = 1
@@ -22,9 +23,10 @@ playerRouter.post('/selectStarter', async (req, res, next) => {
 })
 playerRouter.get('/heal', async (req, res, next) => {
     try {
-        let pokemonHp = await getUserPokemonHp(req.user.id)
+        let pokemonHp = await getPokemonOnPlayer(req.user.id)
+        console.log(pokemonHp)
         for(let i = 0; i < pokemonHp.length; i++) {
-            await updatePokemonHp({hp:pokemonHp[i].value, id:pokemonHp[i].id})
+            await healPokemon(pokemonHp[i].id)
         }
         res.send({message: "Incomplete"})
     }catch(error) {
@@ -46,7 +48,7 @@ playerRouter.post('/currentPokemon', async(req, res, next) => {
     try {
     const {slot, pokemonParticpating} = req.body
     let pokemon = await getUserPokemonBySlot({slot:slot, id: req.user.id})
-    let level = await getPokemonLevel(pokemon.id)
+    let level = await getUserPokemonLevel(pokemon.id)
     pokemon.level = level
     if (pokemon.stats.hp.current_value == 0) {
         delete pokemonParticpating[pokemon.id]
@@ -66,9 +68,8 @@ playerRouter.get('/pokemon', async (req, res, next) => {
         userPokemon.sort((a, b) => a.slot - b.slot)
         for(let i = 0; i < userPokemon.length; i++) {
             if(userPokemon[i].stats.hp.current_value > 0) {
-                const level = await getPokemonLevel(userPokemon[i].id)
+                const level = await getUserPokemonLevel(userPokemon[i].id)
                 userPokemon[i].level = level
-                console.log(userPokemon)
                 res.send(userPokemon[i])
                 return
             }

@@ -1,32 +1,33 @@
 const {getMovesByPokemon} = require('../db/moves')
  
-function generateIvs(pokemon) {
-  for(let key in pokemon.stats) {
+function generateIvs(stats) {
+  for(let key in stats) {
     let randomIV = Math.floor(Math.random() * 31)
-    pokemon.stats[key]['individual'] = randomIV
+    stats[key]['individual'] = randomIV
   }
-      return pokemon
-  }
-  
-  
- function generateHP(pokemon) {
-      const hp = Math.floor((((2 * pokemon.stats.hp.value + pokemon.stats.hp.individual + (pokemon.stats.hp.effort/4)) * pokemon.level)/100) + pokemon.level + 10)
-      pokemon.stats.hp.value = hp
-      pokemon.stats.hp.current_value = hp
-      return pokemon
+      return stats
   }
   
- function generateStats(pokemon) {
-    for(let key in pokemon.stats) {
+  
+ function generateHP(stats, level) {
+      const hp = Math.floor((((2 * stats.hp.base_stat + stats.hp.individual + (stats.hp.effort/4)) * level)/100) + level + 10)
+      stats.hp.value = hp
+      stats.hp.current_value = hp
+      delete stats.hp.base_stat
+      return stats
+  }
+  
+ function generateStats(stats, level) {
+    for(let key in stats) {
       if (key == 'hp') {
         continue
       }
-      const stat = Math.floor(((((2 * pokemon.stats[key].value + pokemon.stats[key].individual + (pokemon.stats[key].effort/4)) * pokemon.level)/100) + 5))
-      pokemon.stats[key].value = stat
-      pokemon.stats[key].current_value = stat
-     
+      const stat = Math.floor(((((2 * stats[key].base_stat + stats[key].individual + (stats[key].effort/4)) * level)/100) + 5))
+      stats[key].value = stat
+      stats[key].current_value = stat
+      delete stats[key].base_stat
     }
-    return pokemon
+    return stats
   }
   
   async function generateRandomMoves (pokemon)  {
@@ -47,15 +48,7 @@ function generateIvs(pokemon) {
   
   
   
-  function experienceGained ({faintedPokemonExp, faintedPokemonLevel, participatedPokmon}) {
-  //s (colculating the pokemon that participates) 2 * numOfParticipants(that haven't fainted)
-  //s (not calculating the pokemon that partcicpates) 2 * numOfParticipants(that haven't fainted) * num of pokemon in party
-   // A=1 (If pokemon is wild)
-   //B = Base exp yield from the enemy pokemon
-   //L = is the level of the fainted/caughtGen VI+ Pokémon
-  const result = (((b * l)/7) * (1/s) * 1 *1)
-  }
-  
+
   
   
   
