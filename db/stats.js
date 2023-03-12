@@ -29,6 +29,33 @@ const updatePokemonHp = async({hp, id}) => {
         throw error
     }
 }
+const getPokemonOnPlayer = async(id) => {
+    try {
+        const {rows: pokemon} = await client.query(`
+        SELECT id FROM playerPokemon
+        WHERE
+        user_id=$1 AND "onPlayer"=true
+        `, [id])
+        return pokemon
+    }catch(error) {
+        console.error("There was an error getting the player pokemon on player", error)
+        throw error
+    }
+}
+const healPokemon = async(id) => {
+    try {
+        const {rows: stats} = await client.query(`
+        UPDATE playerPokemonStats
+        SET "currentValue"=value
+        WHERE player_pokemon_id=$1
+        RETURNING *
+        `, [id])
+        console.log(stats)
+    }catch(error) {
+        console.error("There was an error healing the pokemon db/stats", error)
+        throw error
+    }
+}
 
 const getUserPokemonLevel = async(id) => {
     try {
@@ -91,6 +118,7 @@ const updateExp = async({exp, pokemonId}) => {
         WHERE id=$2
         RETURNING *
         `, [exp, pokemonId])
+        return pokemon
     }catch(error) {
         console.error("There was an error updating the exp in db/stats", error)
     }
@@ -114,6 +142,21 @@ const getPokemonStats = async (id) => {
     }
 }
 
+const updatePlayerPokemonStats = async ({id, value}) => {
+    try {
+        const {result: stats} = await client.query(`
+        UPDATE playerPokemonStats
+        SET value=$1
+        WHERE id=$2
+        RETURNING *
+        `, [value, id])
+        return stats
+    }catch(error) {
+        console.error("There was an error updating player Pokemon Stats in db/stats", error)
+        throw error
+    }
+}
+
 module.exports = {
     createPokemonStats,
     updatePokemonHp,
@@ -122,5 +165,8 @@ module.exports = {
     getPokemonlevel,
     getPokemonMaxExp,
     getPokemonStats,
-    getUserPokemonLevel
+    getUserPokemonLevel,
+    updatePlayerPokemonStats,
+    getPokemonOnPlayer,
+    healPokemon
 }

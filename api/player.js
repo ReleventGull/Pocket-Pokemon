@@ -3,7 +3,7 @@ const playerRouter = express.Router()
 const { generateHP, generateIvs, generateStats } = require('./statFunctions')
 const {getUserPokemon, getUserPokemonHp, getUserPokemonBySlot, getPokemonById} = require('../db/pokemon')
 const {getPlayerPokemonMove} = require('../db/moves')
-const {updatePokemonHp, getUserPokemonLevel} = require('../db/stats')
+const { getUserPokemonLevel, getPokemonOnPlayer, healPokemon} = require('../db/stats')
 
 playerRouter.post('/selectStarter', async (req, res, next) => {
     try {
@@ -23,9 +23,10 @@ playerRouter.post('/selectStarter', async (req, res, next) => {
 })
 playerRouter.get('/heal', async (req, res, next) => {
     try {
-        let pokemonHp = await getUserPokemonHp(req.user.id)
+        let pokemonHp = await getPokemonOnPlayer(req.user.id)
+        console.log(pokemonHp)
         for(let i = 0; i < pokemonHp.length; i++) {
-            await updatePokemonHp({hp:pokemonHp[i].value, id:pokemonHp[i].id})
+            await healPokemon(pokemonHp[i].id)
         }
         res.send({message: "Incomplete"})
     }catch(error) {

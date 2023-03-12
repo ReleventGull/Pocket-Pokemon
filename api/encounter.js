@@ -1,7 +1,7 @@
 const express = require('express')
 const encounterRouter = express.Router()
 const { generateHP, generateIvs, generateStats, generateRandomMoves, } = require('./statFunctions')
-const {updatePokemonHp, updateExp, getPokemonlevel, getPokemonMaxExp, getUserPokemonLevel, getPokemonStats} = require('../db/stats')
+const {updatePokemonHp, updateExp, getPokemonlevel, getPokemonMaxExp, getUserPokemonLevel, getPokemonStats, updatePlayerPokemonStats} = require('../db/stats')
 const {getPokemonTypes, checkUserPokemonHp, getUserPokemonBySlot} = require('../db/pokemon')
 const {getMovesByPokemon} = require('../db/moves')
 const {damage, experienceGainedInclusive} = require('./battle')
@@ -136,20 +136,25 @@ encounterRouter.post('/expGain', async (req, res, next) => {
         
         const exp = experienceGainedInclusive({pokemon: Object.keys(pokemonParticipating).length, faintedPokemonLevel: faintedPokemonLevel, fainedPokemonBaseExp: faintedPokemonBaseExperience})
         const alivePok = await checkUserPokemonHp(req.user.id)
+        console.log(alivePok)
         for(let i = 0; i < alivePok.length; i++) {
             let firstLevel = await getUserPokemonLevel(alivePok[i].id)
-            await updateExp({exp: exp, pokemonId:alivePok[i].id})
+            let newExp = await updateExp({exp: exp, pokemonId:alivePok[i].id})
             let level = await getUserPokemonLevel(alivePok[i].id)
             if (firstLevel == level) {
                 continue
             }else {
                 let current = await getUserPokemonBySlot({slot: alivePok[i].slot, id:req.user.id})
                 let pokeStats = await getPokemonStats(current.pokemon_id)
+                console.log(current)
                 for(let key in pokeStats) {
                     pokeStats[key]['individual'] = current.stats[key].individual
                 }
                 generateHP(pokeStats, level)
                 generateStats(pokeStats, level)
+                for(let key in current.stats) {
+                    await updatePlayerPokemonStats({id: current.stats[key].id, value: pokeStats[key].value})
+                }
             }       
         }
         res.send({message: "Hello there"})
