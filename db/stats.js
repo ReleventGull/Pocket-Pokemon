@@ -121,5 +121,6 @@ module.exports = {
     updateExp,
     getPokemonlevel,
     getPokemonMaxExp,
-    getPokemonStats
+    getPokemonStats,
+    getUserPokemonLevel
 }

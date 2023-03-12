@@ -7,6 +7,7 @@ const {updatePokemonHp, getUserPokemonLevel} = require('../db/stats')
 
 playerRouter.post('/selectStarter', async (req, res, next) => {
     try {
+    console.log("HI")
     const {pokemon} = req.body
     pokemon['current_exp'] = 0
     pokemon['current_level'] = 1

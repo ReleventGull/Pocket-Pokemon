@@ -4,6 +4,8 @@ const {getMoveByPokemon, createPlayerPokemonMove} = require('../db/moves')
 const {createUser, getUserById, getUserByUsername, getUserCash} = require('../db/users')
 const {getPokemonById, createPlayerPokemon, createPlayerPokmonStats, getUserPokemonBySlot} = require('../db/pokemon')
 const jwt = require('jsonwebtoken')
+const { getPokemonStats } = require('../db/stats')
+const { generateIvs, generateHP, generateStats } = require('./statFunctions')
 const {JWT_SECRET} = process.env
 
 
@@ -11,7 +13,14 @@ userRouter.post('/register', async(req, res, next) => {
     try {
         const {pokemonId, password, username, name} = req.body
         let pokemonById = await getPokemonById(pokemonId)
+        let stats = await getPokemonStats(pokemonId)
+        
+        generateIvs(stats)
+        generateHP(stats, 1)
+        generateStats(stats, 1)
+        console.log("stats", stats)
         let pokemonMoves = await getMoveByPokemon(pokemonById.name)
+    
         let attackMoves = pokemonMoves.filter(move => move.power > 0)
         let randomMove = attackMoves[Math.floor(Math.random() * attackMoves.length)]
 
@@ -20,7 +29,7 @@ userRouter.post('/register', async(req, res, next) => {
         const newPlayerPokemon = await createPlayerPokemon({
             name: pokemonById.name,
             onPlayer : true,
-            exp: pokemonById.baseExperience,
+            exp: 0,
             pokemon_id: pokemonById.id,
             user_id: createdUser.id,
             level: 1,
@@ -31,13 +40,13 @@ userRouter.post('/register', async(req, res, next) => {
             pokemon_id: newPlayerPokemon.id,
             current_pp: randomMove.pp
         })
-        for(let key in pokemonById.stats) {
+        for(let key in stats) {
             await createPlayerPokmonStats({
                 name: key,
-                effort: pokemonById.stats[key].effort,
-                value: pokemonById.stats[key].value,
-                currentValue:pokemonById.stats[key].value,
-                individual: Math.floor(Math.random() * 31),
+                effort: stats[key].effort,
+                value: stats[key].value,
+                currentValue: stats[key].value,
+                individual: stats[key].individual,
                 player_pokemon_id: newPlayerPokemon.id
             })
         }
