@@ -505,13 +505,13 @@ border-radius: 20px;
     height: 10%
 }
 /****************** SHOP PAGE *************************/
-.shopBody.disable {
-    background: #000;
-    position: relative;
-    opacity: 0.8;
-    z-index: 998
+.overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .7);
 }
-.shopBody {
+#shopBody {
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -520,6 +520,7 @@ border-radius: 20px;
     width: 1000px;
     position: relative;
     border: 2px solid black;
+    z-index: 1;
 }
 .exitShop {
     background-color: transparent;
@@ -663,17 +664,21 @@ border-radius: 20px;
 }
 
 .confirmHeal {
-    position: absolute;
+    position: fixed;
     top: 50%;
-    bottom: 50%;
+    
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 400px;
     height: 200px;
+    
+    
     background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    z-index: 999;
+    z-index: 1000;
     border: 2px solid black;
     box-shadow: 0 0 10px 0 red;
 }
