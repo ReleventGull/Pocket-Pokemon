@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react"
-import { healPokemon } from "./apiCalls/userPokemon"
 import {getAllItems, fetchItemsByName} from './apiCalls/index'
 import {purchseItem, fetchUserCash} from './apiCalls/users'
+import HealModal from "./HealModal"
 const Shop = ({token, setDisplay, setAllowMove}) => {
     const [heal, setHeal ] = useState(false)
     const [items, setItems] = useState([])
     const [featuredItem, setFeaturedItem] = useState(null)
     const [itemValue, setItemValue] = useState(1)
     const [userCash, setUserCash] = useState(0)
-    console.log(itemValue)
     
     const getuserCash = async() => {
         const cash = await fetchUserCash(token)
@@ -27,7 +26,7 @@ const Shop = ({token, setDisplay, setAllowMove}) => {
 
 return (
     <>
-        <div className={!heal ? 'shopBody' : 'shopBody disable'}>
+        <div id='shopBody'>
             <div className="top-shop">
             <button className='exitShop' disabled={heal} onClick={() => {setAllowMove(true), setDisplay('')}}>X</button>
             </div>
@@ -85,14 +84,7 @@ return (
         </div>
         
          {heal ? 
-            <div className="confirmHeal">
-                <h3>Heal your pokemon?</h3>
-                <div className="healOptions">
-                    <button onClick={async() =>{ healPokemon(token), setHeal(false)}}className="yesHeal">Yes</button>
-                    <button className="noHeal" onClick={() => setHeal(false)}>No</button>
-                </div>
-                
-            </div>
+            <HealModal setHeal={setHeal} token={token}/>
         : 
         null
         }
