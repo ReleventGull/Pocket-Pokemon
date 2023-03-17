@@ -52,7 +52,7 @@ html, body, #app {
 
 
 .starterPage {
-    background-image: url('https://picstatio.com/large/nzzi06/pokemon-minimalism-wallpaper.png');
+    background-image: url(./images//pokemon-minimalism-wallpaper.png);
     background-size: cover;
     height: 1000px;
     min-width: 1600px;
@@ -410,7 +410,7 @@ border-radius: 20px;
 
 /**********************LOGIN*********************/
 .loginPage {
-    background-image: url('https://cdn.wallpapersafari.com/91/72/QSBAG7.jpg');
+    background-image: url(./images//QSBAG7.jpg);
     background-size: cover;
     height: 1000px;
     min-width: 1600px;
