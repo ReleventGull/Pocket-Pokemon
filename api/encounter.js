@@ -89,12 +89,13 @@ encounterRouter.get('/healthCheck', async(req, res, next) => {
 encounterRouter.post('/encounterPokemon', async (req, res, next) => {
     try {
     const {pokemon} = req.body
+    console.log(pokemon)
     const randomLevel = pokemon.levels[Math.floor((Math.random() * 99))]
     
     //Generates random exp for pokemon
     let maxExpPossible = await getPokemonMaxExp(pokemon.pokemon_id)
-    const randomExp = Math.floor(Math.random() * maxExpPossible.exp)
-   
+    let randomExp = Math.floor(Math.random() * maxExpPossible.exp)
+
     
     let level = await getPokemonlevel({id: pokemon.pokemon_id, exp: randomExp})
     let stats = await getPokemonStats(pokemon.pokemon_id)
@@ -102,15 +103,15 @@ encounterRouter.post('/encounterPokemon', async (req, res, next) => {
     generateIvs(stats)
     
     //Generate The Hp For The Pokemon
-    generateHP(stats, 1)
+    generateHP(stats, level.level)
    
     //Generate The Stats of the Random Pokemon
     
-    generateStats(stats, 1)
+    generateStats(stats, level.level)
     
     
     pokemon['stats'] = stats
-    pokemon['level'] = 1
+    pokemon['level'] = level.level
     pokemon['exp'] = randomLevel.exp
     pokemon['isWild'] = true
     pokemon['moves'] = []

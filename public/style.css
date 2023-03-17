@@ -349,7 +349,7 @@ table {
     width: 480px;
     height: 127px;
     margin-bottom: 15px;
-    background-color: gray;
+    background-color: rgb(192, 192, 192);
     border: 3px solid black;
     border-radius: 10px;
     outline: 2px solid white;
