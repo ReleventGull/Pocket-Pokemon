@@ -1,13 +1,28 @@
 const express = require('express')
-const { getAllItems, createShopItem, createPlayerItem, getItemsByName} = require('../db/shop')
+const { getAllItems, createShopItem, createPlayerItem, getItemsByName, getItemById} = require('../db/shop')
+const {getUserCash, updateUserCash, getPlayerItemById, updatePlayerItem} = require('../db/users') 
 const shopRouter = express.Router()
 
 shopRouter.post('/purchase', async(req, res, next) => {
     try {
         const {itemId, quantity} = req.body
+        const item = await getItemById(itemId)
+        const price = item.cost * quantity
+        const userCash = await getUserCash(req.user.id)
+        console.log(userCash)
+        if (price > userCash.cash) {
+            res.send({error: "InvalidFunds", message: "You do not have enough money to purchase this item"})
+        }else {
+            let checkExist = await getPlayerItemById({id: itemId, userId: req.user.id})
+            if(!checkExist) {
+                const createdItem = await createPlayerItem({quantity: quantity, userId: req.user.id, itemId: itemId})
+            }else {
+                const updatedItem = await updatePlayerItem({userId: req.user.id, itemId: itemId, value: quantity})
+            }
+            const updatedCash = await updateUserCash({id: req.user.id, cash: -price})
+            res.send({message: "Success"})
+        }
         
-        const item = await createPlayerItem({quantity: quantity, userId: req.user.id, itemId: itemId})
-        res.send(item)
     }catch(error) {
         console.error("there was an erroring purchasing an item", error)
         throw error

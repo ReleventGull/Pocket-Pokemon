@@ -54,9 +54,23 @@ const createPlayerItem = async({quantity, userId, itemId}) => {
     }
 }
 
+const getItemById = async(id) => {
+    try {
+        const {rows: [item]} = await client.query(`
+        SELECT * FROM shopItems
+        WHERE id=$1
+        `, [id])
+        return item
+    }catch(error){
+        console.error("There was an error getting the item by id in db/shop", error) 
+        throw error
+    }
+}
+
 module.exports = {
     getAllItems, 
     createShopItem,
     createPlayerItem,
-    getItemsByName
+    getItemsByName,
+    getItemById
 }

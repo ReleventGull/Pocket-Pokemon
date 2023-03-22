@@ -67,10 +67,40 @@ const updateUserCash = async({id, cash}) => {
     }
 }
 
+const updatePlayerItem = async({userId, itemId, value}) => {
+    try {
+        const {rows: [item]} = await client.query(`
+        UPDATE playerItems
+        SET quantity = quantity + $1
+        WHERE user_id = $2 AND item_id = $3
+        RETURNING *;
+        `, [value, userId, itemId])
+        return item
+    }catch(error) {
+        console.error("There was an erro updating player item", error)
+        throw error
+    }
+}
+
+const getPlayerItemById = async({id, userId}) => {
+    try {
+    const {rows: [item]} = await client.query(`
+    SELECT * FROM playerItems
+    WHERE user_id = $1 AND item_id=$2
+    `, [userId, id])
+    return item
+    }catch(error) {
+        console.error("There was an error getting the player item by id", error)
+        throw error
+    }
+}
+
 module.exports = {
     createUser,
     getUserById,
     getUserByUsername,
     getUserCash,
-    updateUserCash
+    updateUserCash,
+    getPlayerItemById,
+    updatePlayerItem
 }
