@@ -53,12 +53,13 @@ export const generateStarter = async (pokemon) => {
   }
 };
 
-export const fetchEncounteredPokemon = async (pokemon) => {
+export const fetchEncounteredPokemon = async (pokemon, token) => {
   try {
     const response = await fetch(`${BASE_URL}/encounter/encounterPokemon`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({
         pokemon: pokemon,

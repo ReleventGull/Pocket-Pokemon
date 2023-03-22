@@ -2,7 +2,7 @@ const express = require('express')
 const encounterRouter = express.Router()
 const { generateHP, generateIvs, generateStats, generateRandomMoves, } = require('./statFunctions')
 const {updatePokemonHp, updateExp, getPokemonlevel, getPokemonMaxExp, getUserPokemonLevel, getPokemonStats, updatePlayerPokemonStats} = require('../db/stats')
-const {getPokemonTypes, checkUserPokemonHp, getUserPokemonBySlot} = require('../db/pokemon')
+const {getPokemonTypes, checkUserPokemonHp, getUserPokemonBySlot, getUserPokemonExp} = require('../db/pokemon')
 const {getMovesByPokemon} = require('../db/moves')
 const {damage, experienceGainedInclusive} = require('./battle')
 
@@ -89,14 +89,14 @@ encounterRouter.get('/healthCheck', async(req, res, next) => {
 encounterRouter.post('/encounterPokemon', async (req, res, next) => {
     try {
     const {pokemon} = req.body
-    console.log(pokemon)
-    const randomLevel = pokemon.levels[Math.floor((Math.random() * 99))]
-    
-    //Generates random exp for pokemon
-    let maxExpPossible = await getPokemonMaxExp(pokemon.pokemon_id)
-    let randomExp = Math.floor(Math.random() * maxExpPossible.exp)
+    const playerExp = await getUserPokemonExp(req.user.id)
+    let totalExp = playerExp.reduce((acc, current) => 
+        acc + current.exp, 
+    ).exp/playerExp.length
 
-    
+    //Generates random exp for pokemon
+    let randomExp = Math.floor(Math.random() * totalExp)
+
     let level = await getPokemonlevel({id: pokemon.pokemon_id, exp: randomExp})
     let stats = await getPokemonStats(pokemon.pokemon_id)
     
@@ -112,7 +112,7 @@ encounterRouter.post('/encounterPokemon', async (req, res, next) => {
     
     pokemon['stats'] = stats
     pokemon['level'] = level.level
-    pokemon['exp'] = randomLevel.exp
+    pokemon['exp'] = randomExp
     pokemon['isWild'] = true
     pokemon['moves'] = []
     //generate the moves of the pokemon

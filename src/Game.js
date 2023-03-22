@@ -14,7 +14,7 @@ const Game = ({token, pokemon}) => {
 
   const pokemonEncounter = async() => {
     const randomPokemon = pokemon[Math.floor(Math.random() * pokemon.length)];
-    const pokemonFromApi = await fetchEncounteredPokemon(randomPokemon)
+    const pokemonFromApi = await fetchEncounteredPokemon(randomPokemon, token)
     setPokemonEncounterd(pokemonFromApi);
   };
 

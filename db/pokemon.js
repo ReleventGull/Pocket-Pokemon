@@ -226,26 +226,24 @@ const getPokemonTypes = async(id) => {
         `, [id])
         return types
     }catch(error) {
-        console.error("There was an error getting the pokemon types" ,error)
+        console.error("There was an error getting the pokemon types", error)
         throw error
     }
 }
 
+const getUserPokemonExp = async(id) => {
+    try {
+        const {rows: exp} = await client.query(`
+        SELECT exp FROM playerPokemon
+        WHERE user_id=$1 AND "onPlayer"=true;
+        `, [id])
+        return exp
+    }catch(error) {
+        console.error("There was an error getting pokemon exp in db/pokemon", error)
+        throw error
+    }
+}
 
-// const getAliveUserPokemon = async(id) => {
-//     try {
-//         const {rows: [pokemon]} = await client(`
-//         SELECT playerPokemon.id, playerPokemonStats
-//         JOIN playerPokemonStats ON playerPokemon.id=playerPokemonStats.player_pokemon_id
-//         WHERE playerPokemon.user_id=$1 AND playerPokemonStats.name='hp' AND playerPokemonStats."currentValue" > 1 
-//         `, [id])
-//         console.log(pokemon)
-//         pokemon
-//     }catch(error) {
-//         console.error("There was an errror getting the alive pokemon in db/pokemon", error)
-//         throw error
-//     }
-// }
 
 
 
@@ -262,5 +260,5 @@ module.exports = {
     getUserPokemonBySlot,
     getUserPokemonHp,
     checkUserPokemonHp,
-    
+    getUserPokemonExp
 }
