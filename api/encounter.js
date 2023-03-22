@@ -162,7 +162,7 @@ encounterRouter.post('/expGain', async (req, res, next) => {
         let cash = Object.keys(pokemonParticipating).length * 100 * faintedPokemonLevel
         const updatedCash = await updateUserCash({id: req.user.id, cash: cash})
         console.log("Updated cash", updatedCash)
-        res.send(updatedCash)
+        res.send({cash: cash})
     }catch(error) {
         console.error("There was an error calling /expGain", error)
         throw error
