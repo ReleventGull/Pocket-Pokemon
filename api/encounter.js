@@ -5,7 +5,7 @@ const {updatePokemonHp, updateExp, getPokemonlevel, getPokemonMaxExp, getUserPok
 const {getPokemonTypes, checkUserPokemonHp, getUserPokemonBySlot, getUserPokemonExp} = require('../db/pokemon')
 const {getMovesByPokemon} = require('../db/moves')
 const {damage, experienceGainedInclusive} = require('./battle')
-
+const {updateUserCash} = require('../db/users')
 encounterRouter.post('/attack' , async (req, res, next) => {
     try {
     let crit
@@ -134,10 +134,9 @@ encounterRouter.post('/encounterPokemon', async (req, res, next) => {
 encounterRouter.post('/expGain', async (req, res, next) => {
     try {
         const {pokemonParticipating, faintedPokemonBaseExperience, faintedPokemonLevel} = req.body
-        
         const exp = experienceGainedInclusive({pokemon: Object.keys(pokemonParticipating).length, faintedPokemonLevel: faintedPokemonLevel, fainedPokemonBaseExp: faintedPokemonBaseExperience})
         const alivePok = await checkUserPokemonHp(req.user.id)
-        console.log(alivePok)
+        
         for(let i = 0; i < alivePok.length; i++) {
             let firstLevel = await getUserPokemonLevel(alivePok[i].id)
             let newExp = await updateExp({exp: exp, pokemonId:alivePok[i].id})
@@ -158,7 +157,12 @@ encounterRouter.post('/expGain', async (req, res, next) => {
                 }
             }       
         }
-        res.send({message: "Hello there"})
+        //Cash Gain
+        
+        let cash = Object.keys(pokemonParticipating).length * 100 * faintedPokemonLevel
+        const updatedCash = await updateUserCash({id: req.user.id, cash: cash})
+        console.log("Updated cash", updatedCash)
+        res.send(updatedCash)
     }catch(error) {
         console.error("There was an error calling /expGain", error)
         throw error

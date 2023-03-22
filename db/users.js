@@ -52,9 +52,25 @@ const getUserCash = async(id) => {
     }
 }
 
+const updateUserCash = async({id, cash}) => {
+    try {
+        const {rows: result} = await client.query(`
+        UPDATE users
+        SET cash = cash + $1
+        WHERE id=$2
+        RETURNING *;
+        `, [cash, id])
+        return result
+    }catch(error) {
+        console.error("There was an error updating the user cash in db/users", error)
+        throw error
+    }
+}
+
 module.exports = {
     createUser,
     getUserById,
     getUserByUsername,
-    getUserCash
+    getUserCash,
+    updateUserCash
 }
