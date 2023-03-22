@@ -5,6 +5,7 @@ const shopRouter = express.Router()
 shopRouter.post('/purchase', async(req, res, next) => {
     try {
         const {itemId, quantity} = req.body
+        
         const item = await createPlayerItem({quantity: quantity, userId: req.user.id, itemId: itemId})
         res.send(item)
     }catch(error) {

@@ -2,12 +2,14 @@ import { useState, useEffect } from "react"
 import {getAllItems, fetchItemsByName} from './apiCalls/index'
 import {purchseItem, fetchUserCash} from './apiCalls/users'
 import HealModal from "./HealModal"
+import PurchaseModal from './PurchaseModal'
 const Shop = ({token, setDisplay, setAllowMove}) => {
     const [heal, setHeal ] = useState(false)
     const [items, setItems] = useState([])
     const [featuredItem, setFeaturedItem] = useState(null)
     const [itemValue, setItemValue] = useState(1)
     const [userCash, setUserCash] = useState(0)
+    const [buy, setBuy] = useState(false)
     
     const getuserCash = async() => {
         const cash = await fetchUserCash(token)
@@ -70,7 +72,7 @@ return (
                                     <button onClick={() => itemValue <= 1 ? null : setItemValue((pre) => pre - 1)}>-</button>
                                 </div>
                             </div>
-                            <button onClick={async() => await purchseItem({token: token, itemId: featuredItem.id, quantity: itemValue})}className='purchaseButton' disabled={itemValue > 0 ? false : true}>Buy</button>
+                            <button onClick={() => setBuy(true)}className='purchaseButton' disabled={itemValue > 0 ? false : true}>Buy</button>
                         </div>
                     </>
                     :
@@ -83,9 +85,16 @@ return (
             </button>
         </div>
         
-         {heal ? 
+        {heal ? 
             <HealModal setHeal={setHeal} token={token}/>
         : 
+        null
+        }
+        
+        {buy ? 
+
+        <PurchaseModal getuserCash={getuserCash} token={token} featuredItem={featuredItem} itemValue={itemValue} setBuy={setBuy}/>
+        :
         null
         }
         </>
