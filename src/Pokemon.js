@@ -1,10 +1,10 @@
 import { useEffect, useState} from "react"
-import {fetchUserPokemon} from './apiCalls/users'
+import {fetchUserParty} from './apiCalls/userPokemon'
 const Pokemon = ({token, setDisplay, setAllowMove}) => {
     const [pokemon, setPokemon] = useState(null)
 
     const fetchPokemon = async() => {
-        let pokemon = await fetchUserPokemon(token)
+        let pokemon = await fetchUserParty(token)
         console.log(pokemon)
         setPokemon(pokemon)
     }
