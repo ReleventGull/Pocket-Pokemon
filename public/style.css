@@ -799,4 +799,32 @@ border-radius: 20px;
     opacity: .3;
   }
 
+.pokemonPage {
+    height: 1000px;
+    width: 1000px;
+    background-color: white;
+}
 
+.pokemonBody {
+    height: 90%;
+    width: 100%;
+}
+
+.pokemonFooter {
+    height: 10%;
+    width: 100%;
+   
+}
+.pokemonFooter button {
+    height: 100%;
+    width: 120px;
+    border: none;
+    padding: 0;
+    transition: .2s
+}
+
+.pokemonFooter button:hover {
+    transition: .2s;
+    color: white;
+    background-color: black;
+}
