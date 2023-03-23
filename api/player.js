@@ -81,6 +81,16 @@ playerRouter.get('/pokemon', async (req, res, next) => {
     }
 })
 
+playerRouter.get('/party', async(req, res, next) => {
+    try {
+        let pokemon = await getUserPokemon(req.user.id)
+        res.send(pokemon)
+    }catch(error) {
+        console.error("There was an error getting the player party in api/player", error)
+        throw error
+    }
+})
+
 
 
 module.exports = playerRouter

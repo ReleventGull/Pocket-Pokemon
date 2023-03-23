@@ -1,3 +1,5 @@
+
+
 const BASE_URL = "http://localhost:4000/api";
 
 export const fetchPokemonMovesById = async(id) => {
@@ -43,6 +45,21 @@ export const fetchCurrentPokemon = async({slot, token, pokemonParticpating}) => 
         return response
     }catch(error) {
         console.error("There was an error fetching the pokemon by the slot", error)
+        throw error
+    }
+}
+
+export const fetchUserParty = async(token) => {
+    try {
+        const response = await fetch(`${BASE_URL}/player/party`, {
+            method: "GET",
+            headers : {
+                'Authorization' : `Bearer ${token}`
+            }
+        }).then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an error fetching the player party", error)
         throw error
     }
 }
