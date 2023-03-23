@@ -802,12 +802,17 @@ border-radius: 20px;
 .pokemonPage {
     height: 1000px;
     width: 1000px;
-    background-color: white;
+    padding-top: 5px;
+    background-image: linear-gradient(#6f0808, #b03103, #000709);
 }
 
 .pokemonBody {
     height: 90%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
 }
 
 .pokemonFooter {
@@ -827,4 +832,31 @@ border-radius: 20px;
     transition: .2s;
     color: white;
     background-color: black;
+}
+
+
+.pokemonBox {
+    width: 89%;
+    position: relative;
+    height: 130px;
+    background-color: white;
+    display: flex
+}
+
+.imageLevelBox {
+    height: 100%;
+    width: 40%;
+}
+
+.healthContainerParty{
+    height: 70px;
+    width: 400px;
+    padding: 2px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+.healthContainerParty h3{
+    margin: 0;
+    color: black;
 }

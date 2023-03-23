@@ -1,0 +1,458 @@
+
+.playerParty {
+    background-image: url(./images/black-white.png);
+    background-size: 3100%;
+    height: 130px;
+    width: 130px;
+}
+
+.playerParty.bulbasar {
+   background-position-y: 0;
+ }
+ 
+ .playerParty.ivysaur {
+   background-position-y: 0;
+   background-position-x: -100%;
+ }
+ 
+ .playerParty.venusaur{
+   background-position-y: 0;
+   background-position-x: -200%;
+ }
+ 
+ .playerParty.charmander {
+   background-position-y: 0;
+   background-position-x: -300%;
+ }
+ 
+ .playerParty.charmeleon {
+   background-position-y: 0;
+   background-position-x: -400%;
+ }
+ 
+ .playerParty.charizard {
+   background-position-y: 0;
+   background-position-x: -500%;
+ }
+ 
+ 
+ 
+ .playerParty.squirtle {
+   background-position-y: 0;
+   background-position-x: -600%;
+ }
+ 
+ .playerParty.wartortle {
+   background-position-y: 0;
+   background-position-x: -700%;
+ }
+ 
+ .playerParty.blastoise {
+   background-position-y: 0;
+   background-position-x: -800%;
+ }
+ 
+ 
+ .playerParty.caterpie {
+   background-position-y: 0;
+   background-position-x: -900%;
+ }
+ 
+ .playerParty.metapod {
+   background-position-y: 0;
+   background-position-x: -1000%;
+ }
+ 
+ .playerParty.butterFree {
+   background-position-y: 0;
+   background-position-x: -1100%;
+ }
+ .playerParty.weedle {
+   background-position-y: 0;
+   background-position-x: -1200%;
+ }
+ .playerParty.kakuna {
+   background-position-y: 0;
+   background-position-x: -1300%;
+ }
+ 
+ .playerParty.beedrill {
+   background-position-y: 0;
+   background-position-x: -1400%;
+ }
+ 
+ .playerParty.pidgey {
+   background-position-y: 0;
+   background-position-x: -1500%;
+ }
+ 
+ .playerParty.pidgeotto {
+   background-position-y: 0;
+   background-position-x: -1600%;
+ }
+ 
+ .playerParty.pidgeot {
+   background-position-y: 0;
+   background-position-x: -1700%;
+ }
+ 
+ 
+ 
+ .playerParty.rattata {
+   background-position-y: 0;
+   background-position-x: -1800%;
+ }
+ 
+ 
+ .playerParty.raticate {
+   background-position-y: 0;
+   background-position-x: -1900%;
+ }
+ 
+ .playerParty.spearow {
+   background-position-y: 0;
+   background-position-x: -2000%;
+ }
+ 
+ .playerParty.fearow {
+   background-position-y: 0;
+   background-position-x: -2100%;
+ }
+ 
+ .playerParty.ekans {
+   background-position-y: 0;
+   background-position-x: -2200%;
+ }
+ 
+ .playerParty.arbok {
+   background-position-y: 0;
+   background-position-x: -2300%;
+ }
+ 
+ .playerParty.pikachu {
+   background-position-y: 0;
+   background-position-x: -2400%;
+ }
+ 
+ .playerParty.raichu {
+   background-position-y: 0;
+   background-position-x: -2500%;
+ }
+ 
+ .playerParty.sandshrew {
+   background-position-y: 0;
+   background-position-x: -2600%;
+ }
+ 
+ .playerParty.sandslash {
+   background-position-y: 0;
+   background-position-x: -2700%;
+ }
+ 
+ 
+ 
+ 
+ .playerParty.nidoran-f {
+   background-position-y: 0;
+   background-position-x: -2800%;
+ }
+ 
+ .playerParty.nidorina {
+   background-position-y: 0;
+   background-position-x: -2900%;
+ }
+ 
+ .playerParty.nidoqueen {
+   background-position-y: 0;
+   background-position-x: -3000%;
+ }
+ 
+ .playerParty.nidoran-m {
+   background-position-y: -100%;
+   background-position-x: 0;
+ }
+ 
+ .playerParty.nidorino {
+   background-position-y: -100%;
+   background-position-x: -100%;
+ }
+ 
+ .playerParty.nidoking {
+   background-position-y: -100%;
+   background-position-x: -200%;
+ }
+ 
+ .playerParty.clefairy {
+   background-position-y: -100%;
+   background-position-x: -300%;
+ }
+ 
+ .playerParty.clefable {
+   background-position-y: -100%;
+   background-position-x: -400%;
+ }
+ 
+ .playerParty.vulpix {
+   background-position-y: -100%;
+   background-position-x: -500%;
+ }
+ 
+ .playerParty.ninetails {
+   background-position-y: -100%;
+   background-position-x: -600%;
+ }
+ 
+ .playerParty.jigglypuff {
+   background-position-y: -100%;
+   background-position-x: -700%;
+ }
+ 
+ .playerParty.wigglytuff {
+   background-position-y: -100%;
+   background-position-x: -800%;
+ }
+ 
+ .playerParty.zubat {
+   background-position-y: -100%;
+   background-position-x: -900%;
+ }
+ 
+ .playerParty.golbat {
+   background-position-y: -100%;
+   background-position-x: -1000%;
+ }
+ 
+ .playerParty.oddish {
+   background-position-y: -100%;
+   background-position-x: -1100%;
+ }
+ 
+ .playerParty.gloom {
+   background-position-y: -100%;
+   background-position-x: -1200%;
+ }
+ 
+ .playerParty.vileplume {
+   background-position-y: -100%;
+   background-position-x: -1300%;
+ }
+ 
+ .playerParty.paras {
+   background-position-y: -100%;
+   background-position-x: -1400%;
+ }
+ 
+ .playerParty.parasect {
+   background-position-y: -100%;
+   background-position-x: -1500%;
+ }
+ 
+ .playerParty.venonat {
+   background-position-y: -100%;
+   background-position-x: -1600%;
+ }
+ 
+ .playerParty.venomoth {
+   background-position-y: -100%;
+   background-position-x: -1700%;
+ }
+ 
+ .playerParty.diglett {
+   background-position-y: -100%;
+   background-position-x: -1800%;
+ }
+ 
+ .playerParty.dugtrio {
+   background-position-y: -100%;
+   background-position-x: -1900%;
+ }
+ .playerParty.meowth {
+   background-position-y: -100%;
+   background-position-x: -2000%;
+ }
+ .playerParty.persian {
+   background-position-y: -100%;
+   background-position-x: -2100%;
+ }
+ .playerParty.psyduck {
+   background-position-y: -100%;
+   background-position-x: -2200%;
+ }
+ .playerParty.golduck {
+   background-position-y: -100%;
+   background-position-x: -2300%;
+ }
+
+ .playerParty.mankey {
+   background-position-y: -100%;
+   background-position-x: -2400%;
+ }
+ .playerParty.primeape {
+   background-position-y: -100%;
+   background-position-x: -2500%;
+ }
+ .playerParty.growlithe {
+   background-position-y: -100%;
+   background-position-x: -2600%;
+ }
+ .playerParty.arcanine {
+   background-position-y: -100%;
+   background-position-x: -2700%;
+ }
+ .playerParty.poliwag {
+   background-position-y: -100%;
+   background-position-x: -2800%;
+ }
+ .playerParty.poliwhirl {
+   background-position-y: -100%;
+   background-position-x: -2900%;
+ }
+ .playerParty.polywrath {
+   background-position-y: -100%;
+   background-position-x: -3000%;
+ }
+ 
+ /*THIRD ROW */
+ .playerParty.abra {
+   background-position-y: -200%;
+   background-position-x: 0%;
+ }
+ .playerParty.kadabra {
+   background-position-y: -200%;
+   background-position-x: -100%;
+ }
+ .playerParty.alakazam {
+   background-position-y: -200%;
+   background-position-x: -200%;
+ }
+ .playerParty.machop {
+   background-position-y: -200%;
+   background-position-x: -300%;
+ }
+ .playerParty.machoke {
+   background-position-y: -200%;
+   background-position-x: -400%;
+ }
+ .playerParty.machamp {
+   background-position-y: -200%;
+   background-position-x: -500%;
+ }
+ .playerParty.bellsprout {
+   background-position-y: -200%;
+   background-position-x: -600%;
+ }
+ .playerParty.weepinbell {
+   background-position-y: -200%;
+   background-position-x: -700%;
+ }
+ .playerParty.victreebel {
+   background-position-y: -200%;
+   background-position-x: -800%;
+ }
+ .playerParty.tentacool {
+   background-position-y: -200%;
+   background-position-x: -900%;
+ }
+ .playerParty.tentacruel {
+   background-position-y: -200%;
+   background-position-x: -1000%;
+ }
+ .playerParty.geodude {
+   background-position-y: -200%;
+   background-position-x: -1100%;
+ }
+ .playerParty.graveler {
+   background-position-y: -200%;
+   background-position-x: -1200%;
+ }
+ .playerParty.golem {
+   background-position-y: -200%;
+   background-position-x: -1300%;
+ }
+ .playerParty.ponyta {
+   background-position-y: -200%;
+   background-position-x: -1400%;
+ }
+ .playerParty.rapidash {
+   background-position-y: -200%;
+   background-position-x: -1500%;
+ }
+ .playerParty.slowpoke {
+   background-position-y: -200%;
+   background-position-x: -1600%;
+ }
+ .playerParty.slowbro {
+   background-position-y: -200%;
+   background-position-x: -1700%;
+ }
+ .playerParty.magnemite {
+   background-position-y: -200%;
+   background-position-x: -1800%;
+ }
+ .playerParty.magneton {
+   background-position-y: -200%;
+   background-position-x: -1900%;
+ }
+ .playerParty.farfetchd {
+   background-position-y: -200%;
+   background-position-x: -2000%;
+ }
+ .playerParty.duduo {
+   background-position-y: -200%;
+   background-position-x: -2100%;
+ }
+ .playerParty.dudrio {
+   background-position-y: -200%;
+   background-position-x: -2200%;
+ }
+ .playerParty.dewgong {
+   background-position-y: -200%;
+   background-position-x: -2300%;
+ }
+ .playerParty.seel {
+   background-position-y: -200%;
+   background-position-x: -2400%;
+ }
+ .playerParty.grimer {
+   background-position-y: -200%;
+   background-position-x: -2500%;
+ }
+ .playerParty.muk {
+   background-position-y: -200%;
+   background-position-x: -2600%;
+ }
+ .playerParty.cloyster {
+   background-position-y: -200%;
+   background-position-x: -2700%;
+ }
+ .playerParty.shellder {
+   background-position-y: -200%;
+   background-position-x: -2700%;
+ }
+ .playerParty.cloyster {
+   background-position-y: -200%;
+   background-position-x: -2800%;
+ }
+ .playerParty.gastly {
+   background-position-y: -200%;
+   background-position-x: -2900%;
+ }
+ .playerParty.gengar {
+   background-position-y: -200%;
+   background-position-x: -2000%;
+ }
+
+
+
+
+
+
+
+
+
+
+
+ .playerParty.giratina {
+   background-position-y: -1500%;
+   background-position-x: -2100%;
+ }
