@@ -19,7 +19,6 @@ const Pokemon = ({token, setDisplay, setAllowMove}) => {
                   <div className="pokemonBox">
                     <div className="imageLevelBox">
                      <div className={`playerParty ${po.name}`} />
-                     <h3>{po.level}</h3>
                     </div>
                     <div className="nameHealthBox">
                         <h3>{po.name}</h3>
@@ -35,6 +34,9 @@ const Pokemon = ({token, setDisplay, setAllowMove}) => {
                         </div>
                         
                     </div>
+                    <div className="thirdBox">
+                        <h3>Lv. {po.level}</h3>
+                    </div>    
                   </div>  
                     )}
             

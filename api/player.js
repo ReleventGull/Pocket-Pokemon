@@ -84,6 +84,10 @@ playerRouter.get('/pokemon', async (req, res, next) => {
 playerRouter.get('/party', async(req, res, next) => {
     try {
         let pokemon = await getUserPokemon(req.user.id)
+        for(let i = 0; i < pokemon.length; i++) {
+            const level = await getUserPokemonLevel(pokemon[i].id)
+            pokemon[i].level = level
+        }
         res.send(pokemon)
     }catch(error) {
         console.error("There was an error getting the player party in api/player", error)
