@@ -872,3 +872,8 @@ border-radius: 20px;
     align-items: center;
 }
 
+.bagContainer {
+    height: 1000px;
+    width: 1000px;
+    background-color: white;
+}
