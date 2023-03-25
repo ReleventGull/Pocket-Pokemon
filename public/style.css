@@ -872,3 +872,18 @@ border-radius: 20px;
     align-items: center;
 }
 
+.bagContainer {
+    height: 1000px;
+    width: 1000px;
+    background-color: white;
+}
+.topBag {
+     display: flex;
+     height: 15%;
+     width: 100%;
+    border-bottom: 2px solid black;
+}
+.bagCategories {
+    height: 100%;
+    width: 95%;
+}
