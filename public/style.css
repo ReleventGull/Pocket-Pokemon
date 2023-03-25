@@ -843,6 +843,8 @@ border-radius: 20px;
     display: flex;
     border-radius: 30px;
     justify-content: space-around;
+    border: 10px solid lightgray;
+    box-shadow: 5px 5px 5px 0 black;
 }
 
 .imageLevelBox {
