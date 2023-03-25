@@ -861,3 +861,14 @@ border-radius: 20px;
     margin: 0;
     color: black;
 }
+
+.thirdBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.nameHealthBox {
+    margin-right: 70px;
+}
