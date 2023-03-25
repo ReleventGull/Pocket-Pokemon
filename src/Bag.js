@@ -8,3 +8,5 @@ const Bag = () => {
         </div>
     )
 }
+
+export default Bag
