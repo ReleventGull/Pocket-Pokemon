@@ -842,6 +842,7 @@ border-radius: 20px;
     background-color: white;
     display: flex;
     border-radius: 30px;
+    justify-content: space-around;
 }
 
 .imageLevelBox {
@@ -869,6 +870,3 @@ border-radius: 20px;
     align-items: center;
 }
 
-.nameHealthBox {
-    margin-right: 70px;
-}
