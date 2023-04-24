@@ -1,6 +1,16 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import { fetchUserItems } from "./apiCalls/users"
+const Bag = ({setDisplay, token}) => {
+    
+    const fetchUserData = async() => {
+        const items = await fetchUserItems(token)
+        console.log("items here!")
+    }
+    
+    useEffect(() => {
+        fetchUserData()
+    }, [])
 
-const Bag = ({setDisplay}) => {
 
     return (
         <div className="bagContainer">

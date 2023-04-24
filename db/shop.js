@@ -67,10 +67,12 @@ const getItemById = async(id) => {
     }
 }
 
+
+
 module.exports = {
     getAllItems, 
     createShopItem,
     createPlayerItem,
     getItemsByName,
-    getItemById
+    getItemById,
 }
