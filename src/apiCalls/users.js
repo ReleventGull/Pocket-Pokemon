@@ -113,3 +113,18 @@ export const fetchUserCash = async(token) => {
         console.error("There was an error fetching user cash in src/api/users")
     }
 }
+
+export const fetchUserItems = async(token) => {
+    try {
+        const response = await fetch(`${BASE_URL}/player/items`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an error fetching the user items in src/api/users", error)
+        throw error
+    }
+}

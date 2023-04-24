@@ -95,6 +95,23 @@ const getPlayerItemById = async({id, userId}) => {
     }
 }
 
+const getAllPlayerItems = async (id) => {
+    try {
+        const {rows: items} = await client.query(`
+        SELECT playerItems.quantity, shopItems.name, shopItems.description, shopItems.category
+        FROM playerItems
+        JOIN shopItems
+        ON playerItems.item_id=shopItems.id
+        WHERE playerItems.user_id=$1;
+        `, [id])
+        console.log("Am I getting the items?")
+        return items
+    }catch(error) {
+        console.error("There was an error getting all the player items in db/users", error)
+        throw error
+    }
+}
+
 module.exports = {
     createUser,
     getUserById,
@@ -102,5 +119,6 @@ module.exports = {
     getUserCash,
     updateUserCash,
     getPlayerItemById,
-    updatePlayerItem
+    updatePlayerItem,
+    getAllPlayerItems
 }
