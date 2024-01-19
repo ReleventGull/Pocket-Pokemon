@@ -14,7 +14,7 @@ const GameBoard = ({
 }) => {
   const [rows, setRows] = useState(Array(20).fill("1"));
   const [columns, setColumns] = useState(Array(20).fill("1"));
-  const [display, setDisplay] = useState('bag')
+  const [display, setDisplay] = useState('')
   
   return (
   encounter ? 

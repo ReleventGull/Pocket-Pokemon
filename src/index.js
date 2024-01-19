@@ -20,7 +20,7 @@ const App = () => {
     const [seedData, setSeedData] = useState(false)
     //
     const navigate = useNavigate()
-    let numberofPokemon = 100
+    let numberofPokemon = 10
     
 
     const seedPokemon = async() => {
