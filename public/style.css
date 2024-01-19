@@ -593,23 +593,23 @@ border-radius: 20px;
 }
 .shopItems {
     width: 40%;
-    height: 800px;
+    height: auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
     overflow-y: scroll;
 }
-.shopItems div:nth-child(1) {
-    border: none
-}
-.shopItems div:last-child {
-    border-bottom: 1px solid black;
-}
+
 .shopItems div {
-    width: 90%;
-    padding: 10px;
+    max-width: 100%;
+    padding: .5rem;
     height: 36px;
-    border-top: 1px solid black;
+    font-size: 1.1em;
+}
+
+.shopItems div:hover {
+    transition: .2s;
+    color: white;
+    background-color: #000709;
 }
 
 .displayItem {
