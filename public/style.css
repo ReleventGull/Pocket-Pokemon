@@ -593,7 +593,8 @@ border-radius: 20px;
 }
 .shopItems {
     width: 40%;
-    height: auto;
+    min-height: 750px;
+    height:auto;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
