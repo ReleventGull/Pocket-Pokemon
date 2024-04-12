@@ -63,10 +63,11 @@ userRouter.post('/registerCheck', async(req,res,next) => {
     try {
         const {password, username, name} = req.body
         const existingUser = await getUserByUsername(username)
+        console.log("I got hit here")
         if(existingUser)  {
             res.status(401).send({
                 error: "UserTake",
-                message:"A user by that username already exists"
+                message:"That username already exists"
             })
         }else {
             res.send({message:"Clear!"})

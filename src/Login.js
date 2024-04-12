@@ -34,10 +34,10 @@ const handleLogin = async (e) => {
 return (
 <div id="definePlayerPokemon">
     <div className="loginPage"> 
-        <p>Don't have an account? <Link to='/register'>Register</Link></p>
+        <p>Don't have an account pussy? <Link to='/register'>Register</Link></p>
         <h2>Welcome!</h2>
       <form onSubmit={handleLogin} className='loginForm'>
-        <label>Username</label>
+        <label>Usernaghme</label>
         <input type='username' onChange={(event) => setUsername(event.target.value)}value={username}></input>
         <label>Password</label>
         <input type='password' onChange={(event) => setPassword(event.target.value)} value={password}></input>

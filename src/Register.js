@@ -8,7 +8,7 @@ import { registerUser, checkUser} from "./apiCalls/users";
 const Register = ({setToken}) => {
 
   const [starters, setStarters] = useState([])
-  const [selectedStarter, setSelectedStarter] = useState()
+  const [selectedStarter, setSelectedStarter] = useState(null)
   const [register, setRegister] = useState(false)
   const [name, setName] = useState('')
   const [username, setUsername] = useState('')
@@ -19,16 +19,26 @@ const Register = ({setToken}) => {
   const navigate = useNavigate()
   let selectSound = new Audio(select)
   
+
   const handlePokemonSelect = async(name) => {
     setSelectedStarter(name)
     selectSound.currentTime = 0.25
     selectSound.play()
   }
+
   const getStarters = async() => {
    let starters = await  fetchStarters()
    setStarters(starters)
   }
   
+  useEffect(() => {
+    let scrollElement = document.getElementById("definePlayerPokemon")
+    scrollElement.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth'
+  })
+  }, [selectedStarter])
+
   const handleAccountConfirm = async() => {
     if (password !== password2) {
       setErrorMesage('Passwords do not match!')
@@ -40,7 +50,8 @@ const Register = ({setToken}) => {
     else {
       const existingUser = await checkUser({password: password, username: username, name:name})
       if (existingUser.error) {
-        setErrorMesage('A user by that username already exists!')
+        console.log("The existingUser error", existingUser.error)
+        setErrorMesage(existingUser.message)
       }else {
         setErrorMesage('')
         setRegister(true)
@@ -74,19 +85,30 @@ const Register = ({setToken}) => {
   return (
     <div id='definePlayerPokemon'>
     <div className="starterPage">
-    <p>Already have an account? <Link to='/login'>Login</Link></p>
-    <h2>Welcome!</h2>
       <form className='registerForm'>
-        <label>Username</label>
-        <input type='username' onChange={(event) => setUsername(event.target.value)}value={username} disabled={register ? true : false}></input>
-        <label>Password</label>
-        <input type='password' onChange={(event) => setPassword(event.target.value)} value={password} disabled={register ? true : false}></input>
-        <label >Confirm Password</label>
-        <input type='password' onChange={(event) => setPassword2(event.target.value)} value={password2} disabled={register ? true : false} ></input>
-        <label>Nickname</label>
-        <input type='username' onChange={(event) => setName(event.target.value)} value={name} disabled={register ? true : false}></input>
+      <h1 className="titleMon">Pokemon!</h1>
+        <div className="inputContainer"> 
+          <label>Username</label>
+          <input type='username' onChange={(event) => setUsername(event.target.value)}value={username} disabled={register ? true : false}></input>
+        </div>
+        
+        <div className="inputContainer">
+          <label>Password</label>
+          <input type='password' onChange={(event) => setPassword(event.target.value)} value={password} disabled={register ? true : false}></input>
+        </div>
+        
+        <div className="inputContainer">
+          <label >Confirm Password</label>
+          <input type='password' onChange={(event) => setPassword2(event.target.value)} value={password2} disabled={register ? true : false} ></input>
+        </div>
+      
+        <div className="inputContainer">
+          <label>Nickname</label>
+          <input type='username' onChange={(event) => setName(event.target.value)} value={name} disabled={register ? true : false}></input>
+        </div>
+        <p>Already have an account? <Link to='/login'>Login</Link></p>
       </form>
-      <h2 className="errorMessage">{errorMesage}</h2>
+      <p className="errorMessage">{errorMesage}</p>
       {!register ? 
       <>
       <button className='confirmRegister' onClick={() => handleAccountConfirm()}>Confirm!</button>
@@ -94,19 +116,23 @@ const Register = ({setToken}) => {
       : 
       <button onClick={() => {setSelectedStarter(null), setRegister(false)}}className="cancelButton">Cancel</button>
       }
-      <div id='pokemonStarters'>
-      {!starters ? null : starters.map(starter => 
-          <div key={starter.id} className={`starterContainers ${register}`}> 
-            <h2>{starter.name}</h2>
-          <div  onClick={() => handlePokemonSelect(starter.id)} className={selectedStarter === starter.id ? `starterImage selected ${starter.name} ` : `starterImage ${starter.name}`}  id={starter.id}></div>
-          <img  className='starterBall' src="https://www.freeiconspng.com/thumbs/pokeball-png/pokeball-transparent-png-2.png"/>
-        </div>
-       )}  
-          </div>  
       </div>
-    {selectedStarter  ? <button onClick={handleRegister} className='submitName'>Play!</button> : null}
+       <div id='pokemonStarters'>
+{!starters ? null : starters.map(starter => 
+    <div key={starter.id} className={`starterContainers ${register}`}> 
+      <h2>{starter.name}</h2>
+    <div  onClick={() => handlePokemonSelect(starter.id)} className={selectedStarter === starter.id ? `starterImage selected ${starter.name} ` : `starterImage ${starter.name}`}  id={starter.id}></div>
+    <img  className='starterBall' src="https://www.freeiconspng.com/thumbs/pokeball-png/pokeball-transparent-png-2.png"/>
+  </div>
+ )}  
+    </div>  
+    <div>
+      {selectedStarter  ? <button onClick={handleRegister} className='submitName'>Play!</button> : null}
+    </div>
   </div>
   );
 };
 
 export default Register;
+
+
