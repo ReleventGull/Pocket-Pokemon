@@ -33,18 +33,25 @@ const handleLogin = async (e) => {
     }
 return (
 <div id="definePlayerPokemon">
-    <div className="loginPage"> 
-        <p>Don't have an account pussy? <Link to='/register'>Register</Link></p>
-        <h2>Welcome!</h2>
-      <form onSubmit={handleLogin} className='loginForm'>
-        <label>Usernaghme</label>
-        <input type='username' onChange={(event) => setUsername(event.target.value)}value={username}></input>
-        <label>Password</label>
-        <input type='password' onChange={(event) => setPassword(event.target.value)} value={password}></input>
+    <div className="starterPage">   
+      <form onSubmit={handleLogin} className='registerForm'>
+        <h1 className="titleMon">Pokemon!</h1>
+        <div className="inputContainer">
+            <label>Username</label>
+            <input type='username' onChange={(event) => setUsername(event.target.value)}value={username}></input>
+        </div>
+       
+        <div className="inputContainer">
+            <label>Password</label>
+            <input type='password' onChange={(event) => setPassword(event.target.value)} value={password}></input>
+        </div>
+       
         <button className={`continueButton ${isEmpty}`}>Continue!</button>
+        <p>Don't have an account? <Link to='/register'>Register</Link></p>
       </form>
       <h2 className="errorMessage">{errorMesage}</h2>
     </div>
+    
 </div>
     )
 }

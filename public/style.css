@@ -87,7 +87,6 @@ main {
     margin: auto;
     margin-top: 5rem;
     
-    
 }
 .cancelButton {
     height: 40px;
@@ -465,29 +464,12 @@ border-radius: 20px;
 
 
 /**********************LOGIN*********************/
-.loginPage {
-    background-image: url(./images//QSBAG7.jpg);
-    background-size: cover;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 13px;
-    margin: 0;
-}
 
 .continueButton {
     background-color: green;
     color: white;
 }
-.loginForm {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 600px;
-    width: 100%;
-    gap: 20px
-}
+
 .loginForm input {
     width: 40%;
     text-align: center;
