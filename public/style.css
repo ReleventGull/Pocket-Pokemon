@@ -38,7 +38,15 @@ main {
     flex-direction: column ;
     align-items: center;
     justify-content: center;
-
+}
+.titleMon {
+    margin: 0;
+    color: #FFCB05;
+    text-shadow: 
+        -3px -3px 0 #3C88C1,  
+         3px -3px 0 #3C88C1,
+        -3px  3px 0 #3C88C1,
+         3px  3px 0 #3C88C1;
 }
 
 /**************************INITIAL START**************************/
@@ -127,7 +135,7 @@ main {
 
 .registerForm{
     box-sizing: border-box;
-    background-image: url(./images//pokemon-minimalism-wallpaper.png);
+    background-image: url(https://preview.redd.it/p716s5qdbhb61.jpg?width=1080&crop=smart&auto=webp&s=4f4ea970266e32f9644779c2109f10aee8f3e467);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

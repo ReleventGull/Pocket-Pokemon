@@ -38,7 +38,7 @@ const Register = ({setToken}) => {
       behavior: 'smooth'
   })
   }, [selectedStarter])
-  
+
   const handleAccountConfirm = async() => {
     if (password !== password2) {
       setErrorMesage('Passwords do not match!')
@@ -86,7 +86,7 @@ const Register = ({setToken}) => {
     <div id='definePlayerPokemon'>
     <div className="starterPage">
       <form className='registerForm'>
-
+      <h1 className="titleMon">Pokemon!</h1>
         <div className="inputContainer"> 
           <label>Username</label>
           <input type='username' onChange={(event) => setUsername(event.target.value)}value={username} disabled={register ? true : false}></input>
