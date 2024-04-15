@@ -76,12 +76,8 @@ const Game = ({token, pokemon}) => {
 
   return (
     <main>
-      <header>
-        <h1 className="gameName">Pokemon!</h1>
-      </header>
       <>
         {
-       
         <GameBoard
         encounter={encounter}
         playerDirection={playerDirection}

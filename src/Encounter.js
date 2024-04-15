@@ -104,7 +104,7 @@ useEffect(() => {
   return (
     pokemonEncountered  && playerPokemon ?
     <div id="grid-encoutner">
-      <div className="encounter-container">
+      
         <div className="backgroundBattle">
           
           <div className="top one">
@@ -153,15 +153,14 @@ useEffect(() => {
             </div>
           </div>
  
-          
-        </div>
-        {view == '' ? <FightOptions setEncounter={setEncounter} setView={setView}/>: null}
+          {view == '' ? <FightOptions setEncounter={setEncounter} setView={setView}/>: null}
         {view == 'fight' ? <FightMoves token={token}pokemonParticpating={pokemonParticpating} setMessage={setMessage} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} playerPokemon={playerPokemon}/>: null}
         {view == 'message' ? <FightMessage setView={setView} message={message}/>: null}
+        </div>
+
 
 
       </div>
-    </div>
   :
   <h2>Loading</h2>
   )
