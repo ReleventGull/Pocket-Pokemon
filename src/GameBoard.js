@@ -50,8 +50,7 @@ const GameBoard = ({
       </tr>
     ))}
   </table>
-  </div>
-    <div className="settingsBox">
+  <div className="settingsBox">
       <button onClick={() => {
         setDisplay("pokemon"),
         setAllowMove(false)
@@ -71,6 +70,8 @@ const GameBoard = ({
       }}
       >Settings</button>
   </div>
+  </div>
+
   </>
   }
   </>

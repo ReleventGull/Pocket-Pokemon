@@ -280,15 +280,11 @@ main {
     background: none;
     margin: 0;
     border: none;
-    width: 1.6rem;
-    height: 1.6rem;
+    width: 38px;
+    height: 38px;
 }
 
-
-
-
 #grid {
-
     background-color: green;
     background-size: 25%;
     background-image: url(./images/grass..jpg);
@@ -308,7 +304,6 @@ flex-direction: column;
 }
 
 table {
-    height: 100%;
     width: 100%;
     margin: 0;
 }
@@ -511,14 +506,12 @@ border-radius: 20px;
 
 .settingsBox {
     background-color: black;
-    margin-top: 10px;
-    height: 180px;
-    width: 1000px;
     color: white;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-items: center;
+    width: 100%;
 }
 .settingsBox button:hover {
     background-color: black;
@@ -532,7 +525,7 @@ border-radius: 20px;
     background-color: white;
     color: black;
     text-align: center;
-    height: 50%;
+    height: 3rem;
     transition: .2s
 }
 
