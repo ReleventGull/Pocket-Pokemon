@@ -62,15 +62,17 @@ const FightMoves = ({token, pokemonParticpating, setMessage, setView, playerTurn
       
     {
      pokemonMoves.map(move => 
-       <div key={move.id} onClick={() => handleMoveClick(move)} className={`fightButton ${move.type}`}>
+       <button key={move.id} onClick={() => handleMoveClick(move)} className={`button ${move.type}`}>
          <p>{move.name}</p>
          <p>power: {move.power}</p>
          <p>PP:{move.current_pp}/{move.pp}</p>
-       </div>)
+       </button>)
      }  
+        <button onClick={() => setView('')}className="fightBackButton">Back</button>
    </div>
- <button onClick={() => setView('')}className="fightBackButton">Back</button>
+
  </>
+ 
  :
  <h2>Bruh</h2>
  

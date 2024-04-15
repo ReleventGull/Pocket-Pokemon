@@ -1,14 +1,15 @@
 .fightButton {
     display: flex;
-    background-color: white;
-    border: 2px solid tan;
-    width: 50%;
+    width: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 3rem
 }
 
-
+.fightButton p {
+    margin: 0;
+}
 .fightButton.normal {
     background-color: gray;
     color: white
