@@ -50,7 +50,7 @@ return (
                 <div className="shopItems">
                 {items.length > 0 ?
                     items.map(item => 
-                        <div onClick={() => {setFeaturedItem(item), console.log(featuredItem)}} className="item">{item.name}</div>
+                        <div key={item.id} onClick={() => {setFeaturedItem(item), console.log(featuredItem)}} className="item">{item.name}</div>
                     )
                     :
                     null

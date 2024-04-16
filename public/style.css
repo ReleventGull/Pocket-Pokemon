@@ -550,8 +550,9 @@ border-radius: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 1000px;
+    height: 900px;
     width: 1000px;
+    max-width: 100%;
     position: relative;
     border: 2px solid black;
     z-index: 1;
@@ -600,7 +601,7 @@ border-radius: 20px;
     height: 4%;
     transition: .2s;
     margin: 0;
-    height:  8%;
+    height: 2rem;
     border: none;
     border-top: 2px solid black;
 
@@ -626,9 +627,10 @@ border-radius: 20px;
     height: 75%;
 }
 .shopItems {
+    box-sizing: border-box;
     width: 40%;
-    min-height: 750px;
-    height:auto;
+    max-height: 100%;
+    min-height: 675px;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
@@ -637,7 +639,7 @@ border-radius: 20px;
 .shopItems div {
     max-width: 100%;
     padding: .5rem;
-    height: 36px;
+    height: 1rem;
     font-size: 1.1em;
 }
 
@@ -721,7 +723,7 @@ border-radius: 20px;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 600px;
-    height: 200px;
+    padding: 2rem;
     background-color: white;
     display: flex;
     flex-direction: column;

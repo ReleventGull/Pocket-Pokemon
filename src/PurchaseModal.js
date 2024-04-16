@@ -1,13 +1,16 @@
 import ReactDom from 'react-dom'
 
 import {purchseItem} from './apiCalls/users'
+import { useSearchParams } from 'react-router-dom'
+import { useState } from 'react'
 
 const PurchaseModal = ({getuserCash, setBuy, featuredItem, itemValue, token}) => {
-   
+   const [error, setError] = useState('')
     const purchase = async() => {
         let result = await purchseItem({token: token, itemId: featuredItem.id, quantity: itemValue})
+        console.log(result)
         if (result.error) {
-            return
+            setError(result.error)
         }else {
             getuserCash()
         }
@@ -21,9 +24,11 @@ const PurchaseModal = ({getuserCash, setBuy, featuredItem, itemValue, token}) =>
                 <div className="healOptions">
                     <button onClick={purchase} className="yesHeal">Yes</button>
                     <button className="noHeal" onClick={() => setBuy(false)}>No</button>
+                    
                 </div>
-                
+                {error ? <p>{error}</p>: null}
             </div>
+            
             </>,
             document.getElementById('shopBody')
     )
