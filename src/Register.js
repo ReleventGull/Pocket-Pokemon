@@ -49,6 +49,7 @@ const Register = ({setToken}) => {
     }
     else {
       const existingUser = await checkUser({password: password, username: username, name:name})
+      console.log("Here I am", existingUser)
       if (existingUser.error) {
         console.log("The existingUser error", existingUser.error)
         setErrorMesage(existingUser.message)
