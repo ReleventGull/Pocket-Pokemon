@@ -47,8 +47,6 @@ header {
 main { 
     display: flex;
     flex-direction: column ;
-    align-items: center;
-    justify-content: center;
     margin-top: 1rem
 }
 
@@ -280,20 +278,26 @@ main {
     background: none;
     margin: 0;
     border: none;
-    width: 38px;
-    height: 38px;
+    width: 40px;
+    height: 40px;
 }
 
 #grid {
     background-color: green;
     background-size: 25%;
+    height: 882px;
+    width:  882px;
+    margin: auto;
     background-image: url(./images/grass..jpg);
 }
 
 #grid-encoutner {
     display: flex;
     flex-direction: column;
-    flex-grow: 1
+    flex-grow: 1;
+    height: 882px;
+    width:  882px;
+    margin: auto;
 ;
 }
 .backgroundBattle {
@@ -301,6 +305,7 @@ background-image: url('https://thumbs.dreamstime.com/b/empty-grass-field-sky-blu
 background-size: cover;
 display: flex;
 flex-direction: column;
+min-height: 100%;
 }
 
 table {
@@ -376,7 +381,7 @@ table {
 
 .top.three {
     background-color: black;
-    flex-grow: 2;
+    flex-grow: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
@@ -391,6 +396,7 @@ table {
     display: flex;
     align-items: center;
     background-color: white;
+    flex-grow: 1;
 }
 .meess
 
