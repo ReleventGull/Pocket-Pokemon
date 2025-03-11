@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import {GameBoard, NameDisplay} from "./Exported";
 import { fetchEncounteredPokemon } from "./apiCalls";
 
@@ -11,7 +11,9 @@ const Game = ({token, pokemon}) => {
   const [encounter, setEncounter] = useState(false);
   const [pokemonEncountered, setPokemonEncounterd] = useState(null);
   const [allowMove, setAllowMove] = useState(false)
-
+  const isMovingRef = useRef(false);
+  const playerState = useRef([1,3])
+  let intervalId = useRef(null)
   const pokemonEncounter = async() => {
     const randomPokemon = pokemon[Math.floor(Math.random() * pokemon.length)];
     const pokemonFromApi = await fetchEncounteredPokemon(randomPokemon, token)
@@ -20,59 +22,130 @@ const Game = ({token, pokemon}) => {
 
   const encounterChance = () => {
     let d = Math.random();
-    if(d > 0.8) {
+    if(false) {
        pokemonEncounter()
+
        if (pokemonEncounter) {
         setEncounter(true)
+        isMovingRef.current = false
        }
       
     }
   };
+
   useEffect(() => {
     setAllowMove(true)
   }, [])
-  useEffect(() => {
-    const handler = function keyPress(e) {
-      if (!allowMove) {
-        return
-      }
-      if (encounter === false) {
-        {
+
+ 
+
+ 
+
+  const handler = function keyPress(e) {
+    console.log("STARTING", isMovingRef.current)
+    if (!allowMove) {
+      return
+    }
+    if (encounter === false) {
+        if(isMovingRef.current){
+          return
+        }else {
+          isMovingRef.current = true
           if (e.keyCode === 83) {
+            console.log("Should hit once")
+            console.log(isMovingRef.current)
             setPlayerDirection("down");
-            encounterChance();
-            setPlayer([player[0] + 1, player[1]]); // Going Down
-            if (player[0] >= 19) {
-              setPlayer([19, player[1]]);
-            }
-          } else if (e.keyCode === 87 ) {
-            setPlayerDirection("up");
-            encounterChance();
-            setPlayer([player[0] - 1, player[1]]); // Up Key
-            if (player[0] <= 0) {
-              setPlayer([0, player[1]]);
-            }
-          } else if (e.keyCode === 65) {
-            setPlayerDirection("left");
-            encounterChance();
-            setPlayer([player[0], player[1] - 1]); // Going Left
-            if (player[1] <= 0) {
-              setPlayer([player[0], 0]);
-            }
-          } else if (e.keyCode === 68) {
-            setPlayerDirection("right");
-            encounterChance();
-            setPlayer([player[0], player[1] + 1]); // Going Right
-            if (player[1] >= 19) {
-              setPlayer([player[0], 19]);
-            }
-          }
+             intervalId.current = setInterval(() => {
+                  if(!isMovingRef.current) {
+                    return
+                  }
+                  encounterChance();
+                  playerState.current = [playerState.current[0] + 1, playerState.current[1]]; // Going Down
+                  if (playerState.current[0] >= 19) {
+                    playerState.current = [19, playerState.current[1]];
+                  }
+                  
+                  setPlayer(playerState.current)
+              }, 200);
         }
+        if (e.keyCode === 87) {
+          console.log(isMovingRef.current)
+          setPlayerDirection("up");
+           intervalId.current = setInterval(() => {
+                if(!isMovingRef.current) {
+                  return
+                }
+                encounterChance();
+                playerState.current = [playerState.current[0] - 1, playerState.current[1]]; // Going Down
+                if (playerState.current[0] <= 0) {
+                  playerState.current = [0, playerState.current[1]];
+                }
+                setPlayer(playerState.current)
+            }, 200);
+      };
+      if (e.keyCode === 65) {
+        console.log(isMovingRef.current)
+        setPlayerDirection("left");
+         intervalId.current = setInterval(() => {
+              if(!isMovingRef.current) {
+                return
+              }
+              encounterChance();
+              playerState.current = [playerState.current[0], playerState.current[1]  - 1]; // Going Down
+              if (playerState.current[1] <= 0) {
+                playerState.current = [playerState.current[0], 0];
+              }
+              setPlayer(playerState.current)
+          }, 200);
+        }
+        if (e.keyCode === 68) {
+          console.log(isMovingRef.current)
+          setPlayerDirection("right");
+           intervalId.current = setInterval(() => {
+                if(!isMovingRef.current) {
+                  return
+                }
+                encounterChance();
+                playerState.current = [playerState.current[0], playerState.current[1]  + 1]; // Going Down
+                if (playerState.current[1] >= 19) {
+                  playerState.current = [playerState.current[0], 19];
+                }
+                setPlayer(playerState.current)
+            }, 200);
+          }
       }
-    };
+    }
+  };
+
+  const handlerkeyup = (e) => {
+    console.log(playerDirection)
+    if(e.keyCode === 83 && playerDirection == "down") {
+      console.log("clearing")
+      isMovingRef.current = false
+      clearInterval(intervalId.current)
+    }else if(e.keyCode === 87 && playerDirection == "up") {
+      console.log("clearing up")
+      isMovingRef.current = false
+      clearInterval(intervalId.current)
+    }else if(e.keyCode === 65 && playerDirection == "left") {
+      console.log("clearing left")
+      isMovingRef.current = false
+      clearInterval(intervalId.current)
+      
+    }else if(e.keyCode === 68 && playerDirection == "right") {
+      console.log("clearing right")
+      isMovingRef.current = false
+      clearInterval(intervalId.current)
+    }
+  }
+
+  useEffect(() => {
     document.addEventListener("keydown", handler);
+    document.addEventListener("keyup", handlerkeyup);
     return () => document.removeEventListener("keydown", handler);
   });
+
+   
 
   return (
     <main>
