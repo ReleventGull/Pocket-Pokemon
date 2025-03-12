@@ -560,7 +560,6 @@ border-radius: 20px;
     align-items: center;
     height: 900px;
     width: 1000px;
-    max-width: 100%;
     position: relative;
     border: 2px solid black;
     z-index: 1;
