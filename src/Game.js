@@ -22,7 +22,7 @@ const Game = ({token, pokemon}) => {
 
   const encounterChance = () => {
     let d = Math.random();
-    if(false) {
+    if(d > 0.8) {
        pokemonEncounter()
 
        if (pokemonEncounter) {
