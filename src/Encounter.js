@@ -32,7 +32,8 @@ const Encounter = ({
   
   const getUserPokemon = async() => {
       let participateObject = {}
-      let userPokemon = await fetchUserPokemon(token)
+      let userPokemon = await fetchUserPokemon(token) // fetches the user pokemon where the "onPlayer" bool = true; (Not in pc)
+      console.log("User pokemon here", userPokemon)
       userPokemon['isFainted'] = false
       participateObject[userPokemon.id] = userPokemon
       setPokemonParticpating(participateObject)
@@ -49,16 +50,13 @@ useEffect(() => {
 }, [])
 
 const attackPlayer = async() => {
-let move = await enemyPokemonMove(pokemonEncountered.moves)
-if (move.power == null || move.category == 'status') return
-let result = await defend({move: move, attackingPokemon: pokemonEncountered, defendingPokemon: playerPokemon})
-let userPokemon = await fetchCurrentUserPokemon()
-if (userPokemon.pokemonParticpating) {
-  setPokemonParticpating(userPokemon.pokemonParticpating)
-}
-
-
-
+  let move = await enemyPokemonMove(pokemonEncountered.moves)
+    if (move.power == null || move.category == 'status') return // prevents ai from using status moves
+    let result = await defend({move: move, attackingPokemon: pokemonEncountered, defendingPokemon: playerPokemon})
+    let userPokemon = await fetchCurrentUserPokemon()
+    if (userPokemon.pokemonParticpating) {
+      setPokemonParticpating(userPokemon.pokemonParticpating)
+  }
 setMessage(result.message)
 setTimeout(async() => {
   setplayerPokemon(userPokemon.pokemon)
@@ -88,6 +86,9 @@ setTimeout(async() => {
     }, 1000)
   }
 }, 2000)
+
+
+
 }
 
 useEffect(() => {
@@ -104,9 +105,7 @@ useEffect(() => {
   return (
     pokemonEncountered  && playerPokemon ?
     <div id="grid-encoutner">
-      
         <div className="backgroundBattle">
-          
           <div className="top one">
           <div id="pokemonPlayerHealthContainer">
               <div id="pokemonHealthName">
@@ -157,9 +156,6 @@ useEffect(() => {
         {view == 'fight' ? <FightMoves token={token}pokemonParticpating={pokemonParticpating} setMessage={setMessage} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} playerPokemon={playerPokemon}/>: null}
         {view == 'message' ? <FightMessage setView={setView} message={message}/>: null}
         </div>
-
-
-
       </div>
   :
   <h2>Loading</h2>

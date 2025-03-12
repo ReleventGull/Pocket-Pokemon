@@ -14,6 +14,7 @@ const Game = ({token, pokemon}) => {
   const isMovingRef = useRef(false);
   const playerState = useRef([1,3])
   let intervalId = useRef(null)
+  
   const pokemonEncounter = async() => {
     const randomPokemon = pokemon[Math.floor(Math.random() * pokemon.length)];
     const pokemonFromApi = await fetchEncounteredPokemon(randomPokemon, token)
@@ -24,12 +25,10 @@ const Game = ({token, pokemon}) => {
     let d = Math.random();
     if(d > 0.8) {
        pokemonEncounter()
-
        if (pokemonEncounter) {
         setEncounter(true)
         isMovingRef.current = false
-       }
-      
+       } 
     }
   };
 
@@ -42,7 +41,6 @@ const Game = ({token, pokemon}) => {
  
 
   const handler = function keyPress(e) {
-    console.log("STARTING", isMovingRef.current)
     if (!allowMove) {
       return
     }
@@ -52,8 +50,6 @@ const Game = ({token, pokemon}) => {
         }else {
           isMovingRef.current = true
           if (e.keyCode === 83) {
-            console.log("Should hit once")
-            console.log(isMovingRef.current)
             setPlayerDirection("down");
              intervalId.current = setInterval(() => {
                   if(!isMovingRef.current) {
@@ -69,7 +65,6 @@ const Game = ({token, pokemon}) => {
               }, 200);
         }
         if (e.keyCode === 87) {
-          console.log(isMovingRef.current)
           setPlayerDirection("up");
            intervalId.current = setInterval(() => {
                 if(!isMovingRef.current) {
@@ -84,7 +79,6 @@ const Game = ({token, pokemon}) => {
             }, 200);
       };
       if (e.keyCode === 65) {
-        console.log(isMovingRef.current)
         setPlayerDirection("left");
          intervalId.current = setInterval(() => {
               if(!isMovingRef.current) {
@@ -99,7 +93,6 @@ const Game = ({token, pokemon}) => {
           }, 200);
         }
         if (e.keyCode === 68) {
-          console.log(isMovingRef.current)
           setPlayerDirection("right");
            intervalId.current = setInterval(() => {
                 if(!isMovingRef.current) {
@@ -118,22 +111,16 @@ const Game = ({token, pokemon}) => {
   };
 
   const handlerkeyup = (e) => {
-    console.log(playerDirection)
     if(e.keyCode === 83 && playerDirection == "down") {
-      console.log("clearing")
       isMovingRef.current = false
       clearInterval(intervalId.current)
     }else if(e.keyCode === 87 && playerDirection == "up") {
-      console.log("clearing up")
       isMovingRef.current = false
       clearInterval(intervalId.current)
     }else if(e.keyCode === 65 && playerDirection == "left") {
-      console.log("clearing left")
       isMovingRef.current = false
       clearInterval(intervalId.current)
-      
     }else if(e.keyCode === 68 && playerDirection == "right") {
-      console.log("clearing right")
       isMovingRef.current = false
       clearInterval(intervalId.current)
     }
