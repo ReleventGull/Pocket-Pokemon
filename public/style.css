@@ -518,6 +518,7 @@ border-radius: 20px;
     flex-wrap: wrap;
     align-items: center;
     width: 100%;
+    
 }
 .settingsBox button:hover {
     background-color: black;
@@ -536,6 +537,7 @@ border-radius: 20px;
 }
 
 .settingsPage {
+    margin: auto;
     height: 1000px;
     width: 1000px;
     background-color: black;
@@ -562,6 +564,7 @@ border-radius: 20px;
     position: relative;
     border: 2px solid black;
     z-index: 1;
+    margin: auto;
 }
 .exitShop {
     background-color: transparent;
@@ -840,6 +843,7 @@ border-radius: 20px;
   }
 
 .pokemonPage {
+    margin: auto;
     height: 1000px;
     width: 1000px;
     padding-top: 5px;
@@ -913,6 +917,7 @@ border-radius: 20px;
 }
 
 .bagContainer {
+    margin: auto;
     height: 1000px;
     width: 1000px;
     background-color: white;
