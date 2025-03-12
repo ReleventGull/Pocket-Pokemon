@@ -12,6 +12,7 @@ const PurchaseModal = ({getuserCash, setBuy, featuredItem, itemValue, token}) =>
         if (result.error) {
             setError(result.error)
         }else {
+            setBuy(false)
             getuserCash()
         }
     }
