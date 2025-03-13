@@ -1,13 +1,23 @@
 import { use, useEffect, useState } from "react"
-import { fetchUserItems } from "./apiCalls/users"
+import { fetchUserItems, fetchUserItemsByCategory } from "./apiCalls/users"
 const Bag = ({setDisplay, token}) => {
     const [items, setItems] = useState([])
     const [featuredItem, setFeaturedItem] = useState(null)
+    
     const fetchUserData = async() => {
         const items = await fetchUserItems(token)
         setItems(items)
     }
-    
+    const fetchItems  = async(category) => {
+        console.log("Calling...")
+        if(!category) {
+            fetchUserData();
+            return
+        }
+        const items = await fetchUserItemsByCategory({token: token, category:category})
+        console.log("Results of fetch user items here:", items)
+        setItems(items)
+    }
     useEffect(() => {
         fetchUserData()
     }, [])
@@ -19,12 +29,12 @@ const Bag = ({setDisplay, token}) => {
                 <div className="bagCategories">
                     <div className="categoryContainer">
                         <div>All</div>
-                        <div>Pokeballs</div>
-                        <div>Healing</div>
-                        <div>Revival</div>
-                        <div>PP</div>
-                        <div>Status</div>
-                        <div>Stat</div>
+                        <div onClick={() => fetchItems('standard-balls')}>Pokeballs</div>
+                        <div onClick={() => fetchItems('healing')}>Healing</div>
+                        <div onClick={() => fetchItems('revival')}>Revival</div>
+                        <div onClick={() => fetchItems('pp-recovery')}>PP</div>
+                        <div> onClick={() => fetchItems('status_cures')}Status</div>
+                        <div onClick={() => fetchItems('stat-boosts')}>Stat</div>
                     </div>
                 </div>
                 <button onClick={() => setDisplay('')}className="exitShop">X</button>
