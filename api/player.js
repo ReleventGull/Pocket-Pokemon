@@ -95,7 +95,8 @@ playerRouter.get('/party', async(req, res, next) => {
 
 playerRouter.get('/items/:category', async(req, res, next) => {
     try {
-    const items = await getPlayerItemsByCategory({id: req.user.id, category: category}) 
+    const {category} = req.params
+    const items = await getPlayerItemsByCategory({userId: req.user.id, category: category}) 
     res.send(items)
     }catch(error) {
         console.error("There was an error getting the player items in api/player", error)
