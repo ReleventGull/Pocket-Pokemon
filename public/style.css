@@ -427,6 +427,13 @@ table {
     background-color: red;
 }
 
+#pokemonPlayerHealth::-webkit-progress-value {
+    background-color: #2ee928;
+}
+
+#pokemonPlayerHealth::-webkit-progress-bar {
+    background-color: red;
+  }
 #pokemonHp {
 height: 30px;
 width: 460px;
