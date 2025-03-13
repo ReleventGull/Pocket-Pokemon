@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {default as FightMoves} from './EncounterOptions/FightMoves'
-import { default as FightOptions } from './EncounterOptions/FightOptions'
-import {default as FightMessage} from './EncounterOptions/FightMessage'
-import {default as Bag} from './EncounterOptions/BagInEcounter'
+import {FightMoves, FightOptions, FightMessage, Bag} from './EncounterOptions/FightExports'
 import {selectEnemyPokemonMove, defend, checkForAlivePokemon} from './apiCalls/battle'
 import { fetchUserPokemon } from "./apiCalls/users";
 import {fetchCurrentPokemon} from './apiCalls/userPokemon'
