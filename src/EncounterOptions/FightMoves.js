@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { fetchPokemonMovesById } from "../apiCalls/userPokemon";
 import {attack, expGain} from '../apiCalls/battle'
+import e from "cors";
 
-const FightMoves = ({token, pokemonParticpating, setMessage, setView, playerTurn, setPlayerTurn, playerPokemon, pokemonEncountered, setPokemonEncounterd, setEncounter}) => {
+const FightMoves = ({token, pokemonParticpating, setMessage, setView, playerTurn, setPlayerTurn, pokemonEncountered, setPokemonEncounterd, setEncounter}) => {
   const [pokemonMoves, setPokemonMoves] = useState([])
-  
+  function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
   const fetchPokemonMoves = async() => {
-    let moves = await fetchPokemonMovesById(playerPokemon.id)
+    let moves = await fetchPokemonMovesById(pokemonParticpating.id)
     console.log(moves)
     setPokemonMoves(moves)
   }
@@ -20,38 +23,27 @@ const FightMoves = ({token, pokemonParticpating, setMessage, setView, playerTurn
     if(playerTurn !== 1) {
       return
     }
-    let resultOfAttack = await attack({attackingPokemon: playerPokemon, defendingPokemon:pokemonEncountered, move:move})
-     setTimeout(() => {
+    let resultOfAttack = await attack({attackingPokemon: pokemonParticpating, defendingPokemon:pokemonEncountered, move:move})
       setView('message')
+      setMessage('')
       setMessage(resultOfAttack.message)
-    }, 10)
-    setTimeout(() => {
+      await delay(resultOfAttack.message.length * 50 + 1000)
       setPokemonEncounterd(resultOfAttack.pokemon)
       setMessage('')
-    }, 2000)
     if(resultOfAttack.pokemon.stats.hp.current_value == 0) {
-      
       let result = await expGain({token: token, pokemonParticipating: pokemonParticpating, faintedPokemonBaseExperience: pokemonEncountered.baseExperience, faintedPokemonLevel: pokemonEncountered.level})
-
-      setTimeout(() => {
-        setMessage('')
-        setMessage(`The ${pokemonEncountered.name} fainted!`)
-        setTimeout(() => {
-          setMessage('')
-         setTimeout(() => {
-          setMessage(`You gained $${result.cash}!`)
-          setTimeout(() => {
-            setEncounter(false)
-          }, 3000)
-         }, 500)
-        }, 2500)
-      }, 3000)
-      
+      setMessage('')
+      setMessage(`The ${pokemonEncountered.name} fainted!`)
+      await delay(3000)
+      setMessage('')
+      await delay(500)
+      setMessage(`You gained $${result.cash}!`)
+      await delay(3000)
+      setEncounter(false)
     }else {
-      setTimeout(() => {
+      await delay(1000)
         setMessage('')
         setPlayerTurn(2)
-      }, 3000)
     }
   }
 

@@ -29,7 +29,7 @@ export const healPokemon = async(token) => {
 }
 
 
-export const fetchCurrentPokemon = async({slot, token, pokemonParticpating}) => {
+export const fetchCurrentPokemon = async({token, pokemonParticpating}) => {
     try {
         const response = await fetch(`${BASE_URL}/player/currentPokemon`, {
             method: "POST",
@@ -38,7 +38,6 @@ export const fetchCurrentPokemon = async({slot, token, pokemonParticpating}) => 
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({
-                slot,
                 pokemonParticpating
             })   
         }).then(result => result.json())
