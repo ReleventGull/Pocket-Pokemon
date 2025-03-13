@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {default as FightMoves} from './EncounterOptions/FightMoves'
 import { default as FightOptions } from './EncounterOptions/FightOptions'
 import {default as FightMessage} from './EncounterOptions/FightMessage'
-import {enemyPokemonMove, defend, checkForAlivePokemon} from './apiCalls/battle'
+import {selectEnemyPokemonMove, defend, checkForAlivePokemon} from './apiCalls/battle'
 import { fetchUserPokemon } from "./apiCalls/users";
 import {fetchCurrentPokemon} from './apiCalls/userPokemon'
 const Encounter = ({
@@ -15,81 +15,61 @@ const Encounter = ({
 }) => {
   const [playerTurn, setPlayerTurn] = useState(1)
   const [view, setView] = useState('')
-  const [playerPokemon, setplayerPokemon] = useState(null)
   const [message, setMessage] = useState('')
-  
-  const [pokemonParticpating, setPokemonParticpating] = useState({})
-  
-  const checkForHp = async() => {
-      let hpCheck = await checkForAlivePokemon(token)
-      return hpCheck
-  }
+  const [pokemonParticpating, setPokemonParticpating] = useState(null)
 
-  const fetchCurrentUserPokemon = async() => {
-     let pok = await fetchCurrentPokemon({pokemonParticpating:pokemonParticpating, token: token, slot: playerPokemon.slot})
-     return pok
-  }
-  
   const getUserPokemon = async() => {
-      let participateObject = {}
-      let userPokemon = await fetchUserPokemon(token) // fetches the user pokemon where the "onPlayer" bool = true; (Not in pc)
-      console.log("User pokemon here", userPokemon)
+      let userPokemon = await fetchUserPokemon(token) // fetches the currently alive Pokemon in the party. (Where "onPlayer" = true)
       userPokemon['isFainted'] = false
-      participateObject[userPokemon.id] = userPokemon
-      setPokemonParticpating(participateObject)
-      if(userPokemon.message) {
+      setPokemonParticpating(userPokemon)
+      if(userPokemon.message) { //If there are no available pokemon alive in the players party
           setEncounter(false)
           setAllowMove(true)
           return
       }
-      setplayerPokemon(userPokemon)
   }
-    
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+const fetchCurrentUserPokemon = async() => {
+  let currentPokemon = await fetchCurrentPokemon({pokemonParticpating:pokemonParticpating, token: token})
+  return currentPokemon
+}
+
+const attackPlayer = async() => {
+  let move = await selectEnemyPokemonMove(pokemonEncountered.moves)
+  if (move.power == null || move.category == 'status') return // prevents ai from using status moves
+  let result = await defend({move: move, attackingPokemon: pokemonEncountered, defendingPokemon: pokemonParticpating})
+  let userPokemon = await fetchCurrentUserPokemon()
+  setView('message')
+  setMessage(result.message)
+  await delay(result.message.length * 50 + 1000)
+  setMessage('')
+  setView('')
+  setPokemonParticpating(userPokemon.pokemon)
+  if(userPokemon.message){ // This means that the current pokemon has fainted
+     let checkForAlivePokemon = await fetchUserPokemon(token);
+     if(checkForAlivePokemon.message) { //if there is a message, it means there are no more pokemon alive
+       setView('message') 
+       setMessage(checkForAlivePokemon.message)
+       await delay(checkForAlivePokemon.message.length * 50 + 1000)
+       setView('')
+       setEncounter(false)
+       setAllowMove(true)
+     }else {
+      console.log("Switch pokemon")
+        //This will be the login for switch to a different pokemon!
+      }
+    }else {
+      //This means the current pokemon has not fainted
+      setPlayerTurn(1)
+    }
+  }
+
 useEffect(() => {
   getUserPokemon()
 }, [])
-
-const attackPlayer = async() => {
-  let move = await enemyPokemonMove(pokemonEncountered.moves)
-    if (move.power == null || move.category == 'status') return // prevents ai from using status moves
-    let result = await defend({move: move, attackingPokemon: pokemonEncountered, defendingPokemon: playerPokemon})
-    let userPokemon = await fetchCurrentUserPokemon()
-    if (userPokemon.pokemonParticpating) {
-      setPokemonParticpating(userPokemon.pokemonParticpating)
-  }
-setMessage(result.message)
-setTimeout(async() => {
-  setplayerPokemon(userPokemon.pokemon)
-  if (userPokemon.message) {
-    let checkHp = await checkForHp()
-    console.log(checkHp)
-    setTimeout(() => {
-      setMessage('')
-    }, 1000)
-    setTimeout(() => {
-      setMessage(userPokemon.message)
-    }, 1500)
-    if (checkHp.message) {
-      setTimeout(() => {
-        setMessage('')
-        setTimeout(() => {
-          setMessage(checkHp.message)
-        }, 1000)
-        setTimeout(() => {
-          setEncounter(false)
-        }, 4500)
-      }, 5000)
-    }
-  }else {
-    setTimeout(() => {
-      setView('')
-    }, 1000)
-  }
-}, 2000)
-
-
-
-}
 
 useEffect(() => {
   if (playerTurn == 1) {
@@ -99,11 +79,11 @@ useEffect(() => {
       return
     }
     attackPlayer()
-    setPlayerTurn(1)
   }
 }, [playerTurn])
+
   return (
-    pokemonEncountered  && playerPokemon ?
+    pokemonEncountered  && pokemonParticpating ?
     <div id="grid-encoutner">
         <div className="backgroundBattle">
           <div className="top one">
@@ -130,30 +110,30 @@ useEffect(() => {
           </div>
 
           <div /***************** PLAYER STATS START *****************/className="top two">
-          <div className={`pokemonE forPlayer ${playerPokemon.name}`} src={playerPokemon}/>
+          <div className={`pokemonE forPlayer ${pokemonParticpating.name}`} src={pokemonParticpating}/>
             <div id="pokemonPlayerHealthContainer">
               <div id="pokemonHealthName">
-                <p>{playerPokemon.name}</p>
-                <p>Lv.{playerPokemon.level}</p>
+                <p>{pokemonParticpating.name}</p>
+                <p>Lv.{pokemonParticpating.level}</p>
               </div>
 
               <div id="pokemonHp">
                 <span>HP</span>
                 <progress
                   id="pokemonPlayerHealth"
-                  value={playerPokemon.stats.hp.current_value}
-                  max={playerPokemon.stats.hp.value}
+                  value={pokemonParticpating.stats.hp.current_value}
+                  max={pokemonParticpating.stats.hp.value}
                 ></progress>
               </div>
               <p>
-                {playerPokemon.stats.hp.current_value}/
-                {playerPokemon.stats.hp.value}
+                {pokemonParticpating.stats.hp.current_value}/
+                {pokemonParticpating.stats.hp.value}
               </p>
             </div>
           </div>
  
           {view == '' ? <FightOptions setEncounter={setEncounter} setView={setView}/>: null}
-        {view == 'fight' ? <FightMoves token={token}pokemonParticpating={pokemonParticpating} setMessage={setMessage} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} playerPokemon={playerPokemon}/>: null}
+        {view == 'fight' ? <FightMoves token={token}pokemonParticpating={pokemonParticpating} setMessage={setMessage} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} />: null}
         {view == 'message' ? <FightMessage setView={setView} message={message}/>: null}
         </div>
       </div>

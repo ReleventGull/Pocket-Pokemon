@@ -40,7 +40,7 @@ export const defend = async({attackingPokemon, defendingPokemon, move}) => {
     }
 }
 
-export const enemyPokemonMove = async(moves) => {
+export const selectEnemyPokemonMove = async(moves) => {
     try {
         const response = await fetch(`${BASE_URL}/encounter/selectMove`, {
             method: "POST",

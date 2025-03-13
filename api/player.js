@@ -46,16 +46,13 @@ playerRouter.get('/pokemon/:pokemonId', async(req, res, next) => {
 })
 playerRouter.post('/currentPokemon', async(req, res, next) => {
     try {
-    const {slot, pokemonParticpating} = req.body
-    let pokemon = await getUserPokemonBySlot({slot:slot, id: req.user.id})
+    const {pokemonParticpating} = req.body
+    let pokemon = await getUserPokemonBySlot({slot:pokemonParticpating.slot, id: req.user.id})
     let level = await getUserPokemonLevel(pokemon.id)
     pokemon.level = level
-    if (pokemon.stats.hp.current_value == 0) {
-        delete pokemonParticpating[pokemon.id]
-    res.send({pokemonParticpating:pokemonParticpating, pokemon: pokemon, message:`Your ${pokemon.name} has fainted!`})
-    }else {
-    res.send({pokemon: pokemon})
-    }
+    let message = pokemon.stats.hp.current_value <= 0 ? `Your ${pokemon.name} has fainted!` : ""
+    res.send({pokemon:pokemon, message: message})
+    
     }catch(error) {
         console.error("There was an error getting the current pokemon", error)
         throw error
@@ -63,6 +60,7 @@ playerRouter.post('/currentPokemon', async(req, res, next) => {
 })
 
 playerRouter.get('/pokemon', async (req, res, next) => {
+    //This ensures that the pokemon that gets sent out is in the users party AND has hp available
     try {
         const userPokemon = await getUserPokemon(req.user.id)
         userPokemon.sort((a, b) => a.slot - b.slot)
