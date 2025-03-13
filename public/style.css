@@ -292,13 +292,14 @@ main {
 }
 
 #grid-encoutner {
+    position: relative;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     height: 882px;
     width:  882px;
     margin: auto;
-;
+
 }
 .backgroundBattle {
 background-image: url('https://thumbs.dreamstime.com/b/empty-grass-field-sky-blue-99715346.jpg');
@@ -925,8 +926,8 @@ border-radius: 20px;
 
 .bagContainer {
     margin: auto;
-    height: 1000px;
-    width: 1000px;
+    height: 882px;
+    width: 882px;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -1011,4 +1012,15 @@ border-radius: 20px;
     flex-direction: column;
     gap: 20px;
     align-items: center;
+}
+
+.bagEncounterBody {
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    position: absolute; 
+  left: 0; 
+  right: 0; 
+  margin-inline: auto; 
+ 
 }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import {default as FightMoves} from './EncounterOptions/FightMoves'
 import { default as FightOptions } from './EncounterOptions/FightOptions'
 import {default as FightMessage} from './EncounterOptions/FightMessage'
+import {default as Bag} from './EncounterOptions/BagInEcounter'
 import {selectEnemyPokemonMove, defend, checkForAlivePokemon} from './apiCalls/battle'
 import { fetchUserPokemon } from "./apiCalls/users";
 import {fetchCurrentPokemon} from './apiCalls/userPokemon'
@@ -135,6 +136,7 @@ useEffect(() => {
           {view == '' ? <FightOptions setEncounter={setEncounter} setView={setView}/>: null}
         {view == 'fight' ? <FightMoves token={token}pokemonParticpating={pokemonParticpating} setMessage={setMessage} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} />: null}
         {view == 'message' ? <FightMessage setView={setView} message={message}/>: null}
+        {view == 'bag' ? <Bag token={token} setView={setView}/>: null}
         </div>
       </div>
   :

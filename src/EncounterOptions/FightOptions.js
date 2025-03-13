@@ -4,7 +4,7 @@ import React from "react";
 const FightOptions = ({setView, setEncounter}) => {
     return (
     <div className="top three">
-    <button className="button one">Bag</button>
+    <button onClick={() => setView('bag')} className="button one">Bag</button>
           <button onClick={() => setView('fight')}className="button two">Fight</button>
           <button className="button three">Pokemon</button>
           <button
