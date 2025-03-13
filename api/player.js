@@ -95,9 +95,7 @@ playerRouter.get('/party', async(req, res, next) => {
 
 playerRouter.get('/items', async(req, res, next) => {
     try {
-        console.log("I got to the call")
     const items = await getAllPlayerItems(req.user.id) 
-    console.log('Items here', items)
     res.send(items)
     }catch(error) {
         console.error("There was an error getting the player items in api/player", error)
