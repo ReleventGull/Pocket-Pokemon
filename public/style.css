@@ -928,6 +928,8 @@ border-radius: 20px;
     height: 1000px;
     width: 1000px;
     background-color: white;
+    display: flex;
+    flex-direction: column;
 }
 .topBag {
      display: flex;
@@ -968,4 +970,45 @@ border-radius: 20px;
     transition: .2s;
     background-color: black;
     color: white;
+}
+
+/**************************PLAYERS BAG*******************/
+.bagBody {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+.bagItems {
+    width: 30%
+}
+
+.itemQuantity {
+    margin-left: auto;
+}
+
+.itemContainer  {
+    padding: .5rem;
+    height: 1rem;
+    font-size: 1.1em;
+    height: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.itemContainer:hover {
+    transition: .2s;
+    color: white;
+    background-color: #000709;
+    cursor: pointer;
+}
+
+.displayBagItem {
+    border-left: 3px solid black;
+    width: 70%;
+    display:flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
 }
