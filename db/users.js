@@ -112,6 +112,21 @@ const getAllPlayerItems = async (id) => {
     }
 }
 
+const getPlayerItemsByCategory = async({userId, category}) =>{
+    try {
+        const {rows: items} = await client.query(`
+            SELECT playerItems.quantity, shopItems.name, shopItems.description, shopItems.category
+            FROM playerItems
+            JOIN shopItems
+            ON playerItems.item_id=shopItems.id
+            WHERE playerItems.user_id=$1 AND shopItems.category=$2;
+            `, [userId, category])
+    }catch(error) {
+        console.error("There was an error getting the user items by cat in DB", error)
+        throw error
+    }
+}
+
 module.exports = {
     createUser,
     getUserById,
@@ -120,5 +135,6 @@ module.exports = {
     updateUserCash,
     getPlayerItemById,
     updatePlayerItem,
-    getAllPlayerItems
+    getAllPlayerItems,
+    getPlayerItemsByCategory
 }
