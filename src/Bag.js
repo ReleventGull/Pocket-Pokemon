@@ -1,6 +1,6 @@
 import { use, useEffect, useState } from "react"
 import { fetchUserItems, fetchUserItemsByCategory } from "./apiCalls/users"
-const Bag = ({setDisplay, token, setView}) => {
+const Bag = ({setDisplay, token, setView, setAllowMove}) => {
     const [items, setItems] = useState([])
     const [featuredItem, setFeaturedItem] = useState(null)
     
@@ -37,7 +37,7 @@ const Bag = ({setDisplay, token, setView}) => {
                         <div onClick={() => fetchItems('stat-boosts')}>Stat</div>
                     </div>
                 </div>
-                <button onClick={() => setView ? setView('') : setDisplay('')}className="exitShop">X</button>
+                <button onClick={() => {setView ? setView('') : setAllowMove(true), setDisplay('')}}className="exitShop">X</button>
             </div>
             <div className="bagBody">
                 <div className="bagItems">
