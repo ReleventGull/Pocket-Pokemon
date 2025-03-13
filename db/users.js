@@ -121,6 +121,7 @@ const getPlayerItemsByCategory = async({userId, category}) =>{
             ON playerItems.item_id=shopItems.id
             WHERE playerItems.user_id=$1 AND shopItems.category=$2;
             `, [userId, category])
+            return items
     }catch(error) {
         console.error("There was an error getting the user items by cat in DB", error)
         throw error

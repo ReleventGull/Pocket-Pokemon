@@ -4,7 +4,7 @@ const { generateHP, generateIvs, generateStats } = require('./statFunctions')
 const {getUserPokemon, getUserPokemonHp, getUserPokemonBySlot, getPokemonById,} = require('../db/pokemon')
 const {getPlayerPokemonMove} = require('../db/moves')
 const { getUserPokemonLevel, getPokemonOnPlayer, healPokemon} = require('../db/stats')
-const{getAllPlayerItems} = require('../db/users')
+const{getAllPlayerItems, getPlayerItemsByCategory} = require('../db/users')
 playerRouter.post('/selectStarter', async (req, res, next) => {
     try {
     console.log("HI")
@@ -93,6 +93,16 @@ playerRouter.get('/party', async(req, res, next) => {
     }
 })
 
+playerRouter.get('/items/:category', async(req, res, next) => {
+    try {
+    const items = await getPlayerItemsByCategory({id: req.user.id, category: category}) 
+    res.send(items)
+    }catch(error) {
+        console.error("There was an error getting the player items in api/player", error)
+        throw error
+    }
+})
+
 playerRouter.get('/items', async(req, res, next) => {
     try {
     const items = await getAllPlayerItems(req.user.id) 
@@ -102,6 +112,7 @@ playerRouter.get('/items', async(req, res, next) => {
         throw error
     }
 })
+
 
 
 module.exports = playerRouter
