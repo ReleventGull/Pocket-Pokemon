@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState, useRef } from "react";
 import {GameBoard, NameDisplay} from "./Exported";
 import { fetchEncounteredPokemon } from "./apiCalls";
-
+import {fetchUserPokemon} from './apiCalls/users'
 
 
 const Game = ({token, pokemon}) => {
@@ -20,15 +20,26 @@ const Game = ({token, pokemon}) => {
     const pokemonFromApi = await fetchEncounteredPokemon(randomPokemon, token)
     setPokemonEncounterd(pokemonFromApi);
   };
+  const checkForAlivePokemonInParty = async() => {
+    const result = await fetchUserPokemon(token)
+    console.log(result)
+    if(result.message) {
+      return false
+    }
+    return true
+  }
 
-  const encounterChance = () => {
+  const encounterChance = async() => {
     let d = Math.random();
+
     if(d > 0.8) {
-       pokemonEncounter()
-       if (pokemonEncounter) {
+      const checkAlivePokemon = await checkForAlivePokemonInParty()
+      console.log(checkAlivePokemon)
+      if (checkAlivePokemon) {
+        pokemonEncounter()
         setEncounter(true)
         isMovingRef.current = false
-       } 
+      }
     }
   };
 
