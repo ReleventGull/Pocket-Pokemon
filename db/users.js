@@ -77,7 +77,7 @@ const updatePlayerItem = async({userId, itemId, value}) => {
         `, [value, userId, itemId])
         return item
     }catch(error) {
-        console.error("There was an erro updating player item", error)
+        console.error("There was an error updating player item", error)
         throw error
     }
 }

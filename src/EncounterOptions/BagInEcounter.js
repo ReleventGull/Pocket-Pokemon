@@ -1,8 +1,8 @@
 import {Bag} from '../Exported'
 
-const UseButton = () => {
+const UseButton = ({useItem}) => {
     return (
-        <button className='useEncounterButton'>Use</button>
+        <button onClick={() => useItem()} className='useEncounterButton'>Use</button>
     )
 }
 const BagInEncounter = ({token, setView}) => {

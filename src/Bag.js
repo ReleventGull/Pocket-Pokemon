@@ -18,9 +18,18 @@ const Bag = ({setDisplay, token, setView, setAllowMove, UseButton}) => {
         console.log("Results of fetch user items here:", items)
         setItems(items)
     }
+    const useItem = async() => {
+        if(featuredItem.category == "standard-balls") {
+            console.log("This is a standard ball!")
+        }else {
+            console.log("This is not a ball")
+            //Will add a different endpoint here
+        }
+    }
     useEffect(() => {
         fetchUserData()
     }, [])
+
 
 
     return (
@@ -59,7 +68,7 @@ const Bag = ({setDisplay, token, setView, setAllowMove, UseButton}) => {
                     <h2>{featuredItem.name}</h2>
                     <h3>{featuredItem.category}</h3>
                     <div className="itemDesc">{featuredItem.description}</div>
-                    {UseButton ? <UseButton /> : null}
+                    {UseButton ? <UseButton useItem={useItem} /> : null}
                     </>
                     :
                     null

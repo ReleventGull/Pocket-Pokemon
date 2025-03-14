@@ -93,44 +93,29 @@ encounterRouter.post('/encounterPokemon', async (req, res, next) => {
     let totalExp = playerExp.reduce((acc, current) => 
         acc + current.exp, 
     ).exp/playerExp.length
-
     //Generates random exp for pokemon
     let randomExp = Math.floor(Math.random() * totalExp)
-
     let level = await getPokemonlevel({id: pokemon.pokemon_id, exp: randomExp})
     let stats = await getPokemonStats(pokemon.pokemon_id)
-    
     generateIvs(stats)
-    
     //Generate The Hp For The Pokemon
     generateHP(stats, level.level)
-   
     //Generate The Stats of the Random Pokemon
-    
     generateStats(stats, level.level)
-    
-    
     pokemon['stats'] = stats
     pokemon['level'] = level.level
     pokemon['exp'] = randomExp
     pokemon['isWild'] = true
     pokemon['moves'] = []
     //generate the moves of the pokemon
-    
-
     //Generate The Ivs Of the Pokemon
-    
- 
-
     await generateRandomMoves(pokemon)
-
     res.send(pokemon)
     }catch(error) {
         console.error("there was an error with encounter pokemon API", error)
         error
     }
 })
-
 encounterRouter.post('/expGain', async (req, res, next) => {
     try {
         const {pokemonParticipating, faintedPokemonBaseExperience, faintedPokemonLevel} = req.body
@@ -158,7 +143,6 @@ encounterRouter.post('/expGain', async (req, res, next) => {
             }       
         }
         //Cash Gain
-        
         let cash = Object.keys(pokemonParticipating).length * 100 * faintedPokemonLevel
         const updatedCash = await updateUserCash({id: req.user.id, cash: cash})
         console.log("Updated cash", updatedCash)

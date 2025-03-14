@@ -423,6 +423,21 @@ function experienceGainedInclusive ({pokemon, faintedPokemonLevel, fainedPokemon
   return result
   }
 
+function capture ({}) {
+  //N is :
+  //Pokemon Ball = 0 to 255
+  //Great ball 0 to 200
+  // ultra ball 0 to 150
+  //If N - (255, or 200, or 150) > enemyPokemon.catchRate = pokemon breaks free
+  //
+  
+  //TEMPORARY FUNCTION IN PLACE
+  let randomNumber = Math.random();
+  
+
+
+}
+
 module.exports = {
   typeTable,
   damage,
