@@ -1,6 +1,7 @@
-import { use, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { fetchUserItems, fetchUserItemsByCategory } from "./apiCalls/users"
-const Bag = ({setDisplay, token, setView, setAllowMove, UseButton}) => {
+import { usePokeball } from './apiCalls/battle'
+const Bag = ({setDisplay, token, setView, setAllowMove, UseButton, pokemonEncountered}) => {
     const [items, setItems] = useState([])
     const [featuredItem, setFeaturedItem] = useState(null)
     
@@ -20,7 +21,7 @@ const Bag = ({setDisplay, token, setView, setAllowMove, UseButton}) => {
     }
     const useItem = async() => {
         if(featuredItem.category == "standard-balls") {
-            console.log("This is a standard ball!")
+            const resonse = await usePokeball({token: token, enemyPokemon: pokemonEncountered, usedPokeball: featuredItem})
         }else {
             console.log("This is not a ball")
             //Will add a different endpoint here

@@ -153,6 +153,11 @@ encounterRouter.post('/expGain', async (req, res, next) => {
     }
 })
 
-
+encounterRouter.post('/useball', async(req, res, next) => {
+    //Wil need user token
+    //Will need item ID being sent.
+    //Will need the current pokemon being fought
+    console.log("YOU USING A POKEBALL BABY")
+})
 
 module.exports = encounterRouter

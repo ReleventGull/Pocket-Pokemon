@@ -98,7 +98,7 @@ const getPlayerItemById = async({id, userId}) => {
 const getAllPlayerItems = async (id) => {
     try {
         const {rows: items} = await client.query(`
-        SELECT playerItems.quantity, shopItems.name, shopItems.description, shopItems.category
+        SELECT playerItems.quantity, playerItems.id, playerItems.user_id AS "userId", shopItems.name, shopItems.description, shopItems.category
         FROM playerItems
         JOIN shopItems
         ON playerItems.item_id=shopItems.id

@@ -133,7 +133,7 @@ useEffect(() => {
           {view == '' ? <FightOptions setEncounter={setEncounter} setView={setView}/>: null}
         {view == 'fight' ? <FightMoves token={token}pokemonParticpating={pokemonParticpating} setMessage={setMessage} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} />: null}
         {view == 'message' ? <FightMessage setView={setView} message={message}/>: null}
-        {view == 'bag' ? <Bag token={token} setView={setView}/>: null}
+        {view == 'bag' ? <Bag pokemonEncountered={pokemonEncountered} token={token} setView={setView}/>: null}
         </div>
       </div>
   :
