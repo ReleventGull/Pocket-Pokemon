@@ -1,6 +1,6 @@
 import { use, useEffect, useState } from "react"
 import { fetchUserItems, fetchUserItemsByCategory } from "./apiCalls/users"
-const Bag = ({setDisplay, token, setView, setAllowMove}) => {
+const Bag = ({setDisplay, token, setView, setAllowMove, UseButton}) => {
     const [items, setItems] = useState([])
     const [featuredItem, setFeaturedItem] = useState(null)
     
@@ -59,6 +59,7 @@ const Bag = ({setDisplay, token, setView, setAllowMove}) => {
                     <h2>{featuredItem.name}</h2>
                     <h3>{featuredItem.category}</h3>
                     <div className="itemDesc">{featuredItem.description}</div>
+                    {UseButton ? <UseButton /> : null}
                     </>
                     :
                     null

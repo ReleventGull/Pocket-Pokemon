@@ -1019,8 +1019,19 @@ border-radius: 20px;
     width: 100%;
     background-color: red;
     position: absolute; 
-  left: 0; 
-  right: 0; 
-  margin-inline: auto; 
- 
+    left: 0; 
+    right: 0; 
+    margin-inline: auto; 
+}
+
+
+
+.useEncounterButton {
+    padding: 1rem;
+    transition: .2s
+}
+
+.useEncounterButton:hover {
+    background-color: black;
+    color: white;
 }
