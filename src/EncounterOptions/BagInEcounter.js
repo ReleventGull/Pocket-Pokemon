@@ -5,10 +5,10 @@ const UseButton = ({useItem}) => {
         <button onClick={() => useItem()} className='useEncounterButton'>Use</button>
     )
 }
-const BagInEncounter = ({token, setView}) => {
+const BagInEncounter = ({pokemonEncountered, token, setView}) => {
     return (
         <div className="bagEncounterBody">
-            <Bag UseButton={UseButton} setView={setView} token={token}/>
+            <Bag pokemonEncountered={pokemonEncountered} UseButton={UseButton} setView={setView} token={token}/>
             
         </div>
     )

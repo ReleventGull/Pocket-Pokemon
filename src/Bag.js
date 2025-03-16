@@ -10,18 +10,17 @@ const Bag = ({setDisplay, token, setView, setAllowMove, UseButton, pokemonEncoun
         setItems(items)
     }
     const fetchItems  = async(category) => {
-        console.log("Calling...")
         if(!category) {
             fetchUserData();
             return
         }
         const items = await fetchUserItemsByCategory({token: token, category:category})
-        console.log("Results of fetch user items here:", items)
         setItems(items)
     }
     const useItem = async() => {
         if(featuredItem.category == "standard-balls") {
-            const resonse = await usePokeball({token: token, enemyPokemon: pokemonEncountered, usedPokeball: featuredItem})
+            console.log("Standard ballls" ,pokemonEncountered)
+            const response = await usePokeball({token: token, enemyPokemon: pokemonEncountered, usedPokeball: featuredItem})
         }else {
             console.log("This is not a ball")
             //Will add a different endpoint here
@@ -29,6 +28,7 @@ const Bag = ({setDisplay, token, setView, setAllowMove, UseButton, pokemonEncoun
     }
     useEffect(() => {
         fetchUserData()
+        console.log("Bag opened", pokemonEncountered)
     }, [])
 
 

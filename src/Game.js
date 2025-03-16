@@ -22,7 +22,6 @@ const Game = ({token, pokemon}) => {
   };
   const checkForAlivePokemonInParty = async() => {
     const result = await fetchUserPokemon(token)
-    console.log(result)
     if(result.message) {
       return false
     }
@@ -34,7 +33,6 @@ const Game = ({token, pokemon}) => {
 
     if(d > 0.8) {
       const checkAlivePokemon = await checkForAlivePokemonInParty()
-      console.log(checkAlivePokemon)
       if (checkAlivePokemon) {
         pokemonEncounter()
         setEncounter(true)

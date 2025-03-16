@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {FightMoves, FightOptions, FightMessage, Bag} from './EncounterOptions/FightExports'
+import {FightMoves, FightOptions, FightMessage, BagInEcounter} from './EncounterOptions/FightExports'
 import {selectEnemyPokemonMove, defend, checkForAlivePokemon} from './apiCalls/battle'
 import { fetchUserPokemon } from "./apiCalls/users";
 import {fetchCurrentPokemon} from './apiCalls/userPokemon'
@@ -64,7 +64,9 @@ const attackPlayer = async() => {
       setPlayerTurn(1)
     }
   }
-
+useEffect(() => {
+  console.log("Pokemon ecnountered in use effect", pokemonEncountered)
+}, [])
 useEffect(() => {
   getUserPokemon()
 }, [])
@@ -133,7 +135,7 @@ useEffect(() => {
           {view == '' ? <FightOptions setEncounter={setEncounter} setView={setView}/>: null}
         {view == 'fight' ? <FightMoves token={token}pokemonParticpating={pokemonParticpating} setMessage={setMessage} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} />: null}
         {view == 'message' ? <FightMessage setView={setView} message={message}/>: null}
-        {view == 'bag' ? <Bag pokemonEncountered={pokemonEncountered} token={token} setView={setView}/>: null}
+        {view == 'bag' ? <BagInEcounter pokemonEncountered={pokemonEncountered} token={token} setView={setView}/>: null}
         </div>
       </div>
   :
