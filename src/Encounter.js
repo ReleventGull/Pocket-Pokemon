@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {FightMoves, FightOptions, FightMessage, BagInEcounter, EncounterPokemonObject} from './EncounterOptions/FightExports'
+import {FightMoves, FightOptions, FightMessage, BagInEcounter, UserPokemonComponent, EnemyPokemonComponent} from './EncounterOptions/FightExports'
 import {selectEnemyPokemonMove, defend, checkForAlivePokemon} from './apiCalls/battle'
 import { fetchUserPokemon } from "./apiCalls/users";
 import {fetchCurrentPokemon} from './apiCalls/userPokemon'
@@ -90,35 +90,13 @@ useEffect(() => {
     pokemonEncountered  && pokemonParticpating ?
     <div id="grid-encoutner">
         <div className="backgroundBattle">
-          
           <div className="top one">
-          {isCatching ? null : <EncounterPokemonObject pokemonEncountered={pokemonEncountered}/>}
+            {isCatching ? null : <EnemyPokemonComponent pokemonEncountered={pokemonEncountered}/>}
           </div>
-
-          <div /***************** PLAYER STATS START *****************/className="top two">
-          <div className={`pokemonE forPlayer ${pokemonParticpating.name}`} src={pokemonParticpating}/>
-            <div id="pokemonPlayerHealthContainer">
-              <div id="pokemonHealthName">
-                <p>{pokemonParticpating.name}</p>
-                <p>Lv.{pokemonParticpating.level}</p>
-              </div>
-
-              <div id="pokemonHp">
-                <span>HP</span>
-                <progress
-                  id="pokemonPlayerHealth"
-                  value={pokemonParticpating.stats.hp.current_value}
-                  max={pokemonParticpating.stats.hp.value}
-                ></progress>
-              </div>
-              <p>
-                {pokemonParticpating.stats.hp.current_value}/
-                {pokemonParticpating.stats.hp.value}
-              </p>
-            </div>
+          <div className="top two">
+            {<UserPokemonComponent pokemonParticpating={pokemonParticpating}/>}
           </div>
- 
-          {view == '' ? <FightOptions setEncounter={setEncounter} setView={setView}/>: null}
+        {view == '' ? <FightOptions setEncounter={setEncounter} setView={setView}/>: null}
         {view == 'fight' ? <FightMoves token={token}pokemonParticpating={pokemonParticpating} setMessage={setMessage} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} />: null}
         {view == 'message' ? <FightMessage setView={setView} message={message}/>: null}
         {view == 'bag' ? <BagInEcounter pokemonEncountered={pokemonEncountered} token={token} setView={setView}/>: null}

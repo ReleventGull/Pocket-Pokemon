@@ -1,6 +1,6 @@
 
 
-const encounterPokemonObject = ({pokemonEncountered}) => {
+const EnemyPokemonComponent = ({pokemonEncountered}) => {
     return (
         <><div id="pokemonPlayerHealthContainer">
               <div id="pokemonHealthName">
@@ -26,4 +26,4 @@ const encounterPokemonObject = ({pokemonEncountered}) => {
     )
 }
 
-export default encounterPokemonObject
+export default EnemyPokemonComponent
