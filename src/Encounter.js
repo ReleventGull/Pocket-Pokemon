@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {FightMoves, FightOptions, FightMessage, BagInEcounter} from './EncounterOptions/FightExports'
+import {FightMoves, FightOptions, FightMessage, BagInEcounter, EncounterPokemonObject} from './EncounterOptions/FightExports'
 import {selectEnemyPokemonMove, defend, checkForAlivePokemon} from './apiCalls/battle'
 import { fetchUserPokemon } from "./apiCalls/users";
 import {fetchCurrentPokemon} from './apiCalls/userPokemon'
@@ -15,7 +15,7 @@ const Encounter = ({
   const [view, setView] = useState('')
   const [message, setMessage] = useState('')
   const [pokemonParticpating, setPokemonParticpating] = useState(null)
-
+  const [isCatching, setIsCatch] = useState(false)
   const getUserPokemon = async() => {
       let userPokemon = await fetchUserPokemon(token) // fetches the currently alive Pokemon in the party. (Where "onPlayer" = true)
       userPokemon['isFainted'] = false
@@ -64,6 +64,10 @@ const attackPlayer = async() => {
       setPlayerTurn(1)
     }
   }
+
+  const animateBall = () => {
+    console.log("Animated the ball")
+  }
 useEffect(() => {
   console.log("Pokemon ecnountered in use effect", pokemonEncountered)
 }, [])
@@ -86,27 +90,9 @@ useEffect(() => {
     pokemonEncountered  && pokemonParticpating ?
     <div id="grid-encoutner">
         <div className="backgroundBattle">
+          
           <div className="top one">
-          <div id="pokemonPlayerHealthContainer">
-              <div id="pokemonHealthName">
-                <p>{pokemonEncountered.name}</p>
-                <p>{`Lv.${pokemonEncountered.level}`}</p>
-              </div>
-
-              <div id="pokemonHp">
-                <span>HP</span>
-                <progress
-                  id="pokemonPlayerHealth"
-                  value={pokemonEncountered.stats.hp.current_value}
-                  max={pokemonEncountered.stats.hp.value}
-                ></progress>
-              </div>
-              <p>
-                {pokemonEncountered.stats.hp.current_value}/
-                {pokemonEncountered.stats.hp.value}
-              </p>
-            </div>
-            <p className={`pokemon Encountered ${pokemonEncountered.name}`} />
+          {isCatching ? null : <EncounterPokemonObject pokemonEncountered={pokemonEncountered}/>}
           </div>
 
           <div /***************** PLAYER STATS START *****************/className="top two">

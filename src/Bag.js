@@ -21,6 +21,13 @@ const Bag = ({setDisplay, token, setView, setAllowMove, UseButton, pokemonEncoun
         if(featuredItem.category == "standard-balls") {
             console.log("Standard ballls" ,pokemonEncountered)
             const response = await usePokeball({token: token, enemyPokemon: pokemonEncountered, usedPokeball: featuredItem})
+            setView('message')
+            if(!response.success) {
+                //If it's not success, take the shakes and do stuff lol
+            }else {
+                //If successful, set message that you have capture the pokemon
+            }
+            
         }else {
             console.log("This is not a ball")
             //Will add a different endpoint here
