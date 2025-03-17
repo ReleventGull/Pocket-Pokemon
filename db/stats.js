@@ -77,6 +77,7 @@ const getUserPokemonLevel = async(id) => {
     }
 
 const getPokemonlevel = async({id, exp}) => {
+    console.log('In getPokemonLevel', id, exp)
     try {
         const {rows: [level]} = await client.query(`
         SELECT levels.experience_rate_id, levels.exp, levels.level, experience.name

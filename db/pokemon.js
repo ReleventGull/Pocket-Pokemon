@@ -132,8 +132,9 @@ const getUserPokemon = async(id) => {
         SELECT playerPokemon.*, playerPokemon.slot, playerPokemonStats.id AS "statId", playerPokemonStats.name AS "statName", playerPokemonStats.value, playerPokemonStats."currentValue", playerPokemonStats.effort, playerPokemonStats.individual
         FROM playerPokemon
         JOIN playerPokemonStats ON playerPokemon.id=playerPokemonStats.player_pokemon_id
-        WHERE playerPokemon.user_id=$1 AND playerPokemon."onPlayer"=true;
+        WHERE playerPokemon.user_id=$1 AND playerPokemon.slot IS NOT NULL;
         `, [id])
+        pokemon.sort((a, b) => a.id - b.id)
         let pokemonArray = []
         let currentPokeObject = {}
         for(let i = 0; i < pokemon.length; i++) {
@@ -149,11 +150,12 @@ const getUserPokemon = async(id) => {
                 currentPokeObject.stats = {}
             }
             currentPokeObject.stats[pokemon[i].statName] = {id: pokemon[i].statId, value: pokemon[i].value, current_value: pokemon[i].currentValue}
-            if (i == pokemon.length - 1 || currentPokeObject.id !== pokemon[i].id) {
+            if (i == pokemon.length - 1 || currentPokeObject.id !== pokemon[i + 1].id) {
                 pokemonArray.push(currentPokeObject)
                 currentPokeObject = {}
             }
         }
+        console.log('Pokemon array after completion', pokemonArray)
         return pokemonArray
     }catch(error){
         console.error("There was an error getting the user pokemon", error)
