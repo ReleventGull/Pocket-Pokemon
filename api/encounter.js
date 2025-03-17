@@ -219,7 +219,7 @@ encounterRouter.post('/useball', async(req, res, next) => {
                 })
             });
             console.log(newPokemon)
-        res.send({success: true, ball: checkPokeball.name, message: `${enemyPokemon.name} has been caught!`})
+        res.send({shakes: 3, success: true, ball: checkPokeball.name, message: `${enemyPokemon.name} has been caught!`})
     }else {
         let shakeCount = 0;
         if (randomValue <= captureChance + 60) shakeCount = 3;  // "So close!"
