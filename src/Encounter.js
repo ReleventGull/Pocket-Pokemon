@@ -67,7 +67,6 @@ const attackPlayer = async() => {
   }
 
 const animateBall = async({success, shakes, pokeball}) => {
-  shakes = 3
   setIsCatch(true)
   setPokeBall(pokeball)
   await delay(500)
