@@ -5,7 +5,7 @@ const Pokemon = ({token, setDisplay, setAllowMove}) => {
 
     const fetchPokemon = async() => {
         let pokemon = await fetchUserParty(token)
-        console.log(pokemon)
+        console.log('Pokemon from fetch pokemon', pokemon)
         setPokemon(pokemon)
     }
     useEffect(() => {

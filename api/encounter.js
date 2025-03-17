@@ -2,8 +2,8 @@ const express = require('express')
 const encounterRouter = express.Router()
 const { generateHP, generateIvs, generateStats, generateRandomMoves, } = require('./statFunctions')
 const {updatePokemonHp, updateExp, getPokemonlevel, getPokemonMaxExp, getUserPokemonLevel, getPokemonStats, updatePlayerPokemonStats} = require('../db/stats')
-const {getPokemonTypes, checkUserPokemonHp, getUserPokemonBySlot, getUserPokemonExp} = require('../db/pokemon')
-const {getMovesByPokemon} = require('../db/moves')
+const {createPlayerPokmonStats, getPokemonTypes, checkUserPokemonHp, getUserPokemonBySlot, getUserPokemonExp, createPlayerPokemon} = require('../db/pokemon')
+const {getMovesByPokemon, createPlayerPokemonMove} = require('../db/moves')
 const {damage, experienceGainedInclusive, capture} = require('./battle')
 const {updateUserCash, getPlayerItemByItemId} = require('../db/users')
 encounterRouter.post('/attack' , async (req, res, next) => {
@@ -90,10 +90,11 @@ encounterRouter.post('/encounterPokemon', async (req, res, next) => {
     try {
     const {pokemon} = req.body
     const playerExp = await getUserPokemonExp(req.user.id)
-    let totalExp = playerExp.reduce((acc, current) => 
-        acc + current.exp, 
-    ).exp/playerExp.length
-    //Generates random exp for pokemon
+   console.log('Player exp', playerExp)
+    let totalExp = playerExp.reduce((acc, current) =>
+         acc + current.exp, 
+        0
+    )/playerExp.length
     let randomExp = Math.floor(Math.random() * totalExp)
     let level = await getPokemonlevel({id: pokemon.pokemon_id, exp: randomExp})
     let stats = await getPokemonStats(pokemon.pokemon_id)
@@ -159,6 +160,7 @@ encounterRouter.post('/useball', async(req, res, next) => {
     //Will need the current pokemon being fought
     const userId = req.user.id
     const {enemyPokemon, usedPokeball} = req.body
+    console.log(enemyPokemon.stats)
     if(userId != usedPokeball.userId) {
         res.send({error: true, message: "You are no authorized to use this persons inventory!"})
         return
@@ -186,8 +188,37 @@ encounterRouter.post('/useball', async(req, res, next) => {
     }
     const captureChance = capture({enemyPokemon: enemyPokemon, pokeballCatchRate: pokeballCatchRate})
     const randomValue = Math.floor(Math.random() * 100)
-    console.log(captureChance, randomValue)
     if(randomValue <= captureChance) {
+        let slot = null
+        const userPokemon = await getUserPokemonExp(userId)
+        userPokemon.length == 7 ? null : slot = userPokemon.length + 1
+        const newPokemon = await createPlayerPokemon(
+            {name: enemyPokemon.name, 
+            onPlayer: true, 
+            exp: enemyPokemon.exp,
+            pokemon_id: enemyPokemon.pokemon_id,
+            user_id: userId,
+            slot: slot,
+            })
+            for(let key in enemyPokemon.stats) {
+                console.log('THE VALUES HERE', key.value)
+                await createPlayerPokmonStats({
+                    name: key,
+                    value: enemyPokemon.stats[key].value,
+                    currentValue: enemyPokemon.stats[key].current_value,
+                    effort: enemyPokemon.stats[key].effort,
+                    individual: enemyPokemon.stats[key].individual,
+                    player_pokemon_id: newPokemon.id
+                })
+            }
+            enemyPokemon.moves.forEach(async element => {
+                await createPlayerPokemonMove({
+                    move_id: element.id,
+                    pokemon_id: newPokemon.id,
+                    current_pp: element.pp
+                })
+            });
+            console.log(newPokemon)
         res.send({success: true, ball: checkPokeball.name, message: `${enemyPokemon.name} has been caught!`})
     }else {
         let shakeCount = 0;

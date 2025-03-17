@@ -63,7 +63,7 @@ const getPlayerPokemonMove = async(id) => {
 const getMovesByPokemon = async (name) => {
   try {
     const {rows: moves} = await client.query(`
-    SELECT name, type, category, pp, power, accuracy
+    SELECT id, name, type, category, pp, power, accuracy
     FROM pokemoves
     WHERE "learnedBy"=$1
     `, [name])

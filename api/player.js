@@ -63,6 +63,7 @@ playerRouter.get('/pokemon', async (req, res, next) => {
     //This ensures that the pokemon that gets sent out is in the users party AND has hp available
     try {
         const userPokemon = await getUserPokemon(req.user.id)
+        
         userPokemon.sort((a, b) => a.slot - b.slot)
         for(let i = 0; i < userPokemon.length; i++) {
             if(userPokemon[i].stats.hp.current_value > 0) {
@@ -82,6 +83,7 @@ playerRouter.get('/pokemon', async (req, res, next) => {
 playerRouter.get('/party', async(req, res, next) => {
     try {
         let pokemon = await getUserPokemon(req.user.id)
+        console.log('user pokemon in the serveer', pokemon)
         for(let i = 0; i < pokemon.length; i++) {
             const level = await getUserPokemonLevel(pokemon[i].id)
             pokemon[i].level = level
