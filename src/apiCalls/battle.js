@@ -15,7 +15,7 @@ export const attack = async({attackingPokemon, defendingPokemon, move}) => {
         }).then(result => result.json())
         return response
     }catch(error) {
-        console.error("There was an error attacking in the api", error)
+        console.error("There was an error attacking in the api in src/api/balls.js", error)
         throw error
     }
 }
@@ -35,7 +35,7 @@ export const defend = async({attackingPokemon, defendingPokemon, move}) => {
         }).then(result => result.json())
         return response
     }catch(error) {
-        console.error("There was an error attacking in the api", error)
+        console.error("There was an error attacking in the api in src/api/balls.js", error)
         throw error
     }
 }
@@ -53,7 +53,7 @@ export const selectEnemyPokemonMove = async(moves) => {
         }).then(result => result.json())
         return response
     }catch(error) {
-        console.error("There was an error fetching the player pokemon moves", error)
+        console.error("There was an error fetching the player pokemon moves in src/api/balls.js", error)
         throw error
     }
 }
@@ -69,7 +69,7 @@ export const checkForAlivePokemon = async(token) => {
         }).then(result => result.json())
         return response
     }catch(error) {
-        console.error("There was an error checkingfor alive pokemon", error)
+        console.error("There was an error checkingfor alive pokemon in src/api/balls.js", error)
         throw error
     }
 }
@@ -91,7 +91,26 @@ export const expGain = async({token, pokemonParticipating, faintedPokemonLevel, 
         }).then(result => result.json())
         return response
     }catch(error){
-        console.error("There was an error calling exp gain", error)
+        console.error("There was an error calling exp gain in src/api/balls.js", error)
         throw error
+    }
+}
+
+export const usePokeball = async({token, enemyPokemon, usedPokeball}) => {
+    try {
+        const response = await fetch(`${BASE_URL}/encounter/useball`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                enemyPokemon: enemyPokemon, 
+                usedPokeball: usedPokeball
+            })
+        }).then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an error creating call usePokeball in src/api/balls.js")
     }
 }

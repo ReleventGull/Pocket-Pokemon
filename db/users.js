@@ -77,7 +77,7 @@ const updatePlayerItem = async({userId, itemId, value}) => {
         `, [value, userId, itemId])
         return item
     }catch(error) {
-        console.error("There was an erro updating player item", error)
+        console.error("There was an error updating player item in db/users.js", error)
         throw error
     }
 }
@@ -90,7 +90,7 @@ const getPlayerItemById = async({id, userId}) => {
     `, [userId, id])
     return item
     }catch(error) {
-        console.error("There was an error getting the player item by id", error)
+        console.error("There was an error getting the player item by id in db/users.js", error)
         throw error
     }
 }
@@ -98,7 +98,7 @@ const getPlayerItemById = async({id, userId}) => {
 const getAllPlayerItems = async (id) => {
     try {
         const {rows: items} = await client.query(`
-        SELECT playerItems.quantity, shopItems.name, shopItems.description, shopItems.category
+        SELECT playerItems.quantity, playerItems.id, playerItems.user_id AS "userId", shopItems.name, shopItems.description, shopItems.category
         FROM playerItems
         JOIN shopItems
         ON playerItems.item_id=shopItems.id
@@ -124,11 +124,27 @@ const getPlayerItemsByCategory = async({userId, category}) =>{
             console.log("In the database ", userId, )
             return items
     }catch(error) {
-        console.error("There was an error getting the user items by cat in DB", error)
+        console.error("There was an error getting the user items by cat in db/users.js", error)
         throw error
     }
 }
 
+const getPlayerItemByItemId = async({itemId, userId}) => {
+    try {
+        console.log("In db func", itemId, userId)
+        const {rows: [item]} = await client.query(`
+            SELECT playerItems.*, shopItems.name
+            FROM playerItems
+            JOIN shopItems ON shopItems.id = playerItems.item_id
+            WHERE
+            playeritems.id = $1 AND playeritems.user_id = $2;
+            `, [itemId, userId])
+            return item
+    }catch(error) {
+        console.error("There was an erro getting player item by item id in db/users.js")
+        throw error
+    }
+}
 module.exports = {
     createUser,
     getUserById,
@@ -138,5 +154,6 @@ module.exports = {
     getPlayerItemById,
     updatePlayerItem,
     getAllPlayerItems,
-    getPlayerItemsByCategory
+    getPlayerItemsByCategory,
+    getPlayerItemByItemId
 }

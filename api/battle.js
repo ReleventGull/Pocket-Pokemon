@@ -423,9 +423,18 @@ function experienceGainedInclusive ({pokemon, faintedPokemonLevel, fainedPokemon
   return result
   }
 
+function capture ({enemyPokemon, pokeballCatchRate}) {
+  const enemyPokemonHp = enemyPokemon.stats.hp
+  const topCal = 3 * enemyPokemonHp.value - 2 * enemyPokemonHp.current_value
+  const bottomCal = 3 * enemyPokemonHp.value
+  const result = (topCal/bottomCal) * enemyPokemon.catchRate * pokeballCatchRate
+  return result
+}
+
 module.exports = {
   typeTable,
   damage,
-  experienceGainedInclusive
+  experienceGainedInclusive,
+  capture
 }
 

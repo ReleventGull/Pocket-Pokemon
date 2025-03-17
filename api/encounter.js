@@ -4,8 +4,8 @@ const { generateHP, generateIvs, generateStats, generateRandomMoves, } = require
 const {updatePokemonHp, updateExp, getPokemonlevel, getPokemonMaxExp, getUserPokemonLevel, getPokemonStats, updatePlayerPokemonStats} = require('../db/stats')
 const {getPokemonTypes, checkUserPokemonHp, getUserPokemonBySlot, getUserPokemonExp} = require('../db/pokemon')
 const {getMovesByPokemon} = require('../db/moves')
-const {damage, experienceGainedInclusive} = require('./battle')
-const {updateUserCash} = require('../db/users')
+const {damage, experienceGainedInclusive, capture} = require('./battle')
+const {updateUserCash, getPlayerItemByItemId} = require('../db/users')
 encounterRouter.post('/attack' , async (req, res, next) => {
     try {
     let crit
@@ -93,44 +93,29 @@ encounterRouter.post('/encounterPokemon', async (req, res, next) => {
     let totalExp = playerExp.reduce((acc, current) => 
         acc + current.exp, 
     ).exp/playerExp.length
-
     //Generates random exp for pokemon
     let randomExp = Math.floor(Math.random() * totalExp)
-
     let level = await getPokemonlevel({id: pokemon.pokemon_id, exp: randomExp})
     let stats = await getPokemonStats(pokemon.pokemon_id)
-    
     generateIvs(stats)
-    
     //Generate The Hp For The Pokemon
     generateHP(stats, level.level)
-   
     //Generate The Stats of the Random Pokemon
-    
     generateStats(stats, level.level)
-    
-    
     pokemon['stats'] = stats
     pokemon['level'] = level.level
     pokemon['exp'] = randomExp
     pokemon['isWild'] = true
     pokemon['moves'] = []
     //generate the moves of the pokemon
-    
-
     //Generate The Ivs Of the Pokemon
-    
- 
-
     await generateRandomMoves(pokemon)
-
     res.send(pokemon)
     }catch(error) {
         console.error("there was an error with encounter pokemon API", error)
         error
     }
 })
-
 encounterRouter.post('/expGain', async (req, res, next) => {
     try {
         const {pokemonParticipating, faintedPokemonBaseExperience, faintedPokemonLevel} = req.body
@@ -158,7 +143,6 @@ encounterRouter.post('/expGain', async (req, res, next) => {
             }       
         }
         //Cash Gain
-        
         let cash = Object.keys(pokemonParticipating).length * 100 * faintedPokemonLevel
         const updatedCash = await updateUserCash({id: req.user.id, cash: cash})
         console.log("Updated cash", updatedCash)
@@ -169,6 +153,50 @@ encounterRouter.post('/expGain', async (req, res, next) => {
     }
 })
 
+encounterRouter.post('/useball', async(req, res, next) => {
+    //Wil need user token
+    //Will need item ID being sent.
+    //Will need the current pokemon being fought
+    const userId = req.user.id
+    const {enemyPokemon, usedPokeball} = req.body
+    if(userId != usedPokeball.userId) {
+        res.send({error: true, message: "You are no authorized to use this persons inventory!"})
+        return
+    }
+    const checkPokeball = await getPlayerItemByItemId({itemId: usedPokeball.id, userId: userId})
+    console.log('Checking pokeball:', checkPokeball)
+    if(!checkPokeball) {
+        res.send({error: true, message: "You are do not have this item in your inventory"})
+        return
+    }
+    let pokeballCatchRate = null
+    switch(checkPokeball.name) {
+        case "poke-ball":
+            pokeballCatchRate = 1
+            break;
+        case "great-ball" :
+            pokeballCatchRate = 1.5
+            break
+        case "ultra-ball":
+            pokeballCatchRate = 2
+            break
+        default: 
+            return
 
+    }
+    const captureChance = capture({enemyPokemon: enemyPokemon, pokeballCatchRate: pokeballCatchRate})
+    const randomValue = Math.floor(Math.random() * 100)
+    console.log(captureChance, randomValue)
+    if(randomValue <= captureChance) {
+        res.send({success: true, ball: checkPokeball.name, message: `${enemyPokemon.name} has been caught!`})
+    }else {
+        let shakeCount = 0;
+        if (randomValue <= captureChance + 60) shakeCount = 3;  // "So close!"
+        else if (randomValue <= captureChance + 80) shakeCount = 2; // "Almost!"
+        else if (randomValue <= captureChance + 95) shakeCount = 1; // "Barely!"
+        res.send({success: false, shakes: shakeCount, ball: checkPokeball.name, message: `${enemyPokemon.name} got out!`})
+    }
+   
+})
 
 module.exports = encounterRouter

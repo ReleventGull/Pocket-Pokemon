@@ -1,26 +1,51 @@
-import { use, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { fetchUserItems, fetchUserItemsByCategory } from "./apiCalls/users"
-const Bag = ({setDisplay, token, setView, setAllowMove}) => {
+import { usePokeball } from './apiCalls/battle'
+const Bag = ({setEncounter, setMessage, animateBall, setDisplay, token, setView, setAllowMove, UseButton, pokemonEncountered}) => {
     const [items, setItems] = useState([])
     const [featuredItem, setFeaturedItem] = useState(null)
-    
+    function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
     const fetchUserData = async() => {
         const items = await fetchUserItems(token)
         setItems(items)
     }
     const fetchItems  = async(category) => {
-        console.log("Calling...")
         if(!category) {
             fetchUserData();
             return
         }
         const items = await fetchUserItemsByCategory({token: token, category:category})
-        console.log("Results of fetch user items here:", items)
         setItems(items)
+    }
+    const useItem = async() => {
+        if(featuredItem.category == "standard-balls") {
+            const response = await usePokeball({token: token, enemyPokemon: pokemonEncountered, usedPokeball: featuredItem})
+            setView('message')
+             await animateBall({success: response.success, pokeball: response.ball, shakes: response.shakes})
+            if(!response.success) {
+                setMessage(response.message)
+                await delay(3000)
+                setView('')
+                setMessage('')
+            }else {
+                setMessage(response.message)
+                await delay(3000)
+                setMessage('')
+                setView('')
+                setEncounter(false)
+            }
+            
+        }else {
+            console.log("This is not a ball")
+            //Will add a different endpoint here
+        }
     }
     useEffect(() => {
         fetchUserData()
     }, [])
+
 
 
     return (
@@ -43,7 +68,7 @@ const Bag = ({setDisplay, token, setView, setAllowMove}) => {
                 <div className="bagItems">
                 {items.length > 0 ?
                     items.map(item => 
-                        <div className="itemContainer" key={item.id} onClick={() => {setFeaturedItem(item), console.log(featuredItem)}}>
+                        <div className="itemContainer" key={item.id} onClick={() => {setFeaturedItem(item)}}>
                             <div>{item.name}</div>
                             <div className="itemQuantity">x{item.quantity}</div>
                         </div>
@@ -59,6 +84,7 @@ const Bag = ({setDisplay, token, setView, setAllowMove}) => {
                     <h2>{featuredItem.name}</h2>
                     <h3>{featuredItem.category}</h3>
                     <div className="itemDesc">{featuredItem.description}</div>
+                    {UseButton ? <UseButton useItem={useItem} /> : null}
                     </>
                     :
                     null
