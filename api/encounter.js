@@ -164,6 +164,7 @@ encounterRouter.post('/useball', async(req, res, next) => {
         return
     }
     const checkPokeball = await getPlayerItemByItemId({itemId: usedPokeball.id, userId: userId})
+    console.log('Checking pokeball:', checkPokeball)
     if(!checkPokeball) {
         res.send({error: true, message: "You are do not have this item in your inventory"})
         return
@@ -184,17 +185,16 @@ encounterRouter.post('/useball', async(req, res, next) => {
 
     }
     const captureChance = capture({enemyPokemon: enemyPokemon, pokeballCatchRate: pokeballCatchRate})
-    const randomValue = 100
-    // Math.floor(Math.random() * 100)
+    const randomValue = Math.floor(Math.random() * 100)
     console.log(captureChance, randomValue)
     if(randomValue <= captureChance) {
-        res.send({success: true})
+        res.send({success: true, ball: checkPokeball.name, message: `${enemyPokemon.name} has been caught!`})
     }else {
         let shakeCount = 0;
         if (randomValue <= captureChance + 60) shakeCount = 3;  // "So close!"
         else if (randomValue <= captureChance + 80) shakeCount = 2; // "Almost!"
         else if (randomValue <= captureChance + 95) shakeCount = 1; // "Barely!"
-        res.send({success: false, shakes: shakeCount})
+        res.send({success: false, shakes: shakeCount, ball: checkPokeball.name, message: `${enemyPokemon.name} got out!`})
     }
    
 })

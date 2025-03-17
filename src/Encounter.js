@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {FightMoves, FightOptions, FightMessage, BagInEcounter, UserPokemonComponent, EnemyPokemonComponent} from './EncounterOptions/FightExports'
+import {Pokeball, FightMoves, FightOptions, FightMessage, BagInEcounter, UserPokemonComponent, EnemyPokemonComponent} from './EncounterOptions/FightExports'
 import {selectEnemyPokemonMove, defend, checkForAlivePokemon} from './apiCalls/battle'
 import { fetchUserPokemon } from "./apiCalls/users";
 import {fetchCurrentPokemon} from './apiCalls/userPokemon'
@@ -16,6 +16,7 @@ const Encounter = ({
   const [message, setMessage] = useState('')
   const [pokemonParticpating, setPokemonParticpating] = useState(null)
   const [isCatching, setIsCatch] = useState(false)
+  const [pokeball, setPokeBall] = useState('')
   const getUserPokemon = async() => {
       let userPokemon = await fetchUserPokemon(token) // fetches the currently alive Pokemon in the party. (Where "onPlayer" = true)
       userPokemon['isFainted'] = false
@@ -26,9 +27,9 @@ const Encounter = ({
           return
       }
   }
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+  function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
 
 const fetchCurrentUserPokemon = async() => {
   let currentPokemon = await fetchCurrentPokemon({pokemonParticpating:pokemonParticpating, token: token})
@@ -65,12 +66,22 @@ const attackPlayer = async() => {
     }
   }
 
-  const animateBall = () => {
-    console.log("Animated the ball")
-  }
-useEffect(() => {
-  console.log("Pokemon ecnountered in use effect", pokemonEncountered)
-}, [])
+const animateBall = async({success, shakes, pokeball}) => {
+  shakes = 3
+  setIsCatch(true)
+  setPokeBall(pokeball)
+  await delay(500)
+  for(let i = 1; i <= shakes; i++) {
+    setPokeBall(`${pokeball} animate`)
+    await delay(1000)
+    setPokeBall(pokeball)
+    await delay(500)
+    }
+    if(!success) {
+      setIsCatch(false)
+    }
+}
+
 useEffect(() => {
   getUserPokemon()
 }, [])
@@ -91,7 +102,7 @@ useEffect(() => {
     <div id="grid-encoutner">
         <div className="backgroundBattle">
           <div className="top one">
-            {isCatching ? null : <EnemyPokemonComponent pokemonEncountered={pokemonEncountered}/>}
+            {isCatching ? <Pokeball pokeball={pokeball}/> : <EnemyPokemonComponent pokemonEncountered={pokemonEncountered}/>}
           </div>
           <div className="top two">
             {<UserPokemonComponent pokemonParticpating={pokemonParticpating}/>}
@@ -99,7 +110,7 @@ useEffect(() => {
         {view == '' ? <FightOptions setEncounter={setEncounter} setView={setView}/>: null}
         {view == 'fight' ? <FightMoves token={token}pokemonParticpating={pokemonParticpating} setMessage={setMessage} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} />: null}
         {view == 'message' ? <FightMessage setView={setView} message={message}/>: null}
-        {view == 'bag' ? <BagInEcounter pokemonEncountered={pokemonEncountered} token={token} setView={setView}/>: null}
+        {view == 'bag' ? <BagInEcounter setEncounter={setEncounter} setMessage={setMessage} animateBall={animateBall} pokemonEncountered={pokemonEncountered} token={token} setView={setView}/>: null}
         </div>
       </div>
   :

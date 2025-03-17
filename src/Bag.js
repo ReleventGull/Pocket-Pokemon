@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import { fetchUserItems, fetchUserItemsByCategory } from "./apiCalls/users"
 import { usePokeball } from './apiCalls/battle'
-const Bag = ({setDisplay, token, setView, setAllowMove, UseButton, pokemonEncountered}) => {
+const Bag = ({setEncounter, setMessage, animateBall, setDisplay, token, setView, setAllowMove, UseButton, pokemonEncountered}) => {
     const [items, setItems] = useState([])
     const [featuredItem, setFeaturedItem] = useState(null)
-    
+    function delay(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
     const fetchUserData = async() => {
         const items = await fetchUserItems(token)
         setItems(items)
@@ -19,13 +21,20 @@ const Bag = ({setDisplay, token, setView, setAllowMove, UseButton, pokemonEncoun
     }
     const useItem = async() => {
         if(featuredItem.category == "standard-balls") {
-            console.log("Standard ballls" ,pokemonEncountered)
             const response = await usePokeball({token: token, enemyPokemon: pokemonEncountered, usedPokeball: featuredItem})
             setView('message')
+             await animateBall({success: response.success, pokeball: response.ball, shakes: response.shakes})
             if(!response.success) {
-                //If it's not success, take the shakes and do stuff lol
+                setMessage(response.message)
+                await delay(3000)
+                setView('')
+                setMessage('')
             }else {
-                //If successful, set message that you have capture the pokemon
+                setMessage(response.message)
+                await delay(3000)
+                setMessage('')
+                setView('')
+                setEncounter(false)
             }
             
         }else {
@@ -35,7 +44,6 @@ const Bag = ({setDisplay, token, setView, setAllowMove, UseButton, pokemonEncoun
     }
     useEffect(() => {
         fetchUserData()
-        console.log("Bag opened", pokemonEncountered)
     }, [])
 
 
@@ -60,7 +68,7 @@ const Bag = ({setDisplay, token, setView, setAllowMove, UseButton, pokemonEncoun
                 <div className="bagItems">
                 {items.length > 0 ?
                     items.map(item => 
-                        <div className="itemContainer" key={item.id} onClick={() => {setFeaturedItem(item), console.log(featuredItem)}}>
+                        <div className="itemContainer" key={item.id} onClick={() => {setFeaturedItem(item)}}>
                             <div>{item.name}</div>
                             <div className="itemQuantity">x{item.quantity}</div>
                         </div>
