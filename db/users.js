@@ -72,13 +72,26 @@ const updatePlayerItem = async({userId, itemId, value}) => {
         const {rows: [item]} = await client.query(`
         UPDATE playerItems
         SET quantity = quantity + $1
-        WHERE user_id = $2 AND item_id = $3
+        WHERE user_id = $2 AND id = $3
         RETURNING *;
         `, [value, userId, itemId])
         return item
     }catch(error) {
         console.error("There was an error updating player item in db/users.js", error)
         throw error
+    }
+}
+const removePlayerItem = async({userId, itemId}) => {
+    try {
+        const {rows: [item]} = await client.query(`
+            DELETE FROM playerItems 
+            WHERE id=$1 AND user_id=$2 
+            RETURNING *;
+            `, [itemId, userId])
+        return item
+    }catch(error) {
+        	console.error("There was an error removing player item in db/users")
+            throw error
     }
 }
 
@@ -155,5 +168,6 @@ module.exports = {
     updatePlayerItem,
     getAllPlayerItems,
     getPlayerItemsByCategory,
-    getPlayerItemByItemId
+    getPlayerItemByItemId,
+    removePlayerItem
 }
