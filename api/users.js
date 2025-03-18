@@ -28,7 +28,6 @@ userRouter.post('/register', async(req, res, next) => {
         const createdUser = await getUserById(newUser.id)
         const newPlayerPokemon = await createPlayerPokemon({
             name: pokemonById.name,
-            onPlayer : true,
             exp: 0,
             pokemon_id: pokemonById.id,
             user_id: createdUser.id,

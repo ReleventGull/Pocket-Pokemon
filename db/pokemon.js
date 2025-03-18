@@ -99,13 +99,13 @@ const getPokemonById = async(id) => {
         throw error
     }
 }
-const createPlayerPokemon = async({name, onPlayer, exp, pokemon_id, user_id, slot}) => {
+const createPlayerPokemon = async({name, exp, pokemon_id, user_id, slot}) => {
     try {
         const {rows: [pokemon]} = await client.query(`
-        INSERT INTO playerPokemon (name, "onPlayer", exp, pokemon_id, user_id, slot)
-        VALUES ($1, $2, $3, $4, $5, $6)
+        INSERT INTO playerPokemon (name, exp, pokemon_id, user_id, slot)
+        VALUES ($1, $2, $3, $4, $5)
         RETURNING *;
-        `, [name, onPlayer, exp, pokemon_id, user_id, slot])
+        `, [name, exp, pokemon_id, user_id, slot])
         return pokemon
     }catch(error) {
         console.error("There was an error creating the player pokemon", error)
@@ -145,7 +145,6 @@ const getUserPokemon = async(id) => {
                 currentPokeObject.name = pokemon[i].name 
                 currentPokeObject.exp = pokemon[i].exp,
                 currentPokeObject.level = pokemon[i].level,
-                currentPokeObject.onPlayer = pokemon[i].onPlayer,
                 currentPokeObject.slot = pokemon[i].slot
                 currentPokeObject.stats = {}
             }
@@ -177,7 +176,6 @@ const getUserPokemonBySlot = async({slot, id}) => {
                 currentPokeObject.pokemon_id = pokemon[i].pokemon_id
                 currentPokeObject.name = pokemon[i].name 
                 currentPokeObject.exp = pokemon[i].exp,
-                currentPokeObject.onPlayer = pokemon[i].onPlayer,
                 currentPokeObject.slot = pokemon[i].slot
                 currentPokeObject.stats = {}
             }
@@ -197,7 +195,7 @@ const getUserPokemonHp = async(id) => {
         FROM playerPokemon
         JOIN playerPokemonStats
         ON playerPokemonStats.player_pokemon_id=playerPokemon.id
-        WHERE playerPokemon.user_id=$1 AND playerPokemon."onPlayer"=true AND playerPokemonStats.name='hp';
+        WHERE playerPokemon.user_id=$1 AND playerPokemon.slot IS NOT NULL AND playerPokemonStats.name='hp';
         `, [id])
         return values
     }catch(error) {
@@ -211,7 +209,7 @@ const checkUserPokemonHp = async(id) => {
         SELECT playerPokemon.id, playerPokemon.name, playerPokemonStats."currentValue", playerPokemon.slot
         FROM playerPokemon
         JOIN playerPokemonStats ON playerPokemonStats.player_pokemon_id=playerPokemon.id
-        WHERE playerPokemon.user_id=$1 AND playerPokemonStats.name='hp' AND playerPokemonStats."currentValue">0 AND playerPokemon."onPlayer"=true
+        WHERE playerPokemon.user_id=$1 AND playerPokemonStats.name='hp' AND playerPokemonStats."currentValue">0 AND playerPokemon.slot IS NOT NULL;
         `, [id])
         return pokemon
     }catch(error) {
@@ -237,7 +235,7 @@ const getUserPokemonExp = async(id) => {
     try {
         const {rows: exp} = await client.query(`
         SELECT exp FROM playerPokemon
-        WHERE user_id=$1 AND "onPlayer"=true;
+        WHERE user_id=$1 AND slot IS NOT NULL;
         `, [id])
         return exp
     }catch(error) {
