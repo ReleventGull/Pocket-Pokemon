@@ -34,7 +34,7 @@ const getPokemonOnPlayer = async(id) => {
         const {rows: pokemon} = await client.query(`
         SELECT id FROM playerPokemon
         WHERE
-        user_id=$1 AND "onPlayer"=true
+        user_id=$1 AND slot IS NOT NULL;
         `, [id])
         return pokemon
     }catch(error) {
