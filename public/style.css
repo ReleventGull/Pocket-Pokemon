@@ -860,22 +860,31 @@ border-radius: 20px;
 }
 
 .pokemonBody {
-    height: 90%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
+    overflow-y: auto;
+    height: 1000px;
+    width: 1000px;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 10px;
 }
 
 .pokemonFooter {
-    height: 10%;
+    height: 60px;
     width: 100%;
+    display: flex;
+    flex-direction: row;
    
 }
-.pokemonFooter button {
+.pokemonFooter .footerCloseButton {
     height: 100%;
     width: 120px;
+    border: none;
+    padding: 0;
+    transition: .2s
+}
+.footerPCButton {
+    height: 100%;
+    flex-grow: 1;
     border: none;
     padding: 0;
     transition: .2s
@@ -890,23 +899,25 @@ border-radius: 20px;
 
 .pokemonBox {
     width: 89%;
+    margin-left: auto;
+    margin-right: auto;
     position: relative;
-    height: 130px;
     background-color: white;
     display: flex;
-    border-radius: 30px;
+    border-radius: 15px;
     justify-content: space-around;
     border: 10px solid lightgray;
     box-shadow: 5px 5px 5px 0 black;
 }
 
 .imageLevelBox {
-    height: 100%;
+    display: grid;
+    place-items: center;
+    min-height: 100%;
     width: 20%;
 }
 
 .healthContainerParty{
-    height: 70px;
     width: 400px;
     padding: 2px;
     display: flex;
