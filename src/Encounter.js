@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import {Pokeball, FightMoves, FightOptions, FightMessage, BagInEcounter, UserPokemonComponent, EnemyPokemonComponent, PartyInEncounter} from './EncounterOptions/FightExports'
 import {selectEnemyPokemonMove, defend, checkForAlivePokemon} from './apiCalls/battle'
-import { fetchUserPokemon } from "./apiCalls/users";
+import { fetchCurrentAlivePokemon } from "./apiCalls/users";
 import {fetchCurrentPokemon} from './apiCalls/userPokemon'
+import {changePokemon} from './apiCalls/userPokemon'
 const Encounter = ({
   pokemonEncountered,
   setEncounter,
@@ -18,7 +19,7 @@ const Encounter = ({
   const [isCatching, setIsCatch] = useState(false)
   const [pokeball, setPokeBall] = useState('')
   const getUserPokemon = async() => {
-      let userPokemon = await fetchUserPokemon(token) // fetches the currently alive Pokemon in the party. (Where "onPlayer" = true)
+      let userPokemon = await fetchCurrentAlivePokemon(token) // fetches the currently alive Pokemon in the party. (Where "onPlayer" = true)
       userPokemon['isFainted'] = false
       setPokemonParticpating(userPokemon)
       if(userPokemon.message) { //If there are no available pokemon alive in the players party
@@ -36,6 +37,21 @@ const fetchCurrentUserPokemon = async() => {
   return currentPokemon
 }
 
+const switchPokemon = async({pokemon}) => {
+  console.log("TOKEN HERE", token)
+  let chosenPokemon = await changePokemon({pokemonChosen: pokemon, token:token}) 
+  console.log(chosenPokemon)
+  if(chosenPokemon.success) {
+    console.log("IM SUCCESS")
+    setPokemonParticpating(chosenPokemon.pokemon)
+    setView('message')
+    setMessage(chosenPokemon.message) 
+    await delay(2500)
+    setMessage('')
+    setPlayerTurn(2)
+  }
+}
+
 const attackPlayer = async() => {
   let move = await selectEnemyPokemonMove(pokemonEncountered.moves)
   if (move.power == null || move.category == 'status') return // prevents ai from using status moves
@@ -48,7 +64,7 @@ const attackPlayer = async() => {
   setView('')
   setPokemonParticpating(userPokemon.pokemon)
   if(userPokemon.message){ // This means that the current pokemon has fainted
-     let checkForAlivePokemon = await fetchUserPokemon(token);
+     let checkForAlivePokemon = await fetchCurrentAlivePokemon(token);
      if(checkForAlivePokemon.message) { //if there is a message, it means there are no more pokemon alive
        setView('message') 
        setMessage(checkForAlivePokemon.message)
@@ -110,7 +126,7 @@ useEffect(() => {
         {view == 'fight' ? <FightMoves token={token}pokemonParticpating={pokemonParticpating} setMessage={setMessage} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} />: null}
         {view == 'message' ? <FightMessage setView={setView} message={message}/>: null}
         {view == 'bag' ? <BagInEcounter setEncounter={setEncounter} setMessage={setMessage} animateBall={animateBall} pokemonEncountered={pokemonEncountered} token={token} setView={setView}/>: null}
-        {view == 'party' ? <PartyInEncounter token={token} setView={setView}/>: null}
+        {view == 'party' ? <PartyInEncounter switchPokemon={switchPokemon} token={token} setView={setView}/>: null}
         </div>
       </div>
   :

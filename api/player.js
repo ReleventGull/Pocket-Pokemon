@@ -1,7 +1,7 @@
 const express = require('express')
 const playerRouter = express.Router()
 const { generateHP, generateIvs, generateStats } = require('./statFunctions')
-const {getUserPokemon, getUserPokemonHp, getUserPokemonBySlot, getPokemonById,} = require('../db/pokemon')
+const {getUserPokemon, getUserPokemonHp, getUserPokemonBySlot, getPokemonById, getCurrentPlayerPokemonHp} = require('../db/pokemon')
 const {getPlayerPokemonMove} = require('../db/moves')
 const { getUserPokemonLevel, getPokemonOnPlayer, healPokemon} = require('../db/stats')
 const{getAllPlayerItems, getPlayerItemsByCategory} = require('../db/users')
@@ -47,12 +47,31 @@ playerRouter.get('/pokemon/:pokemonId', async(req, res, next) => {
 playerRouter.post('/currentPokemon', async(req, res, next) => {
     try {
     const {pokemonParticpating} = req.body
+
     let pokemon = await getUserPokemonBySlot({slot:pokemonParticpating.slot, id: req.user.id})
     let level = await getUserPokemonLevel(pokemon.id)
     pokemon.level = level
     let message = pokemon.stats.hp.current_value <= 0 ? `Your ${pokemon.name} has fainted!` : ""
     res.send({pokemon:pokemon, message: message})
     
+    }catch(error) {
+        console.error("There was an error getting the current pokemon", error)
+        throw error
+    }
+})
+playerRouter.post('/choosePokemon', async(req, res, next) => {
+    try {
+    const {pokemonChosen} = req.body
+    console.log("CHOSEN POKEMON", pokemonChosen)
+    const checkHp = await getCurrentPlayerPokemonHp({playerPokemonId: pokemonChosen.id})
+    if (!checkHp.currentValue) {
+        res.send({sucess: false})
+        return 
+    }
+    let pokemon = await getUserPokemonBySlot({slot:pokemonChosen.slot, id: req.user.id})
+    let level = await getUserPokemonLevel(pokemon.id)
+    pokemon.level = level
+    res.send({success: true, pokemon:pokemon, message: `${pokemon.name}, I choose you!`})
     }catch(error) {
         console.error("There was an error getting the current pokemon", error)
         throw error

@@ -1,7 +1,7 @@
 import { useEffect, useState} from "react"
 import {fetchUserParty} from './apiCalls/userPokemon'
 import PokemonPartyItem from './PokemonPartyItem'
-const Pokemon = ({token, setDisplay, setAllowMove, setView}) => {
+const Pokemon = ({SwitchButton, switchPokemon, token, setDisplay, setAllowMove, setView}) => {
     const [pokemon, setPokemon] = useState(null)
 
     const fetchPokemon = async() => {
@@ -17,7 +17,7 @@ const Pokemon = ({token, setDisplay, setAllowMove, setView}) => {
         <div className="pokemonPage">
             <div className="pokemonBody">
                 {!pokemon ? null: pokemon.map(po => 
-                  < PokemonPartyItem po={po}/>
+                  < PokemonPartyItem SwitchButton={SwitchButton} switchPokemon={switchPokemon} po={po}/>
                     )}
             <div className="pokemonFooter">
                 <button className="footerCloseButton" onClick={() => {
