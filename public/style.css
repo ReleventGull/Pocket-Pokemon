@@ -372,18 +372,18 @@ table {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
-    height: 45%;
+    min-height: 45%;
 }
 .top.two {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    height: 45%;
+    min-height: 45%;
 }
 
 .top.three {
     background-color: black;
-    height: 10%;
+    min-height: 10%;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr;
