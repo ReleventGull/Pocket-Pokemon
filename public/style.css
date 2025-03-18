@@ -1057,3 +1057,8 @@ border-radius: 20px;
     background-color: black;
     color: white;
 }
+.switchButton {
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 60px;
+}

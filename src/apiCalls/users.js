@@ -62,7 +62,7 @@ export const loginUser = async ({username, password}) => {
     }
 }
 
-export const fetchUserPokemon = async(token) => {
+export const fetchCurrentAlivePokemon = async(token) => {
     try {
         const response = await fetch(`${BASE_URL}/player/pokemon`, {
             method:"GET",

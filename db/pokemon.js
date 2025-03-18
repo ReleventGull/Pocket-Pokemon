@@ -217,6 +217,21 @@ const checkUserPokemonHp = async(id) => {
         throw error
     }
 }
+
+const getCurrentPlayerPokemonHp = async({playerPokemonId}) => {
+    try {
+        const {rows: [pokemon]} = await client.query(`
+            SELECT playerPokemon.id, playerPokemon.name, playerPokemonStats."currentValue", playerPokemon.slot
+            FROM playerPokemon
+            JOIN playerPokemonStats ON playerPokemonStats.player_pokemon_id=playerPokemon.id
+            WHERE playerPokemon.id=$1 AND playerPokemonStats.name='hp' AND playerPokemon.slot IS NOT NULL;
+            `, [playerPokemonId])
+            return pokemon
+    }catch(error) {
+        console.error("There was an error checking the player pokemon hp in db/pokemon", error )
+        throw error
+    }
+}
 const getPokemonTypes = async(id) => {
     try {
         const {rows: [types]} = await client.query(`
@@ -260,5 +275,6 @@ module.exports = {
     getUserPokemonBySlot,
     getUserPokemonHp,
     checkUserPokemonHp,
-    getUserPokemonExp
+    getUserPokemonExp,
+    getCurrentPlayerPokemonHp
 }

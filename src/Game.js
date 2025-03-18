@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useState, useRef } from "react";
 import {GameBoard, NameDisplay} from "./Exported";
 import { fetchEncounteredPokemon } from "./apiCalls";
-import {fetchUserPokemon} from './apiCalls/users'
+import {fetchCurrentAlivePokemon} from './apiCalls/users'
 
 
 const Game = ({token, pokemon}) => {
@@ -21,7 +21,7 @@ const Game = ({token, pokemon}) => {
     setPokemonEncounterd(pokemonFromApi);
   };
   const checkForAlivePokemonInParty = async() => {
-    const result = await fetchUserPokemon(token)
+    const result = await fetchCurrentAlivePokemon(token)
     if(result.message) {
       return false
     }

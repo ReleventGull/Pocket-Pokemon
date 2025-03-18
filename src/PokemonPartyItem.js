@@ -1,6 +1,6 @@
 
 
-const PokemonPartyItem = ({po}) => {
+const PokemonPartyItem = ({po, SwitchButton, switchPokemon}) => {
     return (
         <div className="pokemonBox">
                     <div className="imageLevelBox">
@@ -20,7 +20,8 @@ const PokemonPartyItem = ({po}) => {
                     </div>
                     <div className="thirdBox">
                         <h3>Lv. {po.level}</h3>
-                    </div>    
+                    </div>
+                    {SwitchButton ? <SwitchButton po={po} switchPokemon={switchPokemon}/> : null}
                   </div>  
     )
 }

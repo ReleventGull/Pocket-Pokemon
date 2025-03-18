@@ -62,3 +62,22 @@ export const fetchUserParty = async(token) => {
         throw error
     }
 }
+
+export const changePokemon = async({token, pokemonChosen}) => {
+    try {
+        const response = await fetch(`${BASE_URL}/player/choosePokemon`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                pokemonChosen
+            })   
+        }).then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an error fetching the pokemon by the slot", error)
+        throw error
+    }
+}
