@@ -6,7 +6,7 @@ const FightOptions = ({setView, setEncounter}) => {
     <div className="top three">
     <button onClick={() => setView('bag')} className="button one">Bag</button>
           <button onClick={() => setView('fight')}className="button two">Fight</button>
-          <button className="button three">Pokemon</button>
+          <button onClick={() => setView('party')} className="button three">Pokemon</button>
           <button
             onClick={() => {
                 setEncounter(false)

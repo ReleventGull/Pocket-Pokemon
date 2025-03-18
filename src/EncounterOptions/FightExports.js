@@ -1,3 +1,5 @@
+import PartyInEncounter from './PartyInEncounter'
+
 export {default as BagInEcounter} from './BagInEcounter'
 export {default as FightMoves} from './FightMoves'
 export {default as FightOptions} from './FightOptions'
@@ -5,3 +7,4 @@ export {default as FightMessage} from './FightMessage'
 export {default as EnemyPokemonComponent} from './EnemyPokemonComponent'
 export {default as UserPokemonComponent} from './UserPokemonComponent'
 export {default as Pokeball} from './Pokeball'
+export {default as PartyInEncounter} from './PartyInEncounter'
