@@ -5,7 +5,7 @@ const {updatePokemonHp, updateExp, getPokemonlevel, getPokemonMaxExp, getUserPok
 const {createPlayerPokmonStats, getPokemonTypes, checkUserPokemonHp, getUserPokemonBySlot, getUserPokemonExp, createPlayerPokemon} = require('../db/pokemon')
 const {getMovesByPokemon, createPlayerPokemonMove} = require('../db/moves')
 const {damage, experienceGainedInclusive, capture} = require('./battle')
-const {updateUserCash, getPlayerItemByItemId} = require('../db/users')
+const {updateUserCash, getPlayerItemByItemId, removePlayerItem, updatePlayerItem} = require('../db/users')
 encounterRouter.post('/attack' , async (req, res, next) => {
     try {
     let crit
@@ -170,6 +170,12 @@ encounterRouter.post('/useball', async(req, res, next) => {
     if(!checkPokeball) {
         res.send({error: true, message: "You are do not have this item in your inventory"})
         return
+    }else {
+        if(checkPokeball.quantity == 1) {
+            await removePlayerItem({userId: userId, itemId: checkPokeball.id})
+        }else {
+            await updatePlayerItem({userId: userId, itemId: checkPokeball.id, value: -1})
+        }
     }
     let pokeballCatchRate = null
     switch(checkPokeball.name) {

@@ -17,7 +17,7 @@ shopRouter.post('/purchase', async(req, res, next) => {
             if(!checkExist) {
                 const createdItem = await createPlayerItem({quantity: quantity, userId: req.user.id, itemId: itemId})
             }else {
-                const updatedItem = await updatePlayerItem({userId: req.user.id, itemId: itemId, value: quantity})
+                const updatedItem = await updatePlayerItem({userId: req.user.id, itemId: checkExist.id, value: quantity})
             }
             const updatedCash = await updateUserCash({id: req.user.id, cash: -price})
             res.send({message: "Success"})
