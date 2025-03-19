@@ -41,6 +41,9 @@ const fetchCurrentUserPokemon = async() => {
 const switchPokemon = async({pokemon}) => {
   let chosenPokemon = await changePokemon({pokemonChosen: pokemon, token:token}) 
   if(chosenPokemon.success) {
+    if(forceSwitch) {
+      setForceSwitch(false)
+    }
     setPokemonParticpating(chosenPokemon.pokemon)
     setView('message')
     setMessage(chosenPokemon.message) 
