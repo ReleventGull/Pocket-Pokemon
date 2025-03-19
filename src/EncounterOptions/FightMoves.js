@@ -31,7 +31,7 @@ const FightMoves = ({token, pokemonParticpating, setMessage, setView, playerTurn
       setPokemonEncounterd(resultOfAttack.pokemon)
       setMessage('')
     if(resultOfAttack.pokemon.stats.hp.current_value == 0) {
-      let result = await expGain({token: token, pokemonParticipating: pokemonParticpating, faintedPokemonBaseExperience: pokemonEncountered.baseExperience, faintedPokemonLevel: pokemonEncountered.level})
+      let result = await expGain({token: token, faintedPokemonBaseExperience: pokemonEncountered.baseExperience, faintedPokemonLevel: pokemonEncountered.level})
       setMessage('')
       setMessage(`The ${pokemonEncountered.name} fainted!`)
       await delay(3000)
