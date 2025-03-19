@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { fetchUserItems, fetchUserItemsByCategory } from "./apiCalls/users"
 import { usePokeball } from './apiCalls/battle'
+import {expGain} from './apiCalls/battle'
 const Bag = ({setEncounter, setMessage, animateBall, setDisplay, token, setView, setAllowMove, UseButton, pokemonEncountered}) => {
     const [items, setItems] = useState([])
     const [featuredItem, setFeaturedItem] = useState(null)
@@ -33,6 +34,11 @@ const Bag = ({setEncounter, setMessage, animateBall, setDisplay, token, setView,
                 setMessage(response.message)
                 await delay(3000)
                 setMessage('')
+                let result = await expGain({token: token, faintedPokemonBaseExperience: pokemonEncountered.baseExperience, faintedPokemonLevel: pokemonEncountered.level})
+                setMessage('')
+                await delay(500)
+                setMessage(`You gained $${result.cash}!`)
+                await delay(3000)
                 setView('')
                 setEncounter(false)
             }
