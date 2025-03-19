@@ -30,3 +30,10 @@
 .pokeBall.great-ball {
     background-position-x: -100%;
 }
+
+.pokeBall.ultra-ball {
+    background-position-x: -300%;
+}
+.pokeBall.ultra-ball.animate {
+    animation: pokeballShake 1s ease-in-out;
+}
