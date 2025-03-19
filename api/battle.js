@@ -415,11 +415,14 @@ function experienceGainedInclusive ({pokemon, faintedPokemonLevel, fainedPokemon
   //  If at least one Pokémon in the party is holding an Exp. Share...
   //  Twice the number of Pokémon that participated and have not fainted, when calculating the experience of a Pokémon that participated in battle
   //  Twice the number of Pokémon holding an Exp. Share, when calculating the experience of a Pokémon holding Exp. Share
-
+  console.log("In exp share", pokemon)
+  console.log("In exp share", faintedPokemonLevel)
+  console.log("In exp share", fainedPokemonBaseExp)
   let s = pokemon * 2
   let b = fainedPokemonBaseExp
   let l = Number(faintedPokemonLevel)
   const result = Math.floor((((b * l)/7) * (1/s)))
+  console.log("Result of exp here", result)
   return result
   }
 
