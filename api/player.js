@@ -51,8 +51,9 @@ playerRouter.post('/currentPokemon', async(req, res, next) => {
     let pokemon = await getUserPokemonBySlot({slot:pokemonParticpating.slot, id: req.user.id})
     let level = await getUserPokemonLevel(pokemon.id)
     pokemon.level = level
+    let faint = pokemon.stats.hp.current_value <= 0 ? true : false;
     let message = pokemon.stats.hp.current_value <= 0 ? `Your ${pokemon.name} has fainted!` : ""
-    res.send({pokemon:pokemon, message: message})
+    res.send({pokemon:pokemon, message: message, faint: faint})
     
     }catch(error) {
         console.error("There was an error getting the current pokemon", error)
@@ -92,7 +93,7 @@ playerRouter.get('/pokemon', async (req, res, next) => {
                 return
             }
         }
-        res.send({message: "No Pokemon available"})
+        res.send({message: "You have no pokemon left!"})
     }catch(error) {
         console.error("There was an error getting the player pokemon in the API", error)
         throw error

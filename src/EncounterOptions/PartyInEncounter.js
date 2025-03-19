@@ -6,10 +6,10 @@ const SwitchButton = ({po, switchPokemon}) => {
         <button onClick={() => switchPokemon({pokemon: po})} className='switchButton'>Switch</button>
     )
 }
-const PartyInEncounter = ({token, setView, switchPokemon}) => {
+const PartyInEncounter = ({token, forceSwitch, setView, switchPokemon}) => {
     return (
         <div className='partyEncounterBody'>
-            <Pokemon SwitchButton={SwitchButton} switchPokemon={switchPokemon} setView={setView} token={token}/>
+            <Pokemon forceSwitch={forceSwitch} SwitchButton={SwitchButton} switchPokemon={switchPokemon} setView={setView} token={token}/>
         </div>
         
     )

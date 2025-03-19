@@ -18,6 +18,7 @@ const Encounter = ({
   const [pokemonParticpating, setPokemonParticpating] = useState(null)
   const [isCatching, setIsCatch] = useState(false)
   const [pokeball, setPokeBall] = useState('')
+  const [forceSwitch, setForceSwitch] = useState(false)
   const getUserPokemon = async() => {
       let userPokemon = await fetchCurrentAlivePokemon(token) // fetches the currently alive Pokemon in the party. (Where "onPlayer" = true)
       userPokemon['isFainted'] = false
@@ -38,11 +39,11 @@ const fetchCurrentUserPokemon = async() => {
 }
 
 const switchPokemon = async({pokemon}) => {
-  console.log("TOKEN HERE", token)
   let chosenPokemon = await changePokemon({pokemonChosen: pokemon, token:token}) 
-  console.log(chosenPokemon)
   if(chosenPokemon.success) {
-    console.log("IM SUCCESS")
+    if(forceSwitch) {
+      setForceSwitch(false)
+    }
     setPokemonParticpating(chosenPokemon.pokemon)
     setView('message')
     setMessage(chosenPokemon.message) 
@@ -53,6 +54,7 @@ const switchPokemon = async({pokemon}) => {
 }
 
 const attackPlayer = async() => {
+  setPlayerTurn(1)
   let move = await selectEnemyPokemonMove(pokemonEncountered.moves)
   if (move.power == null || move.category == 'status') return // prevents ai from using status moves
   let result = await defend({move: move, attackingPokemon: pokemonEncountered, defendingPokemon: pokemonParticpating})
@@ -60,25 +62,27 @@ const attackPlayer = async() => {
   setView('message')
   setMessage(result.message)
   await delay(result.message.length * 50 + 1000)
-  setMessage('')
-  setView('')
   setPokemonParticpating(userPokemon.pokemon)
-  if(userPokemon.message){ // This means that the current pokemon has fainted
+  setMessage('')
+  await delay(500)
+  if(userPokemon.faint){ // This means that the current pokemon has fainted
+     setMessage(userPokemon.message)
+     await delay(3000)
+     setMessage('')
      let checkForAlivePokemon = await fetchCurrentAlivePokemon(token);
      if(checkForAlivePokemon.message) { //if there is a message, it means there are no more pokemon alive
-       setView('message') 
        setMessage(checkForAlivePokemon.message)
        await delay(checkForAlivePokemon.message.length * 50 + 1000)
-       setView('')
        setEncounter(false)
        setAllowMove(true)
      }else {
-      console.log("Switch pokemon")
-        //This will be the login for switch to a different pokemon!
+        //If this hits, it means the user still has alive pokemon and needs to be forced to switch
+        setForceSwitch(true)
+        setView('party')
       }
     }else {
       //This means the current pokemon has not fainted
-      setPlayerTurn(1)
+      setView('')
     }
   }
 
@@ -126,7 +130,7 @@ useEffect(() => {
         {view == 'fight' ? <FightMoves token={token}pokemonParticpating={pokemonParticpating} setMessage={setMessage} playerTurn={playerTurn} setPlayerTurn={setPlayerTurn} setEncounter={setEncounter} setPokemonEncounterd={setPokemonEncounterd} pokemonEncountered={pokemonEncountered} setView={setView} />: null}
         {view == 'message' ? <FightMessage setView={setView} message={message}/>: null}
         {view == 'bag' ? <BagInEcounter setEncounter={setEncounter} setMessage={setMessage} animateBall={animateBall} pokemonEncountered={pokemonEncountered} token={token} setView={setView}/>: null}
-        {view == 'party' ? <PartyInEncounter switchPokemon={switchPokemon} token={token} setView={setView}/>: null}
+        {view == 'party' ? <PartyInEncounter forceSwitch={forceSwitch} switchPokemon={switchPokemon} token={token} setView={setView}/>: null}
         </div>
       </div>
   :
