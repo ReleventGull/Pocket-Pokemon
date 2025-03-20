@@ -32,8 +32,16 @@ function generateIvs(stats) {
   
   async function generateRandomMoves (pokemon)  {
       let moves =  await getMovesByPokemon(pokemon.name)
+      console.log("Moves bu pokemon name", moves)
       for(let i = 1; i < 4; i++) {
         let randomMove = moves[Math.floor(Math.random() * moves.length)]
+        let filtered = pokemon.moves.filter(a => a.name == randomMove.name)
+        if(filtered.length) {
+          console.log("Duplicate found")
+          console.log("Pokemon Moves", pokemon.moves)
+          console.log("Selected move", randomMove)
+          continue
+        }
         pokemon.moves.push(randomMove)
       }
       return pokemon
