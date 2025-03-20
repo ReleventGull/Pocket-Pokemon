@@ -39,7 +39,7 @@ export const defend = async({attackingPokemon, defendingPokemon, move}) => {
         throw error
     }
 }
-
+//Is responsible for selecting a random attack move for the already generate enemy pokemon
 export const selectEnemyPokemonMove = async(moves) => {
     try {
         const response = await fetch(`${BASE_URL}/encounter/selectMove`, {

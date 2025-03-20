@@ -63,6 +63,7 @@ encounterRouter.post('/defend', async (req, res, next) => {
 })
 encounterRouter.post('/selectMove', async(req, res, next) => {
     try {
+        //Selects the enemy pokemons moves, not responsible for enemy pokemon generation
         const {moves} = req.body
         let randomMove = moves[Math.floor(Math.random() * moves.length)]
         res.send(randomMove)
@@ -90,7 +91,6 @@ encounterRouter.post('/encounterPokemon', async (req, res, next) => {
     try {
     const {pokemon} = req.body
     const playerExp = await getUserPokemonExp(req.user.id)
-   console.log('Player exp', playerExp)
     let totalExp = playerExp.reduce((acc, current) =>
          acc + current.exp, 
         0
