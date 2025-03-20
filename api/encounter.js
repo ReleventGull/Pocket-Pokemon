@@ -196,8 +196,14 @@ encounterRouter.post('/useball', async(req, res, next) => {
     const captureChance = capture({enemyPokemon: enemyPokemon, pokeballCatchRate: pokeballCatchRate})
     const randomValue = Math.floor(Math.random() * 100)
     if(randomValue <= captureChance) {
+        let sentMessage = "";
         let slot = null
         const userPokemon = await getUserPokemonExp(userId)
+        if(userPokemon.length == 7) {
+            sentMessage = `${enemyPokemon.name} has been sent to your pc.`
+        }else {
+            sentMessage = `${enemyPokemon.name} has been added to your party.`
+        }
         userPokemon.length == 7 ? null : slot = userPokemon.length + 1
         const newPokemon = await createPlayerPokemon(
             {name: enemyPokemon.name, 
@@ -226,7 +232,7 @@ encounterRouter.post('/useball', async(req, res, next) => {
                 })
             });
             console.log(newPokemon)
-        res.send({shakes: 3, success: true, ball: checkPokeball.name, message: `${enemyPokemon.name} has been caught!`})
+        res.send({shakes: 3, success: true, ball: checkPokeball.name, message: `${enemyPokemon.name} has been caught!`, message2: sentMessage})
     }else {
         let shakeCount = 0;
         if (randomValue <= captureChance + 60) shakeCount = 3;  // "So close!"
