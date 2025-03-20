@@ -54,7 +54,7 @@ const FightMoves = ({token, pokemonParticpating, setMessage, setView, playerTurn
       
     {
      pokemonMoves.map(move => 
-       <button key={move.id} onClick={() => handleMoveClick(move)} className={`button ${move.type}`}>
+       <button key={move.id} onClick={() => handleMoveClick(move)} className={`fightButton ${move.type}`}>
          <p>{move.name}</p>
          <p>power: {move.power}</p>
          <p>PP:{move.current_pp}/{move.pp}</p>

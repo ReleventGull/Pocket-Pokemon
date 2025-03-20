@@ -1,20 +1,207 @@
-.fightButton {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 3rem
+:root {
+    --bug: #A8B81F;
+    --dark: #705848;
+    --dragon: #6A48A3;
+    --electric: #F9E200;
+    --fairy: #F7A7D0;
+    --fighting: #C03028;
+    --fire: #F54D31;
+    --flying: #A890F0;
+    --ghost: #705898;
+    --grass: #7AC74C;
+    --ground: #E0C068;
+    --ice: #98D8D8;
+    --normal: #A8A878;
+    --poison: #A040A0;
+    --psychic: #F85888;
+    --rock: #B8A038;
+    --steel: #B8B8D0;
+    --water: #3892D2;
 }
-
-.fightButton p {
+.fightButton {
+    transition: .2s;
+    width: 100%;
+}
+.fightButton p{
     margin: 0;
 }
-.fightButton.normal {
-    background-color: gray;
-    color: white
+
+.fightButton.bug {
+    background-color: var(--bug);
+    color: black;
 }
+
+.fightButton.bug:hover {
+    background-color: #A0A91A; /* Darker or lighter shade */
+    color: white; /* Change text color */
+}
+
+.fightButton.dark {
+    background-color: var(--dark);
+    color: white;
+}
+
+.fightButton.dark:hover {
+    background-color: #5A4537; /* Darker shade */
+    color: white;
+}
+
+.fightButton.dragon {
+    background-color: var(--dragon);
+    color: white;
+}
+
+.fightButton.dragon:hover {
+    background-color: #5A3C82; /* Darker shade */
+    color: white;
+}
+
+.fightButton.electric {
+    background-color: var(--electric);
+    color: black;
+}
+
+.fightButton.electric:hover {
+    background-color: #D4C100; /* Darker yellow */
+    color: black;
+}
+
+.fightButton.fairy {
+    background-color: var(--fairy);
+    color: black;
+}
+
+.fightButton.fairy:hover {
+    background-color: #F199B8; /* Slightly darker pink */
+    color: white;
+}
+
+.fightButton.fighting {
+    background-color: var(--fighting);
+    color: white;
+}
+
+.fightButton.fighting:hover {
+    background-color: #9B2321; /* Darker red */
+    color: white;
+}
+
 .fightButton.fire {
-    background-color: rgba(255, 0, 0, 0.657);
-    color: white
+    background-color: var(--fire);
+    color: white;
+}
+
+.fightButton.fire:hover {
+    background-color: #D9472A; /* Darker red-orange */
+    color: white;
+}
+
+.fightButton.flying {
+    background-color: var(--flying);
+    color: black;
+}
+
+.fightButton.flying:hover {
+    background-color: #8F78D9; /* Slightly darker purple */
+    color: white;
+}
+
+.fightButton.ghost {
+    background-color: var(--ghost);
+    color: white;
+}
+
+.fightButton.ghost:hover {
+    background-color: #5A4370; /* Darker purple */
+    color: white;
+}
+
+.fightButton.grass {
+    background-color: var(--grass);
+    color: white;
+}
+
+.fightButton.grass:hover {
+    background-color: #5C9C3A; /* Darker green */
+    color: white;
+}
+
+.fightButton.ground {
+    background-color: var(--ground);
+    color: black;
+}
+
+.fightButton.ground:hover {
+    background-color: #C9A859; /* Darker tan */
+    color: white;
+}
+
+.fightButton.ice {
+    background-color: var(--ice);
+    color: black;
+}
+
+.fightButton.ice:hover {
+    background-color: #7AB0B0; /* Darker ice blue */
+    color: white;
+}
+
+.fightButton.normal {
+    background-color: var(--normal);
+    color: black;
+}
+
+.fightButton.normal:hover {
+    background-color: #8A8C4C; /* Darker olive */
+    color: white;
+}
+
+.fightButton.poison {
+    background-color: var(--poison);
+    color: white;
+}
+
+.fightButton.poison:hover {
+    background-color: #8C3C8C; /* Darker purple */
+    color: white;
+}
+
+.fightButton.psychic {
+    background-color: var(--psychic);
+    color: white;
+}
+
+.fightButton.psychic:hover {
+    background-color: #D23F7C; /* Darker pink */
+    color: white;
+}
+
+.fightButton.rock {
+    background-color: var(--rock);
+    color: white;
+}
+
+.fightButton.rock:hover {
+    background-color: #9A7A2F; /* Darker brown */
+    color: white;
+}
+
+.fightButton.steel {
+    background-color: var(--steel);
+    color: black;
+}
+
+.fightButton.steel:hover {
+    background-color: #A9A9B5; /* Darker gray */
+    color: white;
+}
+
+.fightButton.water {
+    background-color: var(--water);
+    color: white;
+}
+
+.fightButton.water:hover {
+    background-color: #2C7FB5; /* Darker blue */
+    color: white;
 }
