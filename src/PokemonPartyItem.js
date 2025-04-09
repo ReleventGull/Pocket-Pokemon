@@ -1,8 +1,8 @@
 
 
-const PokemonPartyItem = ({po, SwitchButton, switchPokemon}) => {
+const PokemonPartyItem = ({po, setSelectedPokemon, SwitchButton, switchPokemon}) => {
     return (
-        <div className="pokemonBox">
+        <div onClick={() => setSelectedPokemon(po)} className="pokemonBox">
                     <div className="imageLevelBox">
                      <div className={`playerParty ${po.name}`} />
                     </div>

@@ -1,9 +1,11 @@
 import { useEffect, useState} from "react"
 import {fetchUserParty} from './apiCalls/userPokemon'
+import {PokemonStatCard, PokmoneStatCard} from './Exported'
 import PokemonPartyItem from './PokemonPartyItem'
+
 const Pokemon = ({SwitchButton, forceSwitch, switchPokemon, token, setDisplay, setAllowMove, setView}) => {
     const [pokemon, setPokemon] = useState(null)
-
+    const [selectedPokemon, setSelectedPokemon] = useState(null)
     const fetchPokemon = async() => {
         let pokemon = await fetchUserParty(token)
         console.log('Pokemon from fetch pokemon', pokemon)
@@ -14,10 +16,16 @@ const Pokemon = ({SwitchButton, forceSwitch, switchPokemon, token, setDisplay, s
     }, [])
 
     return (
+        
+
         <div className="pokemonPage">
+            {selectedPokemon ? 
+            <PokemonStatCard setSelectedPokemon={setSelectedPokemon} selectedPokemon={selectedPokemon}/>
+            :
+
             <div className="pokemonBody">
                 {!pokemon ? null: pokemon.map(po => 
-                  < PokemonPartyItem SwitchButton={SwitchButton} switchPokemon={switchPokemon} po={po}/>
+                  < PokemonPartyItem setSelectedPokemon={setSelectedPokemon} SwitchButton={SwitchButton} switchPokemon={switchPokemon} po={po}/>
                     )}
             <div className="pokemonFooter">
                 <button className="footerCloseButton" onClick={() => {
@@ -28,8 +36,12 @@ const Pokemon = ({SwitchButton, forceSwitch, switchPokemon, token, setDisplay, s
                 <button className="footerPCButton">PC</button>
             </div>
             </div>
-            
+            }
         </div>
+        
+
+        
+        
     )
 }
 
