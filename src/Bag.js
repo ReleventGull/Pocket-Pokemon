@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { fetchUserItems, fetchUserItemsByCategory } from "./apiCalls/users"
 import { usePokeball } from './apiCalls/battle'
 import {expGain} from './apiCalls/battle'
-const Bag = ({setEncounter, setMessage, animateBall, setDisplay, token, setView, setAllowMove, UseButton, pokemonEncountered}) => {
+const Bag = ({setPlayerTurn, setEncounter, setMessage, animateBall, setDisplay, token, setView, setAllowMove, UseButton, pokemonEncountered}) => {
     const [items, setItems] = useState([])
     const [featuredItem, setFeaturedItem] = useState(null)
     function delay(ms) {
@@ -28,8 +28,8 @@ const Bag = ({setEncounter, setMessage, animateBall, setDisplay, token, setView,
             if(!response.success) {
                 setMessage(response.message)
                 await delay(3000)
-                setView('')
                 setMessage('')
+                setPlayerTurn(2)
             }else {
                 setMessage(response.message)
                 await delay(3000)
