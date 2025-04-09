@@ -855,7 +855,6 @@ border-radius: 20px;
     margin: auto;
     height: 1000px;
     width: 1000px;
-    padding-top: 5px;
     background-image: linear-gradient(#6f0808, #b03103, #000709);
 }
 
@@ -908,6 +907,9 @@ border-radius: 20px;
     justify-content: space-around;
     border: 10px solid lightgray;
     box-shadow: 5px 5px 5px 0 black;
+}
+.pokemonBody:first-of-type {
+    margin-top: 5px;
 }
 
 .imageLevelBox {
@@ -1063,3 +1065,61 @@ border-radius: 20px;
     height: 60px;
 }
 
+/**************************** POKEMON STATS *************************/
+.pokemonStatCardContainer {
+    min-height: 100%;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.middleStatCard {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+}
+.pokemonStatFooter {
+    widtH: 100%
+}
+.pokemonStatFooter button {
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+.topStatCard {
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: white;
+}
+.pokemonStatsContainer {
+    height: 100%;
+    display: flex;
+}
+.statGrid {
+    background-color: white;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: .7rem;
+    padding: 1rem;
+    border-radius: 5px;
+}
+.statCategoryNames {
+    display: flex;
+    gap: 1rem
+}
+.statCategoryNames div {
+    display: flex;
+    align-items: center;;
+}
+.pokemonStatImageContainer {
+    display: flex;
+}
+.pokemonStateImageBox {
+    background-color: white;
+    border-radius: 5px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
