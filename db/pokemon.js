@@ -148,7 +148,7 @@ const getUserPokemon = async(id) => {
                 currentPokeObject.slot = pokemon[i].slot
                 currentPokeObject.stats = {}
             }
-            currentPokeObject.stats[pokemon[i].statName] = {id: pokemon[i].statId, value: pokemon[i].value, current_value: pokemon[i].currentValue}
+            currentPokeObject.stats[pokemon[i].statName] = {id: pokemon[i].statId, value: pokemon[i].value, current_value: pokemon[i].currentValue, effort: pokemon[i].effort, individual: pokemon[i].individual}
             if (i == pokemon.length - 1 || currentPokeObject.id !== pokemon[i + 1].id) {
                 pokemonArray.push(currentPokeObject)
                 currentPokeObject = {}
