@@ -1,10 +1,10 @@
 
-const BASE_URL = "http://localhost:4000/api";
+const {REACT_APP_BASE_URL = "http://localhost:4000/api"} = process.env
 
 
 export const checkUser = async({password, username, name}) => {
     try {
-        const response = await fetch(`${BASE_URL}/users/registerCheck`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/users/registerCheck`, {
             method: "POST",
             headers : {
                 'Content-Type': 'application/json'
@@ -24,7 +24,7 @@ export const checkUser = async({password, username, name}) => {
 
 export const registerUser = async({pokemonId, password, username, name}) => {
     try {
-        const response = await fetch(`${BASE_URL}/users/register`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/users/register`, {
             method: "POST",
             headers : {
                 'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ export const registerUser = async({pokemonId, password, username, name}) => {
 
 export const loginUser = async ({username, password}) => {
     try {
-        const response = await fetch(`${BASE_URL}/users/login`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/users/login`, {
             method: "POST",
             headers: {
                 'Content-type': 'application/json'
@@ -64,7 +64,7 @@ export const loginUser = async ({username, password}) => {
 
 export const fetchCurrentAlivePokemon = async(token) => {
     try {
-        const response = await fetch(`${BASE_URL}/player/pokemon`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/player/pokemon`, {
             method:"GET",
             headers : {
                 'Authorization': `Bearer ${token}`
@@ -79,9 +79,7 @@ export const fetchCurrentAlivePokemon = async(token) => {
 
 export const purchseItem = async ({itemId, quantity, token}) => {
     try {
-        console.log( quantity)
-       
-        const response = await fetch(`${BASE_URL}/shop/purchase`, {
+esponse = await fetch(`${REACT_APP_BASE_URL}/shop/purchase`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -101,7 +99,7 @@ export const purchseItem = async ({itemId, quantity, token}) => {
 
 export const fetchUserCash = async(token) => {
     try {
-        const response = await fetch(`${BASE_URL}/users/cash`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/users/cash`, {
             method: "GET",
             headers: {
                 'Authorization': `Bearer ${token}`
@@ -116,7 +114,7 @@ export const fetchUserCash = async(token) => {
 
 export const fetchUserItems = async(token) => {
     try {
-        const response = await fetch(`${BASE_URL}/player/items`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/player/items`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -130,7 +128,7 @@ export const fetchUserItems = async(token) => {
 }
 export const fetchUserItemsByCategory = async({token, category}) => {
     try {
-        const response = await fetch(`${BASE_URL}/player/items/${category}`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/player/items/${category}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

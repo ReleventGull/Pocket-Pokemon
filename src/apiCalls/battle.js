@@ -1,8 +1,8 @@
-const BASE_URL = "http://localhost:4000/api"
+const {REACT_APP_BASE_URL = "http://localhost:4000/api"} = process.env
 
 export const attack = async({attackingPokemon, defendingPokemon, move}) => {
     try {
-        const response = await fetch(`${BASE_URL}/encounter/attack`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/encounter/attack`, {
             method: "POST",
             headers : {
                 'Content-Type': 'application/json'
@@ -22,7 +22,7 @@ export const attack = async({attackingPokemon, defendingPokemon, move}) => {
 
 export const defend = async({attackingPokemon, defendingPokemon, move}) => {
     try {
-        const response = await fetch(`${BASE_URL}/encounter/defend`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/encounter/defend`, {
             method: "POST",
             headers : {
                 'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ export const defend = async({attackingPokemon, defendingPokemon, move}) => {
 //Is responsible for selecting a random attack move for the already generate enemy pokemon
 export const selectEnemyPokemonMove = async(moves) => {
     try {
-        const response = await fetch(`${BASE_URL}/encounter/selectMove`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/encounter/selectMove`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ export const selectEnemyPokemonMove = async(moves) => {
 
 export const checkForAlivePokemon = async(token) => {
     try {
-        const response = await fetch(`${BASE_URL}/encounter/healthCheck`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/encounter/healthCheck`, {
             method: "GET",
             headers: {
                 'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ export const checkForAlivePokemon = async(token) => {
 export const expGain = async({token, pokemonParticipating, faintedPokemonLevel, faintedPokemonBaseExperience}) => {
     try {
        
-        const response = await fetch(`${BASE_URL}/encounter/expGain`,{
+        const response = await fetch(`${REACT_APP_BASE_URL}/encounter/expGain`,{
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ export const expGain = async({token, pokemonParticipating, faintedPokemonLevel, 
 
 export const usePokeball = async({token, enemyPokemon, usedPokeball}) => {
     try {
-        const response = await fetch(`${BASE_URL}/encounter/useball`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/encounter/useball`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

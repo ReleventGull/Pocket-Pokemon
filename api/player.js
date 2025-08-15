@@ -7,7 +7,6 @@ const { getUserPokemonLevel, getPokemonOnPlayer, healPokemon} = require('../db/s
 const{getAllPlayerItems, getPlayerItemsByCategory} = require('../db/users')
 playerRouter.post('/selectStarter', async (req, res, next) => {
     try {
-    console.log("HI")
     const {pokemon} = req.body
     pokemon['current_exp'] = 0
     pokemon['current_level'] = 1
@@ -24,7 +23,6 @@ playerRouter.post('/selectStarter', async (req, res, next) => {
 playerRouter.get('/heal', async (req, res, next) => {
     try {
         let pokemonHp = await getPokemonOnPlayer(req.user.id)
-        console.log(pokemonHp)
         for(let i = 0; i < pokemonHp.length; i++) {
             await healPokemon(pokemonHp[i].id)
         }
@@ -63,7 +61,6 @@ playerRouter.post('/currentPokemon', async(req, res, next) => {
 playerRouter.post('/choosePokemon', async(req, res, next) => {
     try {
     const {pokemonChosen} = req.body
-    console.log("CHOSEN POKEMON", pokemonChosen)
     const checkHp = await getCurrentPlayerPokemonHp({playerPokemonId: pokemonChosen.id})
     if (!checkHp.currentValue) {
         res.send({sucess: false})
@@ -103,7 +100,6 @@ playerRouter.get('/pokemon', async (req, res, next) => {
 playerRouter.get('/party', async(req, res, next) => {
     try {
         let pokemon = await getUserPokemon(req.user.id)
-        console.log('user pokemon in the serveer', pokemon)
         for(let i = 0; i < pokemon.length; i++) {
             const level = await getUserPokemonLevel(pokemon[i].id)
             pokemon[i].level = level

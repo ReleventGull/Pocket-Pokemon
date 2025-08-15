@@ -13,7 +13,6 @@ const Shop = ({token, setDisplay, setAllowMove}) => {
     
     const getuserCash = async() => {
         const cash = await fetchUserCash(token)
-        console.log(cash.cash.cash)
         setUserCash(cash.cash.cash)
     }
     
@@ -50,7 +49,7 @@ return (
                 <div className="shopItems">
                 {items.length > 0 ?
                     items.map(item => 
-                        <div key={item.id} onClick={() => {setFeaturedItem(item), console.log(featuredItem)}} className="item">{item.name}</div>
+                        <div key={item.id} onClick={() => {setFeaturedItem(item)}} className="item">{item.name}</div>
                     )
                     :
                     null

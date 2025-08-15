@@ -1,7 +1,7 @@
-const BASE_URL = 'http://localhost:4000/api'
+const {REACT_APP_BASE_URL = 'http://localhost:4000/api'} = process.env
 export const uploadLevels = async ({name, levels}) => {
     try {
-        const response = await fetch(`${BASE_URL}/levels`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/levels`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -18,7 +18,7 @@ export const uploadLevels = async ({name, levels}) => {
 }
 export const uploadingPokemon = async ({name, type1, type2, base_experience, catch_rate, legendary, mythical, experience_rate, stats}) => {
     try {
-        const response = await fetch(`${BASE_URL}/pokemon`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/pokemon`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -95,7 +95,7 @@ export const fetchPokemonById = async(id) => {
 
   export const getAllLevels = async () => {
     try {
-        const response = await fetch(`${BASE_URL}/levels`).then(result => 
+        const response = await fetch(`${REACT_APP_BASE_URL}/levels`).then(result => 
             result.json())
         return response
     }catch(error) {
@@ -106,7 +106,7 @@ export const fetchPokemonById = async(id) => {
 
 export const seedMoves = async({name, type, category, pp, power, accuracy, learnedBy}) => {
     try {
-        const response = await fetch(`${BASE_URL}/moves`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/moves`, {
             method: "POST",
             headers :{
                 'Content-Type': "application/json"
@@ -130,7 +130,7 @@ export const seedMoves = async({name, type, category, pp, power, accuracy, learn
 
 export const seedItems = async ({description, name, cost, category}) => {
     try {
-        const response = await fetch(`${BASE_URL}/shop`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/shop`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -148,3 +148,24 @@ export const seedItems = async ({description, name, cost, category}) => {
     }
 }
 
+export const checkSeeded = async() => {
+    try {
+        const response = await fetch(`${REACT_APP_BASE_URL}/seed/checkSeeded`).then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an an error checking the seeded", error)
+        throw error
+    }
+    
+}
+
+export const createSeeded = async() => {
+    try {
+        const response = await fetch(`${REACT_APP_BASE_URL}/seed/createSeeded`).then(result => result.json())
+        return response
+    }catch(error) {
+        console.error("There was an an error checking the seeded", error)
+        throw error
+    }
+    
+}

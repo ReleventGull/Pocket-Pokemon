@@ -47,7 +47,7 @@ const Bag = ({setPlayerTurn, setEncounter, setMessage, animateBall, setDisplay, 
             }
             
         }else {
-            console.log("This is not a ball")
+
             //Will add a different endpoint here
         }
     }

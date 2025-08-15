@@ -1,6 +1,6 @@
 const client = require('./index.js')
 const { dropTables, createTables} = require('./initdb')
-
+const {createSeedDataTable, checkSeededData} = require('./seedData.js')
 
 const generateInitialMoves = async () => {
   moves.forEach(async(m) => {
@@ -11,6 +11,7 @@ const generateInitialMoves = async () => {
       })
   })
 }
+
 
 const rebuildDb = async () => {
   client.connect();

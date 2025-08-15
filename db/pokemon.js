@@ -154,7 +154,6 @@ const getUserPokemon = async(id) => {
                 currentPokeObject = {}
             }
         }
-        console.log('Pokemon array after completion', pokemonArray)
         return pokemonArray
     }catch(error){
         console.error("There was an error getting the user pokemon", error)

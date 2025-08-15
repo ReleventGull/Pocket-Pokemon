@@ -27,7 +27,7 @@ encounterRouter.post('/attack' , async (req, res, next) => {
     }
     res.send({pokemon: defendingPokemon, message:`${attackingPokemon.name} used ${move.name}!`})
     }catch(error) {
-        console.error("There was an erroring posting to /attack in the backend API", error)
+        console.error("There was an erroring posting to attack in the backend API", error)
         throw error
     }
 })
@@ -122,8 +122,6 @@ encounterRouter.post('/expGain', async (req, res, next) => {
         const {faintedPokemonBaseExperience, faintedPokemonLevel} = req.body
         const alivePok = await checkUserPokemonHp(req.user.id)
         const exp = experienceGainedInclusive({pokemon: alivePok.length, faintedPokemonLevel: faintedPokemonLevel, fainedPokemonBaseExp: faintedPokemonBaseExperience}) //8 is a placeholder for whatever the fuck cuz idk
-
-        console.log('Alive pokemon', alivePok)
         for(let i = 0; i < alivePok.length; i++) {
             let firstLevel = await getUserPokemonLevel(alivePok[i].id)
             let newExp = await updateExp({exp: exp, pokemonId:alivePok[i].id})
@@ -133,7 +131,6 @@ encounterRouter.post('/expGain', async (req, res, next) => {
             }else {
                 let current = await getUserPokemonBySlot({slot: alivePok[i].slot, id:req.user.id})
                 let pokeStats = await getPokemonStats(current.pokemon_id)
-                console.log(current)
                 for(let key in pokeStats) {
                     pokeStats[key]['individual'] = current.stats[key].individual
                 }
@@ -147,7 +144,6 @@ encounterRouter.post('/expGain', async (req, res, next) => {
         //Cash Gain
         let cash = alivePok.length * 100 * faintedPokemonLevel
         const updatedCash = await updateUserCash({id: req.user.id, cash: cash})
-        console.log("Updated cash", updatedCash)
         res.send({cash: cash})
     }catch(error) {
         console.error("There was an error calling /expGain", error)
@@ -161,13 +157,11 @@ encounterRouter.post('/useball', async(req, res, next) => {
     //Will need the current pokemon being fought
     const userId = req.user.id
     const {enemyPokemon, usedPokeball} = req.body
-    console.log(enemyPokemon.stats)
     if(userId != usedPokeball.userId) {
         res.send({error: true, message: "You are no authorized to use this persons inventory!"})
         return
     }
     const checkPokeball = await getPlayerItemByItemId({itemId: usedPokeball.id, userId: userId})
-    console.log('Checking pokeball:', checkPokeball)
     if(!checkPokeball) {
         res.send({error: true, message: "You are do not have this item in your inventory"})
         return
@@ -214,7 +208,6 @@ encounterRouter.post('/useball', async(req, res, next) => {
             slot: slot,
             })
             for(let key in enemyPokemon.stats) {
-                console.log('THE VALUES HERE', key.value)
                 await createPlayerPokmonStats({
                     name: key,
                     value: enemyPokemon.stats[key].value,
@@ -231,7 +224,6 @@ encounterRouter.post('/useball', async(req, res, next) => {
                     current_pp: element.pp
                 })
             });
-            console.log(newPokemon)
         res.send({shakes: 3, success: true, ball: checkPokeball.name, message: `${enemyPokemon.name} has been caught!`, message2: sentMessage})
     }else {
         let shakeCount = 0;

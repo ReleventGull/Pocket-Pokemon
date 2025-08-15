@@ -15,6 +15,7 @@ const dropTables = async () => {
           DROP TABLE IF EXISTS experience;
           DROP TABLE IF EXISTS users;
           DROP TABLE IF EXISTS shopItems;
+          DROP TABLE IF EXISTS "isSeeded"
           `);
       console.log("Dropped all tables");
     } catch (error) {
@@ -107,6 +108,10 @@ const dropTables = async () => {
             user_id INTEGER REFERENCES users(id),
             item_id INTEGER REFERENCES shopItems(id),
             quantity INTEGER NOT NULL
+          );
+          CREATE TABLE "isSeeded" (
+          id SERIAL PRIMARY KEY,
+          "seedValue" BOOL NOT NULL DEFAULT FALSE
           );
       `);
       console.log("Created all the Tables!");

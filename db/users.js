@@ -117,7 +117,6 @@ const getAllPlayerItems = async (id) => {
         ON playerItems.item_id=shopItems.id
         WHERE playerItems.user_id=$1;
         `, [id])
-        console.log("Am I getting the items?")
         return items
     }catch(error) {
         console.error("There was an error getting all the player items in db/users", error)
@@ -134,7 +133,6 @@ const getPlayerItemsByCategory = async({userId, category}) =>{
             ON playerItems.item_id=shopItems.id AND shopItems.category=$2
             WHERE playerItems.user_id=$1;
             `, [userId, category])
-            console.log("In the database ", userId, )
             return items
     }catch(error) {
         console.error("There was an error getting the user items by cat in db/users.js", error)
@@ -144,7 +142,6 @@ const getPlayerItemsByCategory = async({userId, category}) =>{
 
 const getPlayerItemByItemId = async({itemId, userId}) => {
     try {
-        console.log("In db func", itemId, userId)
         const {rows: [item]} = await client.query(`
             SELECT playerItems.*, shopItems.name
             FROM playerItems

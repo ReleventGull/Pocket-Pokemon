@@ -8,7 +8,6 @@ const Pokemon = ({SwitchButton, forceSwitch, switchPokemon, token, setDisplay, s
     const [selectedPokemon, setSelectedPokemon] = useState(null)
     const fetchPokemon = async() => {
         let pokemon = await fetchUserParty(token)
-        console.log('Pokemon from fetch pokemon', pokemon)
         setPokemon(pokemon)
     }
     useEffect(() => {

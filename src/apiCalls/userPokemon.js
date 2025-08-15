@@ -1,10 +1,10 @@
 
 
-const BASE_URL = "http://localhost:4000/api";
+const {REACT_APP_BASE_URL = "http://localhost:4000/api"} = process.env
 
 export const fetchPokemonMovesById = async(id) => {
     try {
-        const response = await fetch(`${BASE_URL}/player/pokemon/${id}`)
+        const response = await fetch(`${REACT_APP_BASE_URL}/player/pokemon/${id}`)
         .then(result => result.json())
         return response
     }catch(error){
@@ -15,7 +15,7 @@ export const fetchPokemonMovesById = async(id) => {
 
 export const healPokemon = async(token) => {
     try {
-        const response = await fetch(`${BASE_URL}/player/heal`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/player/heal`, {
             method: "GET",
             headers :{
                 'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ export const healPokemon = async(token) => {
 
 export const fetchCurrentPokemon = async({token, pokemonParticpating}) => {
     try {
-        const response = await fetch(`${BASE_URL}/player/currentPokemon`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/player/currentPokemon`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ export const fetchCurrentPokemon = async({token, pokemonParticpating}) => {
 
 export const fetchUserParty = async(token) => {
     try {
-        const response = await fetch(`${BASE_URL}/player/party`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/player/party`, {
             method: "GET",
             headers : {
                 'Authorization' : `Bearer ${token}`
@@ -65,7 +65,7 @@ export const fetchUserParty = async(token) => {
 
 export const changePokemon = async({token, pokemonChosen}) => {
     try {
-        const response = await fetch(`${BASE_URL}/player/choosePokemon`, {
+        const response = await fetch(`${REACT_APP_BASE_URL}/player/choosePokemon`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
