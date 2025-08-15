@@ -14,6 +14,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "server": "node index.js",
     "seed:dev": "nodemon ./db/seed.js",
     "seed": "node ./db/seed.js",
     "server:dev": "nodemon index.js"
