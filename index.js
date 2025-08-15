@@ -20,6 +20,9 @@ PORT = 4000
 
 app.use(cors())
 app.use(express.static(require('path').join(__dirname, 'build')));
+app.get('*', (req, res ,next) => {
+res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
 app.use(morgan('dev'))
 app.use(express.json())
 
