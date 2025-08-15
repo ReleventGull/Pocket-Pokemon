@@ -4,6 +4,7 @@ const cors = require('cors');
 const apiRouter = require('./api/index')
 const morgan = require('morgan')
 const client = require('./db/index')
+const path = require('path');
 
 //Connect to the database
 
