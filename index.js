@@ -14,7 +14,7 @@ client.connect()
 const app = express()
 
 //Define our PORT
-PORT = 4000
+const {PORT = 4000} = process.env
 
 
 //For Logging
