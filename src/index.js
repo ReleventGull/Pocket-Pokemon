@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {BrowserRouter, Routes, Route, useNavigate} from 'react-router-dom'
 import ReactDOM from "react-dom/client";
 import {fetchAllPokemon} from "./apiCalls/index"
-import { seedItems, fetchItems, uploadLevels, uploadingPokemon, fetchPokemonById, fetchPokemonRates, fetchPokemonLevels, fetchMoves, seedMoves } from "./apiCalls/seedApi";
+import { seedItems, fetchItems, uploadLevels, uploadingPokemon, fetchPokemonById, fetchPokemonRates, fetchPokemonLevels, fetchMoves, seedMoves, checkSeeded, createSeeded } from "./apiCalls/seedApi";
 import Game from './Game';
 import {Register, Login} from "./Exported";
 
@@ -76,13 +76,8 @@ const fetchSeedItems = async() => {
   for(let i = 1; i <= 70; i++) {
     let response = await  fetchItems(i)
     if((response.category.name == 'standard-balls' || response.category.name == 'revival' || response.category.name == 'healing' || response.category.name == 'status-cures' || response.category.name == 'pp-recovery' || response.category.name == 'stat-boosts') && response.cost > 0){
-      console.log(response)
-      console.log(response.cost)
       await seedItems({name: response.name, category: response.category.name, description: response.effect_entries[0].effect, cost: response.cost})
-    }else {
-      console.log(response.category.name)
     }
- 
   }
   
 }
@@ -95,30 +90,36 @@ const fetchSeedItems = async() => {
       await seedPokemon()
       await fetchSeedMoves()
       await fetchGameData()
+      setSeedData(false)
     }
     const fetchGameData = async() => {
       let allPokemon = await fetchAllPokemon()
       setPokemon(allPokemon)
       setIsLoaded(true)
+    }
+  
+    const checkIfDataIsSeeded = async () => {
+      const response = await checkSeeded() 
+      setSeedData(!response.value)
+      if(!response.value == true) {
+        window.localStorage.removeItem('token')
+        await seedPokeData()
+        await createSeeded()
+      }else {
+        await fetchGameData()
+      }
 
     }
     
     useEffect(() => {
-      if(seedData) {
-        window.localStorage.removeItem('token')
-        seedPokeData()
-      }else {
-        fetchGameData()
-      }
+      checkIfDataIsSeeded()
     }, [])
+
     useEffect(() => {
       if (!token) {
         navigate('/register')
       }
     }, [])
-    
-    // isLoaded && pokemon ? 
-    // token ?
 
     return (
     seedData ? <h2>Seeding Data</h2> :

@@ -10,7 +10,6 @@ const FightMoves = ({token, pokemonParticpating, setMessage, setView, playerTurn
   }
   const fetchPokemonMoves = async() => {
     let moves = await fetchPokemonMovesById(pokemonParticpating.id)
-    console.log(moves)
     setPokemonMoves(moves)
   }
   

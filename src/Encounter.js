@@ -22,7 +22,6 @@ const Encounter = ({
   const getUserPokemon = async() => {
       let userPokemon = await fetchCurrentAlivePokemon(token) // fetches the currently alive Pokemon in the party. (Where "onPlayer" = true)
       userPokemon['isFainted'] = false
-      console.log('current pokemon', userPokemon)
       setPokemonParticpating(userPokemon)
       if(userPokemon.message) { //If there are no available pokemon alive in the players party
           setEncounter(false)

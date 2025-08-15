@@ -10,7 +10,7 @@ const Game = ({token, pokemon}) => {
   const [playerDirection, setPlayerDirection] = useState("left");
   const [encounter, setEncounter] = useState(false);
   const [pokemonEncountered, setPokemonEncounterd] = useState(null);
-  const [allowMove, setAllowMove] = useState(false)
+  const [allowMove, setAllowMove] = useState(true)
   const isMovingRef = useRef(false);
   const playerState = useRef([1,3])
   let intervalId = useRef(null)

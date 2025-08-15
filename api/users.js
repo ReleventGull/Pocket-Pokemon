@@ -18,7 +18,6 @@ userRouter.post('/register', async(req, res, next) => {
         generateIvs(stats)
         generateHP(stats, 1)
         generateStats(stats, 1)
-        console.log("stats", stats)
         let pokemonMoves = await getMoveByPokemon(pokemonById.name)
     
         let attackMoves = pokemonMoves.filter(move => move.power > 0)
@@ -62,7 +61,6 @@ userRouter.post('/registerCheck', async(req,res,next) => {
     try {
         const {password, username, name} = req.body
         const existingUser = await getUserByUsername(username)
-        console.log("I got hit here")
         if(existingUser)  {
             res.status(401).send({
                 error: "UserTake",

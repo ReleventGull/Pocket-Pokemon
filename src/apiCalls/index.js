@@ -1,7 +1,7 @@
-const BASE_URL = "http://localhost:4000/api";
+const {REACT_APP_BASE_URL = "http://localhost:4000/api"} = process.env
 export const fetchAllPokemon = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/pokemon`);
+    const response = await fetch(`${REACT_APP_BASE_URL}/pokemon`);
     const result = await response.json();
     return result;
   } catch (error) {
@@ -12,7 +12,7 @@ export const fetchAllPokemon = async () => {
 
 export const fetchAllMoves = async () => {
   try {
-    const response = await fetch(`${BASE_URL}/moves`);
+    const response = await fetch(`${REACT_APP_BASE_URL}/moves`);
     const result = response.json();
     return result;
   } catch (error) {
@@ -22,8 +22,7 @@ export const fetchAllMoves = async () => {
 };
 export const fetchStarters = async() => {
     try {
-        console.log("I was called")
-        const response = await fetch(`${BASE_URL}/pokemon/starters`)
+        const response = await fetch(`${REACT_APP_BASE_URL}/pokemon/starters`)
         .then(result => result.json())
         return response
     }catch(error) {
@@ -34,7 +33,7 @@ export const fetchStarters = async() => {
 
 export const generateStarter = async (pokemon) => {
   try {
-    const response = await fetch(`${BASE_URL}/player/selectStarter`, {
+    const response = await fetch(`${REACT_APP_BASE_URL}/player/selectStarter`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +54,7 @@ export const generateStarter = async (pokemon) => {
 
 export const fetchEncounteredPokemon = async (pokemon, token) => {
   try {
-    const response = await fetch(`${BASE_URL}/encounter/encounterPokemon`, {
+    const response = await fetch(`${REACT_APP_BASE_URL}/encounter/encounterPokemon`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +73,7 @@ export const fetchEncounteredPokemon = async (pokemon, token) => {
 
 export const getAllItems = async() => {
   try {
-    const response = await fetch(`${BASE_URL}/shop`)
+    const response = await fetch(`${REACT_APP_BASE_URL}/shop`)
     .then(result => result.json())
     return response
   }catch(error) {
@@ -85,10 +84,8 @@ export const getAllItems = async() => {
 
 export const fetchItemsByName = async(name) => {
   try {
-    console.log("IM here")
-    const response = await fetch(`${BASE_URL}/shop/${name}`)
+    const response = await fetch(`${REACT_APP_BASE_URL}/shop/${name}`)
     .then(result => result.json())
-    console.log(response)
     return response
   }catch(error) {
     console.error("There was an error getting the items by name in src/apiCalls/index", error)

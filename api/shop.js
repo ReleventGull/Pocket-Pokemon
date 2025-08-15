@@ -9,7 +9,6 @@ shopRouter.post('/purchase', async(req, res, next) => {
         const item = await getItemById(itemId)
         const price = item.cost * quantity
         const userCash = await getUserCash(req.user.id)
-        console.log(userCash)
         if (price > userCash.cash) {
             res.send({error: "InvalidFunds", message: "You do not have enough money to purchase this item"})
         }else {

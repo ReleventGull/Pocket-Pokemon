@@ -2,7 +2,6 @@
 
 
 const PokemonStatCard = ({selectedPokemon, setSelectedPokemon}) => {
-    console.log(selectedPokemon)
     return (
         <div className="pokemonStatCardContainer">
             <div className="topStatCard">

@@ -31,6 +31,7 @@ const playerRouter = require('./player')
 const levelRouter = require('./levels')
 const userRouter = require('./users')
 const shopRouter = require('./shop')
+const seedRouter = require('./seed')
 
 apiRouter.use('/shop', shopRouter)
 apiRouter.use('/pokemon', pokeRouter)
@@ -39,6 +40,7 @@ apiRouter.use('/encounter', encounterRouter)
 apiRouter.use('/player', playerRouter)
 apiRouter.use('/levels', levelRouter)
 apiRouter.use('/users', userRouter)
+apiRouter.use("/seed", seedRouter)
 
 module.exports = apiRouter
 

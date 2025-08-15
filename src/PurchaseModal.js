@@ -8,7 +8,6 @@ const PurchaseModal = ({getuserCash, setBuy, featuredItem, itemValue, token}) =>
    const [error, setError] = useState('')
     const purchase = async() => {
         let result = await purchseItem({token: token, itemId: featuredItem.id, quantity: itemValue})
-        console.log(result)
         if (result.error) {
             setError(result.error)
         }else {

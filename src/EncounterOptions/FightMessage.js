@@ -7,7 +7,6 @@ const FightMessage = ({message, setView}) => {
 
 useEffect(() => {
         if(!message) {
-            console.log("Message is undefiend")
             setCurrentLetter(0)
             setMes('')
             return

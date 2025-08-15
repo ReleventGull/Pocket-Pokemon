@@ -3,13 +3,11 @@ const client = require('./index')
 
 const createMove = async({name, type, category, pp, power, accuracy, learnedBy}) => {
   try {
-    console.log(power, "Name")
     const {rows: [move]} = await client.query(`
     INSERT INTO pokemoves (name, type, category, pp, power, accuracy, "learnedBy") 
     VALUES($1, $2, $3, $4, $5, $6, $7)
     RETURNING *;
     `, [name, type, category, pp, power, accuracy, learnedBy])
-    console.log(move)
     return move
   }catch(error){
     console.error("There was an error creating the moves", error)
@@ -32,7 +30,6 @@ const getMoveByPokemon = async(name) => {
 
 const createPlayerPokemonMove = async({move_id, pokemon_id, current_pp}) => {
   try {
-    console.log("All values", move_id, pokemon_id, current_pp)
     const {rows: [move]} = await client.query(`
     INSERT INTO playerPokemonMoves (move_id, pokemon_id, current_pp)
     VALUES($1, $2, $3)
