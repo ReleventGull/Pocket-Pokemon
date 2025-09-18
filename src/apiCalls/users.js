@@ -79,7 +79,7 @@ export const fetchCurrentAlivePokemon = async(token) => {
 
 export const purchseItem = async ({itemId, quantity, token}) => {
     try {
-esponse = await fetch(`${REACT_APP_BASE_URL}/shop/purchase`, {
+response = await fetch(`${REACT_APP_BASE_URL}/shop/purchase`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
